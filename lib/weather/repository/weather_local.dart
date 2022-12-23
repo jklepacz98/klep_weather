@@ -8,10 +8,13 @@ class WeatherLocal {
 
   final AppDatabase _database;
 
-  Future<int> saveWeatherModel(WeatherModel weatherModel) =>
-      _database.addWeather(weatherModel);
+  Future<int> saveWeather(Weather weather) =>
+      _database.addWeather(weather);
 
-  Future<Result<WeatherModel>> getWeatherModels() async {
-    final weatherModel = await _database.ge
+  Future<Result<List<Weather>>> getWeatherModels() async {
+    final weather = await _database.getWeather();
+    return weather != null
+        ? Result.success(weather)
+        : Result.failure('Weather not found', 110);
   }
 }

@@ -9,7 +9,9 @@ class WeatherRemote {
 
   final RestClient _restClient;
 
-  Future<Result<WeatherModel>> loadWeather(String city,) async {
+  //todo add city parameter
+  Future<Result<WeatherModel>> loadWeather() async {
+  // Future<Result<WeatherModel>> loadWeather(String city,) async {
     try {
       final response = await _restClient.getWeatherByCity();
       return Result.success(response);

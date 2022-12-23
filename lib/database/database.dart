@@ -9,8 +9,8 @@ import 'package:drift/drift.dart';
 part 'database.g.dart';
 
 //todo changename
-@DataClassName("WeatherModel")
-class WeatherModels extends Table {
+@DataClassName("Weather")
+class Weathers extends Table {
   TextColumn get id => text()();
 
   TextColumn get name => text().nullable()();
@@ -27,7 +27,7 @@ LazyDatabase _openConnection() {
   });
 }
 
-@DriftDatabase(tables: [WeatherModels])
+@DriftDatabase(tables: [Weathers])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -35,11 +35,11 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => 1;
 
   //todo do I need async here
-  Future<int> addWeatherModel(WeatherModel weatherModel) async {
-    return into(weatherModels).insertOnConflictUpdate(weatherModel);
+  Future<int> addWeather(Weather weather) async {
+    return into(weather).insertOnConflictUpdate(weather);
   }
 
-  Future<List<WeatherModel>?>getWeatherModels() async {
-    return select(weatherModels).get();
+  Future<List<Weather>?>getWeather() async {
+    return select(weather).get();
   }
 }
