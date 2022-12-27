@@ -13,6 +13,7 @@ class WeatherLocal {
 
   Future<Result<List<Weather>>> getWeatherModels() async {
     final weather = await _database.getWeather();
+    //todo
     return weather != null
         ? Result.success(weather)
         : Result.failure('Weather not found', 110);

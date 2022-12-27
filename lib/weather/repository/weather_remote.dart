@@ -1,6 +1,7 @@
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/network/result.dart';
-import 'package:klep_weather/weather/model/weather_model.dart';
+
+import '../model/weather_model.dart';
 
 class WeatherRemote {
   WeatherRemote({
@@ -11,9 +12,11 @@ class WeatherRemote {
 
   //todo add city parameter
   Future<Result<WeatherModel>> loadWeather() async {
-  // Future<Result<WeatherModel>> loadWeather(String city,) async {
+    // Future<Result<WeatherModel>> loadWeather(String city,) async {
     try {
+      print("something3");
       final response = await _restClient.getWeatherByCity();
+      print("something4");
       return Result.success(response);
     } on Exception catch (_) {
       //todo

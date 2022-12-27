@@ -8,18 +8,20 @@ class WeatherRepository {
   WeatherRepository({
     required WeatherRemote weatherRemote,
     required WeatherLocal weatherLocal,
-  })
-      : _weatherRemote = weatherRemote,
+  })  : _weatherRemote = weatherRemote,
         _weatherLocal = weatherLocal;
 
   final WeatherRemote _weatherRemote;
   final WeatherLocal _weatherLocal;
 
   Future<Result<WeatherModel>> loadWeather() async {
+    print("something1");
     final result = await _weatherRemote.loadWeather();
+    print("something2");
     if (result.isSuccess) {
-      final weather = result.value!;
-      _weatherLocal.saveWeather(weather);
+      final weatherModel = result.value!;
+      //todo
+      _weatherLocal.saveWeather(weatherModel.toWeather());
     }
     return result;
   }

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+//todo
+import 'package:klep_weather/di/di.dart' as di;
 import 'package:klep_weather/start/view/start_page.dart';
 
-void main() {
+void main() async {
+  //todo
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const MyApp());
 }
 

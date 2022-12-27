@@ -1,17 +1,18 @@
 import 'dart:io';
 
+import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:klep_weather/weather/model/weather_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:drift/drift.dart';
 
 part 'database.g.dart';
 
 //todo changename
+@JsonSerializable()
 @DataClassName("Weather")
 class Weathers extends Table {
-  TextColumn get id => text()();
+  IntColumn get id => integer()();
 
   TextColumn get name => text().nullable()();
 
@@ -36,10 +37,10 @@ class AppDatabase extends _$AppDatabase {
 
   //todo do I need async here
   Future<int> addWeather(Weather weather) async {
-    return into(weather).insertOnConflictUpdate(weather);
+    return into(weathers).insertOnConflictUpdate(weather);
   }
 
-  Future<List<Weather>?>getWeather() async {
-    return select(weather).get();
+  Future<List<Weather>> getWeather() async {
+    return select(weathers).get();
   }
 }
