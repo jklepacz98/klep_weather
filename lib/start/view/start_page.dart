@@ -16,7 +16,7 @@ class StartPage extends StatelessWidget {
         future: _weatherRepository.loadWeather(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Text(snapshot.data!.isSuccess.toString());
+            return Text(snapshot.data!.value!.name);
           } else {
             return Text("hehe");
           }

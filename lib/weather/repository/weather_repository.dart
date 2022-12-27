@@ -15,9 +15,7 @@ class WeatherRepository {
   final WeatherLocal _weatherLocal;
 
   Future<Result<WeatherModel>> loadWeather() async {
-    print("something1");
     final result = await _weatherRemote.loadWeather();
-    print("something2");
     if (result.isSuccess) {
       final weatherModel = result.value!;
       //todo

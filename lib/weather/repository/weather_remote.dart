@@ -14,9 +14,7 @@ class WeatherRemote {
   Future<Result<WeatherModel>> loadWeather() async {
     // Future<Result<WeatherModel>> loadWeather(String city,) async {
     try {
-      print("something3");
       final response = await _restClient.getWeatherByCity();
-      print("something4");
       return Result.success(response);
     } on Exception catch (_) {
       //todo
