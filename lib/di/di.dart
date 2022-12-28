@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/network/rest_client.dart';
+import 'package:klep_weather/start/bloc/weather_bloc.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
@@ -13,6 +14,11 @@ Future<void> init() async {
     () => WeatherRepository(
       weatherRemote: WeatherRemote(restClient: getIt()),
       weatherLocal: WeatherLocal(database: getIt()),
+    ),
+  );
+  getIt.registerLazySingleton(
+    () => WeatherBloc(
+      weatherRepository: getIt(),
     ),
   );
   getIt.registerLazySingleton(() => RestClient(getIt()));
