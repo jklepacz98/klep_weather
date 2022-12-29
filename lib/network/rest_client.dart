@@ -13,7 +13,6 @@ abstract class RestClient {
   @GET("/data/2.5/weather")
   Future<WeatherModel> getWeatherByCity({
     @Query("appid") String appid = Constants.openWeatherApiKey,
-    //todo remove 'London'
-    @Query("q") String q = 'London',
+    @Query("q") required String city,
   });
 }

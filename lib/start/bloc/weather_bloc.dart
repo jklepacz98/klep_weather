@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:klep_weather/start/bloc/weather_event.dart';
 import 'package:klep_weather/start/bloc/weather_state.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
-import 'package:meta/meta.dart';
-
-part 'weather_event.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc({required WeatherRepository weatherRepository})
@@ -12,23 +10,37 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         super(const WeatherState()) {
     on<WeatherValueChanged>((event, emit) {
       emit(state.copyWith(city: event.city));
+      //todo
+      add(WeatherGet());
+    });
+    on<WeatherListChanged>((event, emit) {
+      emit(state.copyWith(weathers: event.weathers));
+    });
+    on<WeatherLoad>((event, emit) {
+      _handleLoadWeatherEvent(event.city);
     });
     on<WeatherGet>((event, emit) {
       _handleGetWeatherEvent();
     });
-    add(WeatherGet());
+    //todo
+    add(WeatherLoad(city: 'Łódź'));
   }
 
   final WeatherRepository _weatherRepository;
 
-  void _handleGetWeatherEvent() async {
-    print("something1");
-    final weatherResult = await _weatherRepository.loadWeather();
-    print("something2");
+  void _handleLoadWeatherEvent(String city) async {
+    final weatherResult = await _weatherRepository.loadWeather(city);
     if (weatherResult.isSuccess) {
-      print("something3");
       final city = weatherResult.value!.name;
       add(WeatherValueChanged(city));
+    }
+  }
+
+  void _handleGetWeatherEvent() async {
+    final weathersResult = await _weatherRepository.getWeathers();
+    if (weathersResult.isSuccess) {
+      final weathers = weathersResult.value!;
+      add(WeatherListChanged(weathers: weathers));
     }
   }
 }

@@ -18,7 +18,9 @@ class WeatherModel {
 
   Map<String, dynamic> toJson() => _$WeatherModelToJson(this);
 
-  Weather toWeather() {
-    return Weather(id: id, name: name);
-  }
+  Weather toWeather() => Weather(id: id, name: name);
+
+  //todo
+  factory WeatherModel.fromWeather(Weather weather) =>
+      WeatherModel(id: weather.id, name: weather.name ?? "");
 }

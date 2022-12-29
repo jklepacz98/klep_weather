@@ -11,8 +11,8 @@ class WeatherLocal {
   Future<int> saveWeather(Weather weather) => _database.addWeather(weather);
 
   Future<Result<List<Weather>>> getWeatherModels() async {
-    final weather = await _database.getWeather();
+    final weathers = await _database.getWeather();
     //todo
-    return Result.success(weather);
+    return Result.success(weathers);
   }
 }

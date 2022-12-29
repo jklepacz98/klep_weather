@@ -2,6 +2,7 @@ import 'package:klep_weather/network/result.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
 
+import '../../database/database.dart';
 import '../model/weather_model.dart';
 
 class WeatherRepository {
@@ -14,13 +15,15 @@ class WeatherRepository {
   final WeatherRemote _weatherRemote;
   final WeatherLocal _weatherLocal;
 
-  Future<Result<WeatherModel>> loadWeather() async {
-    final result = await _weatherRemote.loadWeather();
+  Future<Result<WeatherModel>> loadWeather(String city) async {
+    final result = await _weatherRemote.loadWeather(city);
     if (result.isSuccess) {
       final weatherModel = result.value!;
-      //todo
       _weatherLocal.saveWeather(weatherModel.toWeather());
     }
     return result;
   }
+
+  Future<Result<List<Weather>>> getWeathers() async =>
+      await _weatherLocal.getWeatherModels();
 }
