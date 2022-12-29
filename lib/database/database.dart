@@ -16,6 +16,10 @@ class Weathers extends Table {
 
   TextColumn get name => text().nullable()();
 
+  RealColumn get windSpeed => real().nullable()();
+
+  IntColumn get windDeg => integer().nullable()();
+
   @override
   Set<Column> get primaryKey => {id};
 }
