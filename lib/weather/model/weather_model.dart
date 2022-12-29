@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:klep_weather/database/database.dart';
-
+import 'package:klep_weather/weather/model/wind.dart';
 part 'weather_model.g.dart';
 
 @JsonSerializable()
@@ -17,10 +16,4 @@ class WeatherModel {
       _$WeatherModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherModelToJson(this);
-
-  Weather toWeather() => Weather(id: id, name: name);
-
-  //todo
-  factory WeatherModel.fromWeather(Weather weather) =>
-      WeatherModel(id: weather.id, name: weather.name ?? "");
 }

@@ -1,6 +1,6 @@
 import 'package:klep_weather/network/result.dart';
-import 'package:klep_weather/weather/repository/weather_local.dart';
-import 'package:klep_weather/weather/repository/weather_remote.dart';
+import 'package:klep_weather/weather/repository/local/weather_local.dart';
+import 'package:klep_weather/weather/repository/remote/weather_remote.dart';
 
 import '../../database/database.dart';
 import '../model/weather_model.dart';

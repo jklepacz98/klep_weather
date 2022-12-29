@@ -1,7 +1,7 @@
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/network/result.dart';
 
-import '../model/weather_model.dart';
+import '../../model/weather_model.dart';
 
 class WeatherRemote {
   WeatherRemote({
