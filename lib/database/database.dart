@@ -44,7 +44,6 @@ class AppDatabase extends _$AppDatabase {
     return into(weathers).insertOnConflictUpdate(weather);
   }
 
-  Future<List<Weather>> getWeather() async {
-    return select(weathers).get();
-  }
+  //todo change name, maybe weathersStream
+  Stream<List<Weather>> observeWeathers() => select(weathers).watch();
 }

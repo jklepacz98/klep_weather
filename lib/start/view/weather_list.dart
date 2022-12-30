@@ -1,21 +1,36 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klep_weather/start/view/weather_item.dart';
 
-import '../../database/database.dart';
+import '../../di/di.dart';
+import '../bloc/weather_bloc.dart';
+import '../bloc/weather_state.dart';
 
 class WeatherList extends StatelessWidget {
-  WeatherList({required this.weathers});
-
-  final List<Weather> weathers;
+  WeatherList();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        //todo
-        itemCount: weathers.length,
-        itemBuilder: (context, index) {
-          final weather = weathers[index];
-          return WeatherItem(weather: weather);
-        });
+    return BlocProvider(
+        create: (context) => getIt<WeatherBloc>(),
+        child: BlocBuilder<WeatherBloc, WeatherState>(
+          buildWhen: (previous, current) => previous != current,
+          builder: (context, state) {
+            if (state.status == WeatherStatus.loading) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return Center(
+                  child: ListView.builder(
+                      //todo what does shrinkWrap do?
+                      shrinkWrap: true,
+                      itemCount: state.weathers.length,
+                      itemBuilder: (context, index) {
+                        final weather = state.weathers[index];
+                        return WeatherItem(weather: weather);
+                      }));
+            }
+          },
+        ));
   }
 }

@@ -10,24 +10,12 @@ class WeatherRemote {
 
   final RestClient _restClient;
 
-  // //todo add city parameter
-  // Future<Result<WeatherModel>> loadWeather() async {
-  //   // Future<Result<WeatherModel>> loadWeather(String city,) async {
-  //   try {
-  //     final response = await _restClient.getWeatherByCity();
-  //     return Result.success(response);
-  //   } on Exception catch (_) {
-  //     //todo
-  //     return Result.failure("Get weather failed", 1);
-  //   }
-  // }
-
   Future<Result<WeatherModel>> loadWeather(String city) async {
     try {
       final response = await _restClient.getWeatherByCity(city: city);
       return Result.success(response);
     } on Exception catch (_) {
-      return Result.failure("Get weather failed", 1);
+      return Result.failure("GET weather request failed");
     }
   }
 }

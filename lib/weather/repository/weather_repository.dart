@@ -24,6 +24,7 @@ class WeatherRepository {
     return result;
   }
 
-  Future<Result<List<Weather>>> getWeathers() async =>
-      await _weatherLocal.getWeatherModels();
+  Stream<List<Weather>> observerWeathers() async* {
+    yield* _weatherLocal.getWeatherModels();
+  }
 }

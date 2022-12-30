@@ -6,37 +6,26 @@ import '../../database/database.dart';
 @immutable
 abstract class WeatherEvent extends Equatable {}
 
-//todo
-class WeatherValueChanged extends WeatherEvent {
-  //todo Why I can't use const?
-  WeatherValueChanged(this.city);
-
+class WeatherLoadEvent extends WeatherEvent {
   final String city;
+
+  //todo Why I can't use const?
+  WeatherLoadEvent({required this.city});
 
   @override
   List<Object> get props => [city];
 }
 
-class WeatherLoad extends WeatherEvent {
-  final String city;
-
-  //todo Why I can't use const?
-  WeatherLoad({required this.city});
-
-  @override
-  List<Object> get props => [city];
-}
-
-class WeatherGet extends WeatherEvent {
+class WeatherGetEvent extends WeatherEvent {
   @override
   List<Object> get props => [];
 }
 
 //todo change name
-class WeatherListChanged extends WeatherEvent {
+class WeatherListChangedEvent extends WeatherEvent {
   final List<Weather> weathers;
 
-  WeatherListChanged({required this.weathers});
+  WeatherListChangedEvent({required this.weathers});
 
   @override
   List<Object> get props => [weathers];

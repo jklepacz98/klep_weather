@@ -1,5 +1,4 @@
 import 'package:klep_weather/database/database.dart';
-import 'package:klep_weather/network/result.dart';
 
 class WeatherLocal {
   WeatherLocal({
@@ -10,9 +9,7 @@ class WeatherLocal {
 
   Future<int> saveWeather(Weather weather) => _database.addWeather(weather);
 
-  Future<Result<List<Weather>>> getWeatherModels() async {
-    final weathers = await _database.getWeather();
-    //todo
-    return Result.success(weathers);
+  Stream<List<Weather>> getWeatherModels() async* {
+    yield* _database.observeWeathers();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../database/database.dart';
 
@@ -9,9 +10,12 @@ class WeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: CupertinoColors.systemGreen,
-      child: Text(weather.name.toString()),
+    return Card(
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        margin: const EdgeInsets.all(4.0),
+        child: Text(weather.name.toString()),
+      ),
     );
   }
 }

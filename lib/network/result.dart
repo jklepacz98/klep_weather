@@ -10,12 +10,12 @@ class Result<T> {
         _value = value,
         _failure = failure;
 
-  factory Result.success(T value){
+  factory Result.success(T value) {
     return Result._(isSuccess: true, value: value, failure: null);
   }
 
-  factory Result.failure(String reason, int code) {
-    final failure = ResultFailure(reason, code);
+  factory Result.failure(String reason) {
+    final failure = ResultFailure(reason);
     return Result._(isSuccess: false, value: null, failure: failure);
   }
 
@@ -27,8 +27,9 @@ class Result<T> {
 
   ResultFailure? get failure => _failure;
 
-  K when<K>({required K Function(T?) success,
-    required K Function(ResultFailure?) failure}) {
+  K when<K>(
+      {required K Function(T?) success,
+      required K Function(ResultFailure?) failure}) {
     if (_isSuccess == true) {
       return success(_value);
     }
@@ -36,10 +37,10 @@ class Result<T> {
   }
 
   Result<K> map<K>(K Function(T?) mapper) {
-    if(_isSuccess == true) {
+    if (_isSuccess == true) {
       return Result<K>.success(mapper(_value));
     } else {
-      return Result<K>.failure(_failure?.reason ?? "", _failure?.code ?? 0);
+      return Result<K>.failure(_failure?.reason ?? "");
     }
   }
 }
