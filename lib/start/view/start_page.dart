@@ -60,10 +60,9 @@ class StartPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.all(16.0),
+            const Flexible(
               child: WeatherList(),
-            )
+            ),
           ],
         ),
       ),

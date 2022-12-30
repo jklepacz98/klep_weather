@@ -17,17 +17,21 @@ class WeatherList extends StatelessWidget {
       child: BlocBuilder<WeatherBloc, WeatherState>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          return Center(
-            child: ListView.builder(
+          if (state.status == WeatherStatus.initial ||
+              state.status == WeatherStatus.loading) {
+            return CircularProgressIndicator();
+          } else {
+            return ListView.builder(
               //todo what does shrinkWrap do?
+              scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: state.weathers.length,
               itemBuilder: (context, index) {
                 final weather = state.weathers[index];
                 return WeatherItem(weather: weather);
               },
-            ),
-          );
+            );
+          }
         },
       ),
     );
