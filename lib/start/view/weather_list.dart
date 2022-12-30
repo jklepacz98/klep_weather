@@ -8,29 +8,28 @@ import '../bloc/weather_bloc.dart';
 import '../bloc/weather_state.dart';
 
 class WeatherList extends StatelessWidget {
-  WeatherList();
+  const WeatherList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => getIt<WeatherBloc>(),
-        child: BlocBuilder<WeatherBloc, WeatherState>(
-          buildWhen: (previous, current) => previous != current,
-          builder: (context, state) {
-            if (state.status == WeatherStatus.loading) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return Center(
-                  child: ListView.builder(
-                      //todo what does shrinkWrap do?
-                      shrinkWrap: true,
-                      itemCount: state.weathers.length,
-                      itemBuilder: (context, index) {
-                        final weather = state.weathers[index];
-                        return WeatherItem(weather: weather);
-                      }));
-            }
-          },
-        ));
+      create: (context) => getIt<WeatherBloc>(),
+      child: BlocBuilder<WeatherBloc, WeatherState>(
+        buildWhen: (previous, current) => previous != current,
+        builder: (context, state) {
+          return Center(
+            child: ListView.builder(
+              //todo what does shrinkWrap do?
+              shrinkWrap: true,
+              itemCount: state.weathers.length,
+              itemBuilder: (context, index) {
+                final weather = state.weathers[index];
+                return WeatherItem(weather: weather);
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 }

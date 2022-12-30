@@ -2,14 +2,11 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
-//todo changename
-@JsonSerializable()
 @DataClassName("Weather")
 class Weathers extends Table {
   IntColumn get id => integer()();
@@ -39,11 +36,8 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  //todo do I need async here
-  Future<int> addWeather(Weather weather) async {
-    return into(weathers).insertOnConflictUpdate(weather);
-  }
+  Future<int> addWeather(Weather weather) =>
+      into(weathers).insertOnConflictUpdate(weather);
 
-  //todo change name, maybe weathersStream
   Stream<List<Weather>> observeWeathers() => select(weathers).watch();
 }
