@@ -6,8 +6,8 @@ part 'weather_info.g.dart';
 class WeatherInfo {
   WeatherInfo({
     required this.id,
-    required this.description,
     required this.main,
+    required this.description,
     required this.icon,
   });
 

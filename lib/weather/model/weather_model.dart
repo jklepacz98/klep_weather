@@ -50,10 +50,33 @@ class WeatherModel {
   Map<String, dynamic> toJson() => _$WeatherModelToJson(this);
 
   Weather toWeather() => Weather(
-        id: id,
-        name: name,
+        coordLon: coord.lon,
+        coordLat: coord.lat,
+        //todo
+        weatherInfoId: weatherInfo.first.id,
+        weatherInfoMain: weatherInfo.first.main,
+        weatherInfoDescription: weatherInfo.first.description,
+        weatherInfoIcon: weatherInfo.first.icon,
+        mainInfoTemp: mainInfo.temp,
+        mainInfoFeelsLike: mainInfo.feelsLike,
+        mainInfoTempMin: mainInfo.tempMin,
+        mainInfoTempMax: mainInfo.tempMax,
+        mainInfoPressure: mainInfo.pressure,
+        mainInfoHumidity: mainInfo.humidity,
+        visibility: visibility,
         windSpeed: wind.speed,
         windDeg: wind.deg,
+        cloudsAll: clouds.all,
+        dt: dt,
+        sysType: sys.type,
+        sysId: sys.id,
+        sysCountry: sys.country,
+        sysSunrise: sys.sunrise,
+        sysSunset: sys.sunset,
+        timezone: timezone,
+        id: id,
+        name: name,
+        cod: 200,
       );
 
 //todo remove this function?
