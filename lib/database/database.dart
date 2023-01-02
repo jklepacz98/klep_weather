@@ -84,4 +84,9 @@ class AppDatabase extends _$AppDatabase {
       into(weathers).insertOnConflictUpdate(weather);
 
   Stream<List<Weather>> observeWeathers() => select(weathers).watch();
+
+  Future<Weather> getWeather(int id) =>
+      (select(weathers)..where((tbl) => tbl.id.equals(id))).getSingle();
+
+  Future<List<Weather>> getWeathers() => select(weathers).get();
 }

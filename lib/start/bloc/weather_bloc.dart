@@ -15,8 +15,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
     on<WeatherGetEvent>(_handleWeatherGetEvent);
+    on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
     //todo
-    add(WeatherLoadEvent(city: 'Łódź'));
+    add(WeatherSubscribeEvent());
   }
 
   final WeatherRepository _weatherRepository;
@@ -48,9 +49,18 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     WeatherGetEvent event,
     Emitter emit,
   ) async {
-    _weathersSubscription =
-        _weatherRepository.observerWeathers().listen((weathers) {
-      add(WeatherListChangedEvent(weathers: weathers));
-    });
+    final weathers = await _weatherRepository.getWeathers();
+    add(WeatherListChangedEvent(weathers: weathers));
+  }
+
+  Future<void> _handleWeatherSubscribeEvent(
+    WeatherSubscribeEvent event,
+    Emitter emit,
+  ) async {
+    _weathersSubscription = _weatherRepository.observerWeathers().listen(
+      (weathers) {
+        add(WeatherListChangedEvent(weathers: weathers));
+      },
+    );
   }
 }

@@ -21,6 +21,11 @@ class WeatherGetEvent extends WeatherEvent {
   List<Object> get props => [];
 }
 
+class WeatherSubscribeEvent extends WeatherEvent {
+  @override
+  List<Object> get props => [];
+}
+
 //todo change name
 class WeatherListChangedEvent extends WeatherEvent {
   final List<Weather> weathers;

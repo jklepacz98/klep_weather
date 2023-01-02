@@ -9,7 +9,8 @@ class WeatherRepository {
   WeatherRepository({
     required WeatherRemote weatherRemote,
     required WeatherLocal weatherLocal,
-  })  : _weatherRemote = weatherRemote,
+  })
+      : _weatherRemote = weatherRemote,
         _weatherLocal = weatherLocal;
 
   final WeatherRemote _weatherRemote;
@@ -25,6 +26,8 @@ class WeatherRepository {
   }
 
   Stream<List<Weather>> observerWeathers() async* {
-    yield* _weatherLocal.getWeatherModels();
+    yield* _weatherLocal.observeWeatherModels();
   }
+
+  Future<List<Weather>> getWeathers() => _weatherLocal.getWeathers();
 }

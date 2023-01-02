@@ -17,8 +17,7 @@ class WeatherList extends StatelessWidget {
       child: BlocBuilder<WeatherBloc, WeatherState>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          if (state.status == WeatherStatus.initial ||
-              state.status == WeatherStatus.loading) {
+          if (state.status == WeatherStatus.loading) {
             return CircularProgressIndicator();
           } else {
             return ListView.builder(
