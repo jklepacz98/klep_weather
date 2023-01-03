@@ -4,9 +4,9 @@ import 'package:meta/meta.dart';
 import '../../database/database.dart';
 
 @immutable
-abstract class WeatherEvent extends Equatable {}
+abstract class StartEvent extends Equatable {}
 
-class WeatherLoadEvent extends WeatherEvent {
+class WeatherLoadEvent extends StartEvent {
   final String city;
 
   //todo Why I can't use const?
@@ -16,18 +16,18 @@ class WeatherLoadEvent extends WeatherEvent {
   List<Object> get props => [city];
 }
 
-class WeatherGetEvent extends WeatherEvent {
+class WeatherGetEvent extends StartEvent {
   @override
   List<Object> get props => [];
 }
 
-class WeatherSubscribeEvent extends WeatherEvent {
+class WeatherSubscribeEvent extends StartEvent {
   @override
   List<Object> get props => [];
 }
 
 //todo change name
-class WeatherListChangedEvent extends WeatherEvent {
+class WeatherListChangedEvent extends StartEvent {
   final List<Weather> weathers;
 
   WeatherListChangedEvent({required this.weathers});

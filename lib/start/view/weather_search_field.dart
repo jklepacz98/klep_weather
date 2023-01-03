@@ -1,28 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klep_weather/start/view/weather_item.dart';
 
 import '../../di/di.dart';
 import '../bloc/start_bloc.dart';
+import '../bloc/start_event.dart';
 import '../bloc/start_state.dart';
 
-class WeatherList extends StatelessWidget {
-  const WeatherList({super.key});
+class WeatherSearchField extends StatelessWidget {
+  const WeatherSearchField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<StartBloc>(),
       child: BlocBuilder<StartBloc, StartState>(
+        buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          return Flexible(
-            child: ListView.builder(
-              itemCount: state.weathers.length,
-              itemBuilder: (context, index) {
-                final weather = state.weathers[index];
-                return WeatherItem(weather: weather);
-              },
+          return TextField(
+            onSubmitted: (city) =>
+                context.read<StartBloc>().add(WeatherLoadEvent(city: city)),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'City',
             ),
           );
         },
