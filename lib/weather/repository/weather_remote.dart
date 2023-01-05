@@ -10,9 +10,18 @@ class WeatherRemote {
 
   final RestClient _restClient;
 
-  Future<Result<WeatherModel>> loadWeather(String city) async {
+  Future<Result<WeatherModel>> loadWeatherByCity(String city) async {
     try {
       final response = await _restClient.getWeatherByCity(city: city);
+      return Result.success(response);
+    } on Exception catch (_) {
+      return Result.failure("GET weather request failed");
+    }
+  }
+
+  Future<Result<WeatherModel>> loadWeatherById(int id) async {
+    try {
+      final response = await _restClient.getWeatherById(id: id);
       return Result.success(response);
     } on Exception catch (_) {
       return Result.failure("GET weather request failed");

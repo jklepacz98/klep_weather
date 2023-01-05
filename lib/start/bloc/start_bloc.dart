@@ -10,48 +10,40 @@ import '../../database/database.dart';
 class StartBloc extends Bloc<StartEvent, StartState> {
   StartBloc({required WeatherRepository weatherRepository})
       : _weatherRepository = weatherRepository,
-  //todo const?
+        //todo const?
         super(const StartState()) {
-    on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
-    on<WeatherGetEvent>(_handleWeatherGetEvent);
     on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
-    //todo
+    //todo should init be here?
     add(WeatherSubscribeEvent());
   }
 
   final WeatherRepository _weatherRepository;
   StreamSubscription<List<Weather>>? _weathersSubscription;
 
-  Future<void> _handleWeatherListChangedEvent(WeatherListChangedEvent event,
-      Emitter emit,) async {
-    emit(state.copyWith(weathers: event.weathers));
-  }
-
-  Future<void> _handleWeatherLoadEvent(WeatherLoadEvent event,
-      Emitter emit,) async {
+  Future<void> _handleWeatherLoadEvent(
+    WeatherLoadEvent event,
+    Emitter emit,
+  ) async {
     emit(state.copyWith(status: WeatherStatus.loading));
-    final weatherResult = await _weatherRepository.loadWeather(event.city);
+    final weatherResult =
+        await _weatherRepository.loadWeatherByCity(event.city);
     if (weatherResult.isSuccess) {
       emit(state.copyWith(status: WeatherStatus.success));
-      //todo
-      add(WeatherGetEvent());
     } else {
       emit(state.copyWith(status: WeatherStatus.failure));
     }
   }
 
-  Future<void> _handleWeatherGetEvent(WeatherGetEvent event,
-      Emitter emit,) async {
-    final weathers = await _weatherRepository.getWeathers();
-    add(WeatherListChangedEvent(weathers: weathers));
-  }
-
-  Future<void> _handleWeatherSubscribeEvent(WeatherSubscribeEvent event,
-      Emitter emit,) async {
-    _weathersSubscription = _weatherRepository.observerWeathers().listen(
-          (weathers) {
-        add(WeatherListChangedEvent(weathers: weathers));
+  Future<void> _handleWeatherSubscribeEvent(
+    WeatherSubscribeEvent event,
+    Emitter emit,
+  ) async {
+    _weathersSubscription = _weatherRepository.observeWeathers().listen(
+      (weathers) {
+        print("cos1");
+        print("cos2: ${weathers.length.toString()}");
+        emit(state.copyWith(weathers: weathers));
       },
     );
   }

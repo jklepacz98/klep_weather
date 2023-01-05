@@ -15,4 +15,10 @@ abstract class RestClient {
     @Query("appid") String appid = Constants.openWeatherApiKey,
     @Query("q") required String city,
   });
+
+  @GET("/data/2.5/weather")
+  Future<WeatherModel> getWeatherById({
+    @Query("appid") String appid = Constants.openWeatherApiKey,
+    @Query("id") required int id,
+  });
 }
