@@ -13,8 +13,8 @@ class WeatherItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        final route =
-            MaterialPageRoute(builder: (context) => WeatherDetailsPage());
+        final route = MaterialPageRoute(
+            builder: (context) => WeatherDetailsPage(weather: weather));
         Navigator.push(context, route);
       },
       title: Text(weather.name.toString()),
