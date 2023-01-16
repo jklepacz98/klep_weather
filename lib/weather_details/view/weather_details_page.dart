@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:klep_weather/utils/weather_icon_utils.dart';
 
 import '../../database/database.dart';
 
@@ -12,9 +14,22 @@ class WeatherDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(weather.name.toString()),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: Center(
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.blue[600]!,
+              Colors.blue[400]!,
+              Colors.indigo[200]!,
+            ],
+          ),
+        ),
         child: Column(
           children: [
             //todo move to static object?
@@ -24,6 +39,7 @@ class WeatherDetailsPage extends StatelessWidget {
                 style: const TextStyle(fontSize: 64),
               ),
             ),
+            CachedNetworkImage(imageUrl: weather.weatherInfoIcon?.toIconUrl())
           ],
         ),
       ),
