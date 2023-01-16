@@ -14,6 +14,7 @@ class StartBloc extends Bloc<StartEvent, StartState> {
         super(const StartState()) {
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
     on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
+    on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
     //todo should init be here?
     add(WeatherSubscribeEvent());
   }
@@ -41,10 +42,15 @@ class StartBloc extends Bloc<StartEvent, StartState> {
   ) async {
     _weathersSubscription = _weatherRepository.observeWeathers().listen(
       (weathers) {
-        print("cos1");
-        print("cos2: ${weathers.length.toString()}");
-        emit(state.copyWith(weathers: weathers));
+        add(WeatherListChangedEvent(weathers: weathers));
       },
     );
+  }
+
+  Future<void> _handleWeatherListChangedEvent(
+    WeatherListChangedEvent event,
+    Emitter emit,
+  ) async {
+    emit(state.copyWith(weathers: event.weathers));
   }
 }

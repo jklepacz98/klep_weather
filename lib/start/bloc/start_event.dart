@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import '../../database/database.dart';
+
 @immutable
 abstract class StartEvent extends Equatable {}
 
@@ -15,6 +17,16 @@ class WeatherLoadEvent extends StartEvent {
 }
 
 class WeatherSubscribeEvent extends StartEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class WeatherListChangedEvent extends StartEvent {
+  @override
+  final List<Weather> weathers;
+
+  WeatherListChangedEvent({required this.weathers});
+
   @override
   List<Object> get props => [];
 }

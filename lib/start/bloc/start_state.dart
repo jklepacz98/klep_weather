@@ -19,12 +19,11 @@ class StartState extends Equatable {
     String? city,
     List<Weather>? weathers,
   }) {
-    print("cos3: ${this.weathers.length.toString()}");
-    print("cos4: ${weathers?.length.toString()}");
-    return StartState(
+    final startState = StartState(
       status: status ?? this.status,
       weathers: weathers ?? this.weathers,
     );
+    return startState;
   }
 
   @override
