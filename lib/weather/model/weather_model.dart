@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/weather/model/clouds.dart';
 import 'package:klep_weather/weather/model/main_info.dart';
-import 'package:klep_weather/weather/model/sys.dart';
 import 'package:klep_weather/weather/model/weather_info.dart';
 import 'package:klep_weather/weather/model/wind.dart';
 
@@ -15,14 +14,17 @@ class WeatherModel {
   WeatherModel({
     required this.coord,
     required this.weatherInfo,
-    required this.base,
+    //todo
+    //required this.base,
     required this.mainInfo,
     required this.visibility,
     required this.wind,
     required this.clouds,
     required this.dt,
-    required this.sys,
-    required this.timezone,
+    //todo
+    //required this.sys,
+    //todo
+    //required this.timezone,
     required this.id,
     required this.name,
     required this.cod,
@@ -31,15 +33,20 @@ class WeatherModel {
   Coord coord;
   @JsonKey(name: "weather")
   List<WeatherInfo> weatherInfo;
-  String base;
+
+  //todo
+  // String base;
   @JsonKey(name: "main")
   MainInfo mainInfo;
   int visibility;
   Wind wind;
   Clouds clouds;
   int dt;
-  Sys sys;
-  int timezone;
+
+//todo
+  //Sys sys;
+  //todo
+  //int timezone;
   int id;
   String name;
   int cod;
@@ -68,12 +75,14 @@ class WeatherModel {
         windDeg: wind.deg,
         cloudsAll: clouds.all,
         dt: dt,
-        sysType: sys.type,
-        sysId: sys.id,
-        sysCountry: sys.country,
-        sysSunrise: sys.sunrise,
-        sysSunset: sys.sunset,
-        timezone: timezone,
+        //todo
+        // sysType: sys.type,
+        // sysId: sys.id,
+        // sysCountry: sys.country,
+        // sysSunrise: sys.sunrise,
+        // sysSunset: sys.sunset,
+        //todo
+        //timezone: timezone,
         id: id,
         name: name,
         cod: 200,

@@ -26,6 +26,8 @@ class WeatherItem extends StatelessWidget {
                 builder: (context) => WeatherDetailsPage(weather: weather));
             Navigator.push(context, route);
           },
+          //todo to Celsius
+          subtitle: Text(weather.mainInfoTemp.toString()),
         ),
       ),
     );

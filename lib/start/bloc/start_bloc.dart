@@ -15,8 +15,10 @@ class StartBloc extends Bloc<StartEvent, StartState> {
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
     on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
     on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
+    on<WeatherListLoadEvent>(_handleWeatherListLoadEvent);
     //todo should init be here?
     add(WeatherSubscribeEvent());
+    add(WeatherListLoadEvent());
   }
 
   final WeatherRepository _weatherRepository;
@@ -52,5 +54,19 @@ class StartBloc extends Bloc<StartEvent, StartState> {
     Emitter emit,
   ) async {
     emit(state.copyWith(weathers: event.weathers));
+  }
+
+  Future<void> _handleWeatherListLoadEvent(
+    WeatherListLoadEvent event,
+    Emitter emit,
+  ) async {
+    final weathersFromLocal = await _weatherRepository.getWeathers();
+    final cityIds = weathersFromLocal.map((weather) => weather.id).toList();
+    print("cos1 ${weathersFromLocal.toString()}");
+    final result = await _weatherRepository.loadWeathersByIds(cityIds);
+    final weathersFromRemote = result.value!.weatherList;
+    final weathersFromLocal2 = await _weatherRepository.getWeathers();
+    print("cos2 ${weathersFromRemote.toString()}");
+    print("cos3 ${weathersFromLocal2.toString()}");
   }
 }

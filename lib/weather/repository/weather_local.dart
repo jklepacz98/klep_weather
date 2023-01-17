@@ -9,6 +9,9 @@ class WeatherLocal {
 
   Future<int> saveWeather(Weather weather) => _database.addWeather(weather);
 
+  Future<void> saveWeathers(List<Weather> weatherList) =>
+      _database.addWeathers(weatherList);
+
   Stream<Weather> observeWeather(int id) async* {
     yield* _database.observeWeather(id);
   }

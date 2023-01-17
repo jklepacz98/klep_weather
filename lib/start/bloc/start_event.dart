@@ -28,5 +28,10 @@ class WeatherListChangedEvent extends StartEvent {
   WeatherListChangedEvent({required this.weathers});
 
   @override
+  List<Object> get props => [weathers];
+}
+
+class WeatherListLoadEvent extends StartEvent {
+  @override
   List<Object> get props => [];
 }

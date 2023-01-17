@@ -83,6 +83,14 @@ class AppDatabase extends _$AppDatabase {
   Future<int> addWeather(Weather weather) =>
       into(weathers).insertOnConflictUpdate(weather);
 
+  Future<void> addWeathers(List<Weather> weatherList) async {
+    await batch(
+      (batch) {
+        batch.insertAll(weathers, weatherList);
+      },
+    );
+  }
+
   Stream<Weather> observeWeather(int id) =>
       (select(weathers)..where((tbl) => tbl.id.equals(id))).watchSingle();
 

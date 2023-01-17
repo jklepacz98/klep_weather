@@ -6,6 +6,7 @@ import 'package:klep_weather/weather/repository/weather_remote.dart';
 
 import '../../database/database.dart';
 import '../model/weather_model.dart';
+import '../model/weather_models.dart';
 
 class WeatherRepository {
   WeatherRepository({
@@ -31,6 +32,18 @@ class WeatherRepository {
     if (result.isSuccess) {
       final weatherModel = result.value!;
       _weatherLocal.saveWeather(weatherModel.toWeather());
+    }
+    return result;
+  }
+
+  Future<Result<WeatherModels>> loadWeathersByIds(List<int> ids) async {
+    final result = await _weatherRemote.loadWeathersByIds(ids);
+    if (result.isSuccess) {
+      final weatherModels = result.value!;
+      final weathers = weatherModels.weatherList
+          .map((weatherModel) => weatherModel.toWeather())
+          .toList();
+      _weatherLocal.saveWeathers(weathers);
     }
     return result;
   }
