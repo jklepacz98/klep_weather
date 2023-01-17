@@ -13,24 +13,22 @@ class StartPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title: const Text('KlepWeather'),
       ),
       extendBodyBehindAppBar: true,
-      body: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              stops: const [0.1, 0.2, 0.6, 0.9],
-              colors: [
-                //todo get rid of exclamation mark?
-                Colors.blue[800]!,
-                Colors.blue[600]!,
-                Colors.blue[400]!,
-                Colors.indigo[200]!,
-              ],
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.blue[600]!,
+              Colors.blue[400]!,
+              Colors.indigo[200]!,
+            ],
           ),
+        ),
+        child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(

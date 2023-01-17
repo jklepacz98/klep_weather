@@ -16,6 +16,7 @@ class WeatherDetailsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        title: Text(weather.name.toString()),
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -30,19 +31,29 @@ class WeatherDetailsPage extends StatelessWidget {
             ],
           ),
         ),
-        child: Column(
-          children: [
-            //todo move to static object?
-            Center(
-              child: Text(
-                '${weather.mainInfoTemp.toString()}\u2103',
-                style: const TextStyle(fontSize: 64),
+        child: SafeArea(
+          child: Column(
+            children: [
+              //todo move to static object?
+              CachedNetworkImage(
+                imageUrl: weather.weatherInfoIcon?.toIconUrl(),
               ),
-            ),
-            CachedNetworkImage(imageUrl: weather.weatherInfoIcon?.toIconUrl())
-          ],
+              Center(
+                child: Text(
+                  //todo remove !
+                  '${toCelsius(weather.mainInfoTemp!).toStringAsFixed(0)}\u2103',
+                  style: const TextStyle(fontSize: 64),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  //todo move to bloc?
+  static double toCelsius(double kelwinTemperature) =>
+      (kelwinTemperature - absoluteZero);
+  static double absoluteZero = 273.15;
 }

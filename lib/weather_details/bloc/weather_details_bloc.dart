@@ -13,7 +13,7 @@ class WeatherDetailsBloc
       {required WeatherRepository weatherRepository, required int weatherId})
       : _weatherRepository = weatherRepository,
         _weatherId = weatherId,
-  //todo contst
+        //todo contst
         super(const WeatherDetailsState(status: WeatherStatus.initial)) {
     on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
@@ -26,17 +26,19 @@ class WeatherDetailsBloc
   //todo should this variable be here
   final int _weatherId;
 
-  Future<void> _handleWeatherSubscribeEvent(WeatherSubscribeEvent event,
-      Emitter emit,) async {
+  Future<void> _handleWeatherSubscribeEvent(
+    WeatherSubscribeEvent event,
+    Emitter emit,
+  ) async {
     _weatherSubscription = _weatherRepository.observeWeather(_weatherId).listen(
-          (weather) {
+      (weather) {
         emit(state.copyWith(weather: weather));
       },
     );
   }
 
-  Future<void> _handleWeatherLoadEvent(WeatherLoadEvent event,
-      Emitter emit,) async {
-
-  }
+  Future<void> _handleWeatherLoadEvent(
+    WeatherLoadEvent event,
+    Emitter emit,
+  ) async {}
 }

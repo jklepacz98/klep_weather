@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:equatable/equatable.dart';
 
 import '../../database/database.dart';

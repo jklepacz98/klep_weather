@@ -21,4 +21,7 @@ abstract class RestClient {
     @Query("appid") String appid = Constants.openWeatherApiKey,
     @Query("id") required int id,
   });
+
+  @get("/data/2.5/group")
+  Future
 }

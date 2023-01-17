@@ -11,13 +11,23 @@ class WeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        final route = MaterialPageRoute(
-            builder: (context) => WeatherDetailsPage(weather: weather));
-        Navigator.push(context, route);
-      },
-      title: Text(weather.name.toString()),
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Material(
+        color: Colors.transparent,
+        child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Text(weather.name.toString()),
+          tileColor: Colors.white,
+          onTap: () {
+            final route = MaterialPageRoute(
+                builder: (context) => WeatherDetailsPage(weather: weather));
+            Navigator.push(context, route);
+          },
+        ),
+      ),
     );
   }
 }
