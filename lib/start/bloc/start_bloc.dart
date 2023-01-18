@@ -44,6 +44,8 @@ class StartBloc extends Bloc<StartEvent, StartState> {
   ) async {
     _weathersSubscription = _weatherRepository.observeWeathers().listen(
       (weathers) {
+        //todo  get rid of !
+        weathers.sort((a, b) => a.name!.compareTo(b.name!));
         add(WeatherListChangedEvent(weathers: weathers));
       },
     );
