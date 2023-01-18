@@ -27,7 +27,7 @@ class WeatherModel {
     //required this.timezone,
     required this.id,
     required this.name,
-    required this.cod,
+    // required this.cod,
   });
 
   Coord coord;
@@ -49,7 +49,6 @@ class WeatherModel {
   //int timezone;
   int id;
   String name;
-  int cod;
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) =>
       _$WeatherModelFromJson(json);
@@ -85,7 +84,6 @@ class WeatherModel {
         //timezone: timezone,
         id: id,
         name: name,
-        cod: 200,
       );
 
 //todo remove this function?

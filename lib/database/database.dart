@@ -86,7 +86,7 @@ class AppDatabase extends _$AppDatabase {
   Future<void> addWeathers(List<Weather> weatherList) async {
     await batch(
       (batch) {
-        batch.insertAll(weathers, weatherList);
+        batch.insertAllOnConflictUpdate(weathers, weatherList);
       },
     );
   }

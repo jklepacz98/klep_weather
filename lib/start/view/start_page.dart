@@ -11,34 +11,19 @@ class StartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: const Text('KlepWeather'),
+        backgroundColor: Colors.blueGrey[800],
       ),
-      extendBodyBehindAppBar: true,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Colors.blue[600]!,
-              Colors.blue[400]!,
-              Colors.indigo[200]!,
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: const [
-                WeatherSearchField(),
-                StartSnackBar(),
-                WeatherList(),
-              ],
-            ),
-          ),
+      backgroundColor: Colors.blueGrey[900],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: const [
+            WeatherSearchField(),
+            Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+            StartSnackBar(),
+            WeatherList(),
+          ],
         ),
       ),
     );
