@@ -16,11 +16,10 @@ class StartPage extends StatelessWidget {
       ),
       backgroundColor: Colors.blueGrey[900],
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
         child: Column(
           children: const [
             WeatherSearchField(),
-            Padding(padding: EdgeInsets.symmetric(vertical: 20)),
             StartSnackBar(),
             WeatherList(),
           ],

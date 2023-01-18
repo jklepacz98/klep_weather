@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
@@ -20,19 +19,23 @@ class WeatherItem extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        child: Expanded(
-          child: ListTile(
-            title: Text(weather.name.toString()),
-            onTap: () {
-              final route = MaterialPageRoute(
-                  builder: (context) => WeatherDetailsPage(weather: weather));
-              Navigator.push(context, route);
-            },
-            //todo to Celsius
-            subtitle: Text(
-                "${toCelsius(weather.mainInfoTemp!).toStringAsFixed(0)}\u2103"),
-            trailing: Card(
-              shape: CircleBorder(),
+        child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          title: Text(weather.name.toString()),
+          onTap: () {
+            final route = MaterialPageRoute(
+                builder: (context) => WeatherDetailsPage(weather: weather));
+            Navigator.push(context, route);
+          },
+          //todo to Celsius
+          subtitle: Text(
+              "${toCelsius(weather.mainInfoTemp!).toStringAsFixed(0)}\u2103"),
+          trailing: SizedBox.square(
+            dimension: 50,
+            child: Card(
+              shape: const CircleBorder(),
               clipBehavior: Clip.antiAlias,
               child: Container(
                 decoration: BoxDecoration(
