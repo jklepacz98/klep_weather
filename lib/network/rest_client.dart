@@ -10,23 +10,32 @@ part 'rest_client.g.dart';
 @RestApi(baseUrl: Constants.openWeatherApiBaseUrl)
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
-
-  //todo change " to '
-  @GET("/data/2.5/weather")
+  
+  @GET('/data/2.5/weather')
   Future<WeatherModel> getWeatherByCity({
-    @Query("appid") String appid = Constants.openWeatherApiKey,
-    @Query("q") required String city,
+    @Query('appid') String appid = Constants.openWeatherApiKey,
+    @Query('lang') String language = Constants.defaultLanguage,
+    @Query('q') required String city,
   });
 
-  @GET("/data/2.5/weather")
+  @GET('/data/2.5/weather')
   Future<WeatherModel> getWeatherById({
-    @Query("appid") String appid = Constants.openWeatherApiKey,
-    @Query("id") required int id,
+    @Query('appid') String appid = Constants.openWeatherApiKey,
+    @Query('lang') String language = Constants.defaultLanguage,
+    @Query('id') required int id,
   });
 
-  @GET("/data/2.5/group")
+  @GET('/data/2.5/group')
   Future<WeatherModels> getWeathersByIds({
-    @Query("appid") String appid = Constants.openWeatherApiKey,
-    @Query("id") required List<int> ids,
+    @Query('appid') String appid = Constants.openWeatherApiKey,
+    @Query('lang') String language = Constants.defaultLanguage,
+    @Query('id') required List<int> ids,
+  });
+
+  @GET('/data/2.5/forecast')
+  Future<WeatherModels> getForecastById({
+    @Query('appid') String appid = Constants.openWeatherApiKey,
+    @Query('lang') String language = Constants.defaultLanguage,
+    @Query('id') required int id,
   });
 }
