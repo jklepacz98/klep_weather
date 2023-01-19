@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
-@DataClassName("Weather")
+@DataClassName('Weather')
 class WeatherTable extends Table {
   RealColumn get coordLon => real().nullable()();
 
@@ -65,12 +65,8 @@ class WeatherTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DataClassName("Forecast")
+@DataClassName('Forecast')
 class ForecastTable extends Table {
-  RealColumn get coordLon => real().nullable()();
-
-  RealColumn get coordLat => real().nullable()();
-
   IntColumn get weatherInfoId => integer().nullable()();
 
   TextColumn get weatherInfoMain => text().nullable()();
@@ -101,23 +97,19 @@ class ForecastTable extends Table {
 
   IntColumn get dt => integer().nullable()();
 
-  IntColumn get sysType => integer().nullable()();
-
-  IntColumn get sysId => integer().nullable()();
-
-  TextColumn get sysCountry => text().nullable()();
-
-  IntColumn get sysSunrise => integer().nullable()();
-
-  IntColumn get sysSunset => integer().nullable()();
-
-  IntColumn get timezone => integer().nullable()();
-
   IntColumn get id => integer()();
 
   TextColumn get name => text().nullable()();
 
-  IntColumn get cod => integer().nullable()();
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DataClassName('City')
+class CityTable extends Table {
+  IntColumn get id => integer()();
+
+  TextColumn get name => text().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -139,25 +131,25 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => 1;
 
   Future<int> addWeather(Weather weather) =>
-      into(weathers).insertOnConflictUpdate(weather);
+      into(weatherTable).insertOnConflictUpdate(weather);
 
   Future<void> addWeathers(List<Weather> weatherList) async {
     await batch(
       (batch) {
-        batch.insertAllOnConflictUpdate(weathers, weatherList);
+        batch.insertAllOnConflictUpdate(weatherTable, weatherList);
       },
     );
   }
 
   Stream<Weather> observeWeather(int id) =>
-      (select(weathers)..where((tbl) => tbl.id.equals(id))).watchSingle();
+      (select(weatherTable)..where((tbl) => tbl.id.equals(id))).watchSingle();
 
-  Stream<List<Weather>> observeWeathers() => select(weathers).watch();
+  Stream<List<Weather>> observeWeathers() => select(weatherTable).watch();
 
   //todo not used
   Future<Weather> getWeather(int id) =>
-      (select(weathers)..where((tbl) => tbl.id.equals(id))).getSingle();
+      (select(weatherTable)..where((tbl) => tbl.id.equals(id))).getSingle();
 
   //todo not used
-  Future<List<Weather>> getWeathers() => select(weathers).get();
+  Future<List<Weather>> getWeathers() => select(weatherTable).get();
 }

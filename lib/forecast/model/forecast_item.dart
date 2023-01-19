@@ -5,6 +5,8 @@ import 'package:klep_weather/weather/model/main_info.dart';
 import '../../weather/model/weather_info.dart';
 import '../../weather/model/wind.dart';
 
+part 'forecast_item.g.dart';
+
 @JsonSerializable()
 class ForecastItem {
   ForecastItem({
@@ -24,4 +26,9 @@ class ForecastItem {
   Clouds clouds;
   Wind wind;
   int visibility;
+
+  factory ForecastItem.fromJson(Map<String, dynamic> json) =>
+      _$ForecastItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ForecastItemToJson(this);
 }
