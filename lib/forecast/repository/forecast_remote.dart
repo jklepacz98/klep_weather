@@ -1,4 +1,4 @@
-import 'package:klep_weather/forecast/model/forecast_model.dart';
+import 'package:klep_weather/forecast/model/forecast_list_model.dart';
 import 'package:klep_weather/network/rest_client.dart';
 
 import '../../network/result.dart';
@@ -11,7 +11,7 @@ class ForecastRemote {
   final RestClient _restClient;
 
   //todo create model for forecast, even though it has the same fields?
-  Future<Result<ForecastModel>> loadForecastById(int id) async {
+  Future<Result<ForecastListModel>> loadForecastById(int id) async {
     try {
       final response = await _restClient.getForecastById(id: id);
       return Result.success(response);

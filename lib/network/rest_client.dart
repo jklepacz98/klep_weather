@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:klep_weather/constants.dart';
-import 'package:klep_weather/forecast/model/forecast_model.dart';
+import 'package:klep_weather/forecast/model/forecast_list_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../weather/model/weather_model.dart';
@@ -34,7 +34,7 @@ abstract class RestClient {
   });
 
   @GET('/data/2.5/forecast')
-  Future<ForecastModel> getForecastById({
+  Future<ForecastListModel> getForecastById({
     @Query('appid') String appid = Constants.openWeatherApiKey,
     @Query('lang') String language = Constants.defaultLanguage,
     @Query('id') required int id,

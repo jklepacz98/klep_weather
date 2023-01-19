@@ -67,6 +67,8 @@ class WeatherTable extends Table {
 
 @DataClassName('Forecast')
 class ForecastTable extends Table {
+  IntColumn get cityId => integer().nullable()();
+
   IntColumn get weatherInfoId => integer().nullable()();
 
   TextColumn get weatherInfoMain => text().nullable()();
@@ -123,7 +125,7 @@ LazyDatabase _openConnection() {
   });
 }
 
-@DriftDatabase(tables: [WeatherTable])
+@DriftDatabase(tables: [WeatherTable, ForecastTable, CityTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -135,21 +137,27 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> addWeathers(List<Weather> weatherList) async {
     await batch(
-      (batch) {
+          (batch) {
         batch.insertAllOnConflictUpdate(weatherTable, weatherList);
       },
     );
   }
 
   Stream<Weather> observeWeather(int id) =>
-      (select(weatherTable)..where((tbl) => tbl.id.equals(id))).watchSingle();
+      (select(weatherTable)
+        ..where((tbl) => tbl.id.equals(id))).watchSingle();
 
   Stream<List<Weather>> observeWeathers() => select(weatherTable).watch();
 
   //todo not used
   Future<Weather> getWeather(int id) =>
-      (select(weatherTable)..where((tbl) => tbl.id.equals(id))).getSingle();
+      (select(weatherTable)
+        ..where((tbl) => tbl.id.equals(id))).getSingle();
 
   //todo not used
   Future<List<Weather>> getWeathers() => select(weatherTable).get();
+
+  Future<void> addForecasts(List<Forecast> forecast) async {
+
+  }
 }
