@@ -7,5 +7,5 @@ class ForecastLocal {
 
   final AppDatabase _database;
 
-  Future<int> saveForecast()
+// Future<int> saveForecast()
 }

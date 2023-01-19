@@ -13,5 +13,8 @@ class ForecastRepository {
 
   Future<void> loadForecastById(int id) async {
     final result = await _forecastRemote.loadForecastById(id);
+    if (result.isSuccess) {
+      final forecast = result.value!;
+    }
   }
 }
