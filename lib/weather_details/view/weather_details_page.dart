@@ -72,19 +72,29 @@ class WeatherDetailsPage extends StatelessWidget {
                   print("cos1 ${state.forecastList.toString()}");
                   return Expanded(
                     child: ListView.builder(
-                      //todo change to horizontal
-                      scrollDirection: Axis.vertical,
+                      scrollDirection: Axis.horizontal,
                       itemCount: state.forecastList?.length ?? 0,
                       itemBuilder: (context, index) {
                         print("cos2 ${state.forecastList.toString()}");
                         //todo
                         final forecast = state.forecastList?[index];
-                        return Card(
-                          child: ListTile(
-                            title: Text(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                      forecast!.dt * 1000)
-                                  .toString(),
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 80,
+                              height: 50,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    color: Colors.redAccent,
+                                    shape: BoxShape.rectangle),
+                                child: Text(
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                          forecast!.dt * 1000)
+                                      .toString(),
+                                ),
+                              ),
                             ),
                           ),
                         );
