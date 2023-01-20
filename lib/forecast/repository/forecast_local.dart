@@ -14,5 +14,6 @@ class ForecastLocal {
   Future<void> removeForecastsByCityId(int cityId) =>
       _database.removeForecastsByCityId(cityId);
 
-  Stream<List<Forecast>> observerForecasts() => _database.observeForecasts();
+  Stream<List<Forecast>> observerForecastsByCityId(int cityId) =>
+      _database.observeForecastsByCityId(cityId);
 }

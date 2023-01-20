@@ -139,13 +139,18 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> addForecasts(
       List<ForecastTableCompanion> forecastTableCompanionList) async {
-    await batch((batch) {
-      batch.insertAllOnConflictUpdate(
-          forecastTable, forecastTableCompanionList);
-    });
+    await batch(
+      (batch) {
+        batch.insertAllOnConflictUpdate(
+            forecastTable, forecastTableCompanionList);
+      },
+    );
   }
 
-  Stream<List<Forecast>> observeForecasts() => select(forecastTable).watch();
+  //todo by cityId???
+  Stream<List<Forecast>> observeForecastsByCityId(int cityId) =>
+      (select(forecastTable)..where((tbl) => tbl.cityId.equals(cityId)))
+          .watch();
 
   Future<void> removeForecastsByCityId(int cityId) =>
       (delete(forecastTable)..where((tbl) => tbl.cityId.equals(cityId))).go();

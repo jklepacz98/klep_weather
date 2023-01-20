@@ -26,7 +26,7 @@ Future<void> init() async {
       forecastLocal: ForecastLocal(database: getIt()),
     ),
   );
-  getIt.registerFactory(
+  getIt.registerLazySingleton(
     () => StartBloc(
       weatherRepository: getIt(),
     ),

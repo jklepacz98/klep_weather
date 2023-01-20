@@ -27,6 +27,18 @@ class WeatherDetailsState extends Equatable {
     );
   }
 
+//todo where should this method be
+  static double? toCelsius(double? kelwinTemperature) {
+    if (kelwinTemperature != null) {
+      return kelwinTemperature - absoluteZero;
+    } else {
+      return null;
+    }
+  }
+
+//todo
+  static double absoluteZero = 273.15;
+
   @override
   List<Object?> get props => [status, weather, forecastList];
 }

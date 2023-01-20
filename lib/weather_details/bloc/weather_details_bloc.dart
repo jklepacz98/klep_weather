@@ -26,6 +26,7 @@ class WeatherDetailsBloc
   void _init() {
     add(WeatherSubscribeEvent());
     add(WeatherLoadEvent(cityId: _cityId));
+    print("cos6 heh");
     add(ForecastSubscribeEvent());
     add(ForecastLoadEvent(cityId: _cityId));
   }
@@ -88,9 +89,12 @@ class WeatherDetailsBloc
     ForecastSubscribeEvent event,
     Emitter emit,
   ) async {
-    _forecastListSubscription = _forecastRepository.observeForecasts().listen(
+    print("cos3 subscribe");
+    _forecastListSubscription =
+        _forecastRepository.observeForecastsByCityId(_cityId).listen(
       (forecasts) {
         //todo  get rid of !
+        print("cos4 ${forecasts.length.toString()}");
         forecasts.sort((a, b) => a.dt!.compareTo(b.dt!));
         add(ForecastChangedEvent(forecastList: forecasts));
       },
@@ -103,6 +107,7 @@ class WeatherDetailsBloc
   ) async {
     final result = await _forecastRepository.loadForecastById(event.cityId);
     if (result.isSuccess) {
+      print("cos5 ${result.value?.forecastList.length.toString()}");
       emit(state.copyWith(status: WeatherStatus.success));
     } else {
       emit(state.copyWith(status: WeatherStatus.failure));

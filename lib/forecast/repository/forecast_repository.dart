@@ -18,16 +18,17 @@ class ForecastRepository {
   Future<Result<ForecastListModel>> loadForecastById(int id) async {
     final result = await _forecastRemote.loadForecastById(id);
     if (result.isSuccess) {
+      print("cos7 ${result.value?.forecastList.length.toString()}");
       final forecastList = result.value!;
-      _forecastLocal.removeForecastsByCityId(forecastList.city.id);
+      await _forecastLocal.removeForecastsByCityId(forecastList.city.id);
       final forecastTableCompanionList =
           forecastList.toForecastTableCompanions();
-      _forecastLocal.saveForecast(forecastTableCompanionList);
+      await _forecastLocal.saveForecast(forecastTableCompanionList);
     }
     return result;
   }
 
-  Stream<List<Forecast>> observeForecasts() async* {
-    yield* _forecastLocal.observerForecasts();
+  Stream<List<Forecast>> observeForecastsByCityId(int cityId) async* {
+    yield* _forecastLocal.observerForecastsByCityId(cityId);
   }
 }
