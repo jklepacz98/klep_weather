@@ -24,14 +24,20 @@ class StartBloc extends Bloc<StartEvent, StartState> {
   final WeatherRepository _weatherRepository;
   StreamSubscription<List<Weather>>? _weathersSubscription;
 
+  Future<void> _handleWeatherListChangedEvent(
+    WeatherListChangedEvent event,
+    Emitter emit,
+  ) async {
+    emit(state.copyWith(weathers: event.weatherList));
+  }
+
   Future<void> _handleWeatherLoadEvent(
     WeatherLoadEvent event,
     Emitter emit,
   ) async {
     emit(state.copyWith(status: WeatherStatus.loading));
-    final weatherResult =
-        await _weatherRepository.loadWeatherByCity(event.city);
-    if (weatherResult.isSuccess) {
+    final result = await _weatherRepository.loadWeatherByCity(event.city);
+    if (result.isSuccess) {
       emit(state.copyWith(status: WeatherStatus.success));
     } else {
       emit(state.copyWith(status: WeatherStatus.failure));
@@ -46,16 +52,9 @@ class StartBloc extends Bloc<StartEvent, StartState> {
       (weathers) {
         //todo  get rid of !
         weathers.sort((a, b) => a.name!.compareTo(b.name!));
-        add(WeatherListChangedEvent(weathers: weathers));
+        add(WeatherListChangedEvent(weatherList: weathers));
       },
     );
-  }
-
-  Future<void> _handleWeatherListChangedEvent(
-    WeatherListChangedEvent event,
-    Emitter emit,
-  ) async {
-    emit(state.copyWith(weathers: event.weathers));
   }
 
   Future<void> _handleWeatherListLoadEvent(
@@ -64,6 +63,18 @@ class StartBloc extends Bloc<StartEvent, StartState> {
   ) async {
     final weathersFromLocal = await _weatherRepository.getWeathers();
     final cityIds = weathersFromLocal.map((weather) => weather.id).toList();
-    await _weatherRepository.loadWeathersByIds(cityIds);
+    //todo
+    final result = await _weatherRepository.loadWeathersByIds(cityIds);
+    if (result.isSuccess) {
+      emit(state.copyWith(status: WeatherStatus.success));
+    } else {
+      emit(state.copyWith(status: WeatherStatus.failure));
+    }
+  }
+
+  @override
+  Future<void> close() async {
+    _weathersSubscription?.cancel();
+    return super.close();
   }
 }

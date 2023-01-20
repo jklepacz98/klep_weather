@@ -14,20 +14,13 @@ class WeatherModel {
   WeatherModel({
     required this.coord,
     required this.weatherInfo,
-    //todo
-    //required this.base,
     required this.mainInfo,
     required this.visibility,
     required this.wind,
     required this.clouds,
     required this.dt,
-    //todo
-    //required this.sys,
-    //todo
-    //required this.timezone,
     required this.id,
     required this.name,
-    // required this.cod,
   });
 
   Coord coord;
@@ -42,11 +35,6 @@ class WeatherModel {
   Wind wind;
   Clouds clouds;
   int dt;
-
-//todo
-  //Sys sys;
-  //todo
-  //int timezone;
   int id;
   String name;
 
@@ -74,21 +62,7 @@ class WeatherModel {
         windDeg: wind.deg,
         cloudsAll: clouds.all,
         dt: dt,
-        //todo
-        // sysType: sys.type,
-        // sysId: sys.id,
-        // sysCountry: sys.country,
-        // sysSunrise: sys.sunrise,
-        // sysSunset: sys.sunset,
-        //todo
-        //timezone: timezone,
         id: id,
         name: name,
       );
-
-//todo remove this function?
-// factory WeatherModel.fromWeather(Weather weather) {
-//   final wind = Wind(speed: 0, deg: 0);
-//   return WeatherModel(id: weather.id, name: weather.name ?? "", wind: wind);
-// }
 }

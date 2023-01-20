@@ -22,13 +22,12 @@ class WeatherSubscribeEvent extends StartEvent {
 }
 
 class WeatherListChangedEvent extends StartEvent {
-  @override
-  final List<Weather> weathers;
+  final List<Weather> weatherList;
 
-  WeatherListChangedEvent({required this.weathers});
+  WeatherListChangedEvent({required this.weatherList});
 
   @override
-  List<Object> get props => [weathers];
+  List<Object> get props => [weatherList];
 }
 
 class WeatherListLoadEvent extends StartEvent {

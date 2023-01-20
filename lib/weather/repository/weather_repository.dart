@@ -12,7 +12,8 @@ class WeatherRepository {
   WeatherRepository({
     required WeatherRemote weatherRemote,
     required WeatherLocal weatherLocal,
-  })  : _weatherRemote = weatherRemote,
+  })
+      : _weatherRemote = weatherRemote,
         _weatherLocal = weatherLocal;
 
   final WeatherRemote _weatherRemote;
@@ -36,7 +37,7 @@ class WeatherRepository {
     return result;
   }
 
-  Future<void> loadWeathersByIds(List<int> ids) async {
+  Future<Result<WeatherModels>> loadWeathersByIds(List<int> ids) async {
     final result = await _weatherRemote.loadWeathersByIds(ids);
     if (result.isSuccess) {
       final weatherModels = result.value!;
@@ -45,6 +46,7 @@ class WeatherRepository {
           .toList();
       _weatherLocal.saveWeathers(weathers);
     }
+    return result;
   }
 
   Stream<Weather> observeWeather(int id) async* {

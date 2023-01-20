@@ -9,57 +9,43 @@ part 'database.g.dart';
 
 @DataClassName('Weather')
 class WeatherTable extends Table {
-  RealColumn get coordLon => real().nullable()();
+  RealColumn get coordLon => real()();
 
-  RealColumn get coordLat => real().nullable()();
+  RealColumn get coordLat => real()();
 
-  IntColumn get weatherInfoId => integer().nullable()();
+  IntColumn get weatherInfoId => integer()();
 
-  TextColumn get weatherInfoMain => text().nullable()();
+  TextColumn get weatherInfoMain => text()();
 
-  TextColumn get weatherInfoDescription => text().nullable()();
+  TextColumn get weatherInfoDescription => text()();
 
-  TextColumn get weatherInfoIcon => text().nullable()();
+  TextColumn get weatherInfoIcon => text()();
 
-  RealColumn get mainInfoTemp => real().nullable()();
+  RealColumn get mainInfoTemp => real()();
 
-  RealColumn get mainInfoFeelsLike => real().nullable()();
+  RealColumn get mainInfoFeelsLike => real()();
 
-  RealColumn get mainInfoTempMin => real().nullable()();
+  RealColumn get mainInfoTempMin => real()();
 
-  RealColumn get mainInfoTempMax => real().nullable()();
+  RealColumn get mainInfoTempMax => real()();
 
-  IntColumn get mainInfoPressure => integer().nullable()();
+  IntColumn get mainInfoPressure => integer()();
 
-  IntColumn get mainInfoHumidity => integer().nullable()();
+  IntColumn get mainInfoHumidity => integer()();
 
-  IntColumn get visibility => integer().nullable()();
+  IntColumn get visibility => integer()();
 
-  RealColumn get windSpeed => real().nullable()();
+  RealColumn get windSpeed => real()();
 
-  IntColumn get windDeg => integer().nullable()();
+  IntColumn get windDeg => integer()();
 
-  IntColumn get cloudsAll => integer().nullable()();
+  IntColumn get cloudsAll => integer()();
 
-  IntColumn get dt => integer().nullable()();
-
-  IntColumn get sysType => integer().nullable()();
-
-  IntColumn get sysId => integer().nullable()();
-
-  TextColumn get sysCountry => text().nullable()();
-
-  IntColumn get sysSunrise => integer().nullable()();
-
-  IntColumn get sysSunset => integer().nullable()();
-
-  IntColumn get timezone => integer().nullable()();
+  IntColumn get dt => integer()();
 
   IntColumn get id => integer()();
 
-  TextColumn get name => text().nullable()();
-
-  IntColumn get cod => integer().nullable()();
+  TextColumn get name => text()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -69,37 +55,37 @@ class WeatherTable extends Table {
 class ForecastTable extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get cityId => integer().nullable()();
+  IntColumn get cityId => integer()();
 
-  RealColumn get mainInfoTemp => real().nullable()();
+  RealColumn get mainInfoTemp => real()();
 
-  RealColumn get mainInfoFeelsLike => real().nullable()();
+  RealColumn get mainInfoFeelsLike => real()();
 
-  RealColumn get mainInfoTempMin => real().nullable()();
+  RealColumn get mainInfoTempMin => real()();
 
-  RealColumn get mainInfoTempMax => real().nullable()();
+  RealColumn get mainInfoTempMax => real()();
 
-  IntColumn get mainInfoPressure => integer().nullable()();
+  IntColumn get mainInfoPressure => integer()();
 
-  IntColumn get mainInfoHumidity => integer().nullable()();
+  IntColumn get mainInfoHumidity => integer()();
 
-  IntColumn get weatherInfoId => integer().nullable()();
+  IntColumn get weatherInfoId => integer()();
 
-  TextColumn get weatherInfoMain => text().nullable()();
+  TextColumn get weatherInfoMain => text()();
 
-  TextColumn get weatherInfoDescription => text().nullable()();
+  TextColumn get weatherInfoDescription => text()();
 
-  TextColumn get weatherInfoIcon => text().nullable()();
+  TextColumn get weatherInfoIcon => text()();
 
-  IntColumn get cloudsAll => integer().nullable()();
+  IntColumn get cloudsAll => integer()();
 
-  RealColumn get windSpeed => real().nullable()();
+  RealColumn get windSpeed => real()();
 
-  IntColumn get windDeg => integer().nullable()();
+  IntColumn get windDeg => integer()();
 
-  IntColumn get visibility => integer().nullable()();
+  IntColumn get visibility => integer()();
 
-  IntColumn get dt => integer().nullable()();
+  IntColumn get dt => integer()();
 }
 
 //todo currently not using table
@@ -107,7 +93,7 @@ class ForecastTable extends Table {
 class CityTable extends Table {
   IntColumn get id => integer()();
 
-  TextColumn get name => text().nullable()();
+  TextColumn get name => text()();
 
   @override
   Set<Column> get primaryKey => {id};

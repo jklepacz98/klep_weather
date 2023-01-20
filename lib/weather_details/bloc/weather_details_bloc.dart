@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_event.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
@@ -9,30 +10,57 @@ import '../../database/database.dart';
 
 class WeatherDetailsBloc
     extends Bloc<WeatherDetailsEvent, WeatherDetailsState> {
-  WeatherDetailsBloc(
-      {required WeatherRepository weatherRepository, required int weatherId})
-      : _weatherRepository = weatherRepository,
-        _weatherId = weatherId,
-        //todo contst
+  WeatherDetailsBloc({
+    required WeatherRepository weatherRepository,
+    required ForecastRepository forecastRepository,
+    required int cityId,
+  })  : _weatherRepository = weatherRepository,
+        _forecastRepository = forecastRepository,
+        _cityId = cityId,
         super(const WeatherDetailsState(status: WeatherStatus.initial)) {
+    _registerEventHandlers();
+    _init();
+  }
+
+  //todo change name
+  void _init() {
+    add(WeatherSubscribeEvent());
+    add(WeatherLoadEvent(cityId: _cityId));
+    add(ForecastSubscribeEvent());
+    add(ForecastLoadEvent(cityId: _cityId));
+  }
+
+  void _registerEventHandlers() {
+    on<WeatherChangedEvent>(_handleWeatherChangedEvent);
     on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
-    add(WeatherSubscribeEvent());
+    on<ForecastChangedEvent>(_handleForecastChangedEvent);
+    on<ForecastSubscribeEvent>(_handleForecastSubscribeEvent);
+    on<ForecastLoadEvent>(_handleForecastLoadEvent);
   }
 
   final WeatherRepository _weatherRepository;
   StreamSubscription<Weather>? _weatherSubscription;
+  final ForecastRepository _forecastRepository;
+  StreamSubscription<List<Forecast>>? _forecastListSubscription;
 
   //todo should this variable be here
-  final int _weatherId;
+  final int _cityId;
 
-  Future<void> _handleWeatherSubscribeEvent(
+  _handleWeatherChangedEvent(
+    WeatherChangedEvent event,
+    Emitter emit,
+  ) async {
+    emit(state.copyWith(weather: event.weather));
+  }
+
+  _handleWeatherSubscribeEvent(
     WeatherSubscribeEvent event,
     Emitter emit,
   ) async {
-    _weatherSubscription = _weatherRepository.observeWeather(_weatherId).listen(
+    _weatherSubscription = _weatherRepository.observeWeather(_cityId).listen(
       (weather) {
-        emit(state.copyWith(weather: weather));
+        add(WeatherChangedEvent(weather: weather));
       },
     );
   }
@@ -40,5 +68,51 @@ class WeatherDetailsBloc
   Future<void> _handleWeatherLoadEvent(
     WeatherLoadEvent event,
     Emitter emit,
-  ) async {}
+  ) async {
+    final result = await _weatherRepository.loadWeatherById(event.cityId);
+    if (result.isSuccess) {
+      emit(state.copyWith(status: WeatherStatus.success));
+    } else {
+      emit(state.copyWith(status: WeatherStatus.failure));
+    }
+  }
+
+  Future<void> _handleForecastChangedEvent(
+    ForecastChangedEvent event,
+    Emitter emit,
+  ) async {
+    emit(state.copyWith(forecastList: event.forecastList));
+  }
+
+  Future<void> _handleForecastSubscribeEvent(
+    ForecastSubscribeEvent event,
+    Emitter emit,
+  ) async {
+    _forecastListSubscription = _forecastRepository.observeForecasts().listen(
+      (forecasts) {
+        //todo  get rid of !
+        forecasts.sort((a, b) => a.dt!.compareTo(b.dt!));
+        add(ForecastChangedEvent(forecastList: forecasts));
+      },
+    );
+  }
+
+  Future<void> _handleForecastLoadEvent(
+    ForecastLoadEvent event,
+    Emitter emit,
+  ) async {
+    final result = await _forecastRepository.loadForecastById(event.cityId);
+    if (result.isSuccess) {
+      emit(state.copyWith(status: WeatherStatus.success));
+    } else {
+      emit(state.copyWith(status: WeatherStatus.failure));
+    }
+  }
+
+  @override
+  Future<void> close() async {
+    _forecastListSubscription?.cancel();
+    _weatherSubscription?.cancel();
+    return super.close();
+  }
 }
