@@ -64,6 +64,6 @@ class StartBloc extends Bloc<StartEvent, StartState> {
   ) async {
     final weathersFromLocal = await _weatherRepository.getWeathers();
     final cityIds = weathersFromLocal.map((weather) => weather.id).toList();
-    final result = await _weatherRepository.loadWeathersByIds(cityIds);
+    await _weatherRepository.loadWeathersByIds(cityIds);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_local.dart';
 import 'package:klep_weather/forecast/repository/forecast_remote.dart';
 
@@ -14,7 +15,15 @@ class ForecastRepository {
   Future<void> loadForecastById(int id) async {
     final result = await _forecastRemote.loadForecastById(id);
     if (result.isSuccess) {
-      final forecast = result.value!;
+      final forecastList = result.value!;
+      _forecastLocal.removeForecastsByCityId(forecastList.city.id);
+      final forecastTableCompanionList =
+          forecastList.toForecastTableCompanions();
+      _forecastLocal.saveForecast(forecastTableCompanionList);
     }
+  }
+
+  Stream<List<Forecast>> observeForecasts() async* {
+    yield* _forecastLocal.observerForecasts();
   }
 }
