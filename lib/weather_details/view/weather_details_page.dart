@@ -21,23 +21,13 @@ class WeatherDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: Text(_cityName.toString()),
+        backgroundColor: Colors.blueGrey[800],
       ),
+      backgroundColor: Colors.blueGrey[900],
       extendBodyBehindAppBar: true,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Colors.blue[600]!,
-              Colors.blue[400]!,
-              Colors.indigo[200]!,
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(),
         child: Column(
           children: [
             SafeArea(
@@ -79,20 +69,50 @@ class WeatherDetailsPage extends StatelessWidget {
                         //todo
                         final forecast = state.forecastList?[index];
                         return Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Align(
                             alignment: Alignment.center,
                             child: SizedBox(
-                              width: 80,
-                              height: 50,
+                              width: 120,
+                              height: 160,
                               child: Container(
-                                decoration: const BoxDecoration(
-                                    color: Colors.redAccent,
-                                    shape: BoxShape.rectangle),
-                                child: Text(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                          forecast!.dt * 1000)
-                                      .toString(),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Colors.blue[500]!,
+                                    Colors.deepPurple,
+                                  ]),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '${DateTime.fromMillisecondsSinceEpoch(
+                                            //todo remove !
+                                            forecast!.dt * 1000).hour.toString()}:00',
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 80,
+                                      height: 80,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            //todo
+                                            forecast!.weatherInfoIcon
+                                                    .toIconUrl() ??
+                                                "",
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        //todo remove !
+                                        '${toCelsius(forecast!.mainInfoTemp)?.toStringAsFixed(0)}\u2103',
+                                        style: const TextStyle(fontSize: 30),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
