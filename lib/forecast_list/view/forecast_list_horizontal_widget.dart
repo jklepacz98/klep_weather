@@ -21,7 +21,6 @@ class ForecastListHorizontalWidget extends StatelessWidget {
             itemCount: state.forecastList?.length ?? 0,
             itemBuilder: (context, index) {
               //todo get rid of !
-              print('cos1 ${state.forecastList?.length.toString()}');
               final forecast = state.forecastList![index];
               return ForecastItemWidget(forecast: forecast);
             },

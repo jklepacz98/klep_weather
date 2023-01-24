@@ -18,12 +18,18 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
         _cityId = cityId,
         super(const ForecastListState()) {
     _registerEventHandlers();
+    _init();
   }
 
   void _registerEventHandlers() {
     on<ForecastListChangedEvent>(_handleForecastChangedEvent);
     on<ForecastListSubscribeEvent>(_handleForecastSubscribeEvent);
     on<ForecastListLoadEvent>(_handleForecastLoadEvent);
+  }
+
+  void _init() {
+    add(ForecastListSubscribeEvent());
+    add(ForecastListLoadEvent(cityId: _cityId));
   }
 
   final ForecastRepository _forecastRepository;

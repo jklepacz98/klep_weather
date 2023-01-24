@@ -69,8 +69,8 @@ class WeatherDetailsPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: 100,
-                          height: 100,
+                          width: double.infinity,
+                          height: 400,
                           child: ForecastListHorizontalWidget(cityId: _cityId),
                         ),
                       ],
