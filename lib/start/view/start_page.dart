@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:klep_weather/start/view/start_snackbar.dart';
-import 'package:klep_weather/start/view/weather_list.dart';
-import 'package:klep_weather/start/view/weather_search_field.dart';
+import 'package:klep_weather/start/view/start_snackbar_widget.dart';
+import 'package:klep_weather/weather_list/view/weather_list_widget.dart';
+import 'package:klep_weather/weather_search/view/weather_search_widget.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -23,8 +23,8 @@ class StartPage extends StatelessWidget {
         child: Column(
           children: const [
             WeatherSearchField(),
-            StartSnackBar(),
-            WeatherList(),
+            StartSnackbarWidget(),
+            WeatherListWidget(),
           ],
         ),
       ),

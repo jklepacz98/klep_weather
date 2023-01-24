@@ -4,8 +4,8 @@ import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 import 'package:klep_weather/weather_details/view/weather_details_page.dart';
 
-class WeatherItem extends StatelessWidget {
-  const WeatherItem({super.key, required this.weather});
+class WeatherItemWidget extends StatelessWidget {
+  const WeatherItemWidget({super.key, required this.weather});
 
   final Weather weather;
 

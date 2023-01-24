@@ -1,23 +1,25 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:klep_weather/start/bloc/start_event.dart';
-import 'package:klep_weather/start/bloc/start_state.dart';
+import 'package:equatable/equatable.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
+import 'package:meta/meta.dart';
 
 import '../../database/database.dart';
 
-class StartBloc extends Bloc<StartEvent, StartState> {
-  StartBloc({required WeatherRepository weatherRepository})
+part 'weather_list_event.dart';
+part 'weather_list_state.dart';
+
+class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
+  WeatherListBloc({required WeatherRepository weatherRepository})
       : _weatherRepository = weatherRepository,
         //todo const?
-        super(const StartState()) {
-    on<WeatherLoadEvent>(_handleWeatherLoadEvent);
-    on<WeatherSubscribeEvent>(_handleWeatherSubscribeEvent);
+        super(const WeatherListState()) {
+    on<WeatherListSubscribeEvent>(_handleWeatherListSubscribeEvent);
     on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
     on<WeatherListLoadEvent>(_handleWeatherListLoadEvent);
     //todo should init be here?
-    add(WeatherSubscribeEvent());
+    add(WeatherListSubscribeEvent());
     add(WeatherListLoadEvent());
   }
 
@@ -31,27 +33,13 @@ class StartBloc extends Bloc<StartEvent, StartState> {
     emit(state.copyWith(weathers: event.weatherList));
   }
 
-  Future<void> _handleWeatherLoadEvent(
-    WeatherLoadEvent event,
-    Emitter emit,
-  ) async {
-    emit(state.copyWith(status: WeatherStatus.loading));
-    final result = await _weatherRepository.loadWeatherByCity(event.city);
-    if (result.isSuccess) {
-      emit(state.copyWith(status: WeatherStatus.success));
-    } else {
-      emit(state.copyWith(status: WeatherStatus.failure));
-    }
-  }
-
-  Future<void> _handleWeatherSubscribeEvent(
-    WeatherSubscribeEvent event,
+  Future<void> _handleWeatherListSubscribeEvent(
+    WeatherListSubscribeEvent event,
     Emitter emit,
   ) async {
     _weathersSubscription = _weatherRepository.observeWeathers().listen(
       (weathers) {
-        //todo  get rid of !
-        weathers.sort((a, b) => a.name!.compareTo(b.name!));
+        weathers.sort((a, b) => a.name.compareTo(b.name));
         add(WeatherListChangedEvent(weatherList: weathers));
       },
     );
@@ -63,12 +51,11 @@ class StartBloc extends Bloc<StartEvent, StartState> {
   ) async {
     final weathersFromLocal = await _weatherRepository.getWeathers();
     final cityIds = weathersFromLocal.map((weather) => weather.id).toList();
-    //todo
     final result = await _weatherRepository.loadWeathersByIds(cityIds);
     if (result.isSuccess) {
-      emit(state.copyWith(status: WeatherStatus.success));
+      emit(state.copyWith(status: WeatherListStatus.success));
     } else {
-      emit(state.copyWith(status: WeatherStatus.failure));
+      emit(state.copyWith(status: WeatherListStatus.failure));
     }
   }
 
