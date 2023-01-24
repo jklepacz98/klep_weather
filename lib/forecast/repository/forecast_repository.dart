@@ -18,7 +18,6 @@ class ForecastRepository {
   Future<Result<ForecastListModel>> loadForecastById(int id) async {
     final result = await _forecastRemote.loadForecastById(id);
     if (result.isSuccess) {
-      print("cos7 ${result.value?.forecastList.length.toString()}");
       final forecastList = result.value!;
       await _forecastLocal.removeForecastsByCityId(forecastList.city.id);
       final forecastTableCompanionList =

@@ -28,27 +28,3 @@ class WeatherSubscribeEvent extends WeatherDetailsEvent {
   @override
   List<Object> get props => [];
 }
-
-//todo change to ForecastListChangedEvent ?
-class ForecastChangedEvent extends WeatherDetailsEvent {
-  final List<Forecast> forecastList;
-
-  ForecastChangedEvent({required this.forecastList});
-
-  @override
-  List<Object> get props => [forecastList];
-}
-
-class ForecastLoadEvent extends WeatherDetailsEvent {
-  final int cityId;
-
-  ForecastLoadEvent({required this.cityId});
-
-  @override
-  List<Object> get props => [cityId];
-}
-
-class ForecastSubscribeEvent extends WeatherDetailsEvent {
-  @override
-  List<Object> get props => [];
-}

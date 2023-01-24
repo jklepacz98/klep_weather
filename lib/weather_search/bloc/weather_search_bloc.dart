@@ -12,6 +12,10 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
   WeatherSearchBloc({required WeatherRepository weatherRepository})
       : _weatherRepository = weatherRepository,
         super(const WeatherSearchState()) {
+    _registerEventHandlers();
+  }
+
+  void _registerEventHandlers() {
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
   }
 

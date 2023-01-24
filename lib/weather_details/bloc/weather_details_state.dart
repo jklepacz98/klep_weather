@@ -9,23 +9,20 @@ enum WeatherStatus { initial, loading, success, failure }
 
 class WeatherDetailsState extends Equatable {
   const WeatherDetailsState(
-      {this.status = WeatherStatus.initial, this.weather, this.forecastList});
+      {this.status = WeatherStatus.initial, this.weather});
 
   final WeatherStatus status;
   final Weather? weather;
-  final List<Forecast>? forecastList;
 
   WeatherDetailsState copyWith({
     WeatherStatus? status,
     Weather? weather,
     List<Forecast>? forecastList,
-  }) {
-    return WeatherDetailsState(
-      status: status ?? this.status,
-      weather: weather ?? this.weather,
-      forecastList: forecastList ?? this.forecastList,
-    );
-  }
+  }) =>
+      WeatherDetailsState(
+        status: status ?? this.status,
+        weather: weather ?? this.weather,
+      );
 
 //todo where should this method be
   static double? toCelsius(double? kelwinTemperature) {
@@ -36,8 +33,9 @@ class WeatherDetailsState extends Equatable {
     }
   }
 
+  //todo also move this with method
   static double absoluteZero = 273.15;
 
   @override
-  List<Object?> get props => [status, weather, forecastList];
+  List<Object?> get props => [status, weather];
 }

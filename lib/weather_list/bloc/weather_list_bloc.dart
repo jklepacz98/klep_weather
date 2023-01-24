@@ -13,12 +13,18 @@ part 'weather_list_state.dart';
 class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
   WeatherListBloc({required WeatherRepository weatherRepository})
       : _weatherRepository = weatherRepository,
-        //todo const?
         super(const WeatherListState()) {
+    _registerEventHandlers();
+    _init();
+  }
+
+  void _registerEventHandlers() {
     on<WeatherListSubscribeEvent>(_handleWeatherListSubscribeEvent);
     on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
     on<WeatherListLoadEvent>(_handleWeatherListLoadEvent);
-    //todo should init be here?
+  }
+
+  void _init() {
     add(WeatherListSubscribeEvent());
     add(WeatherListLoadEvent());
   }

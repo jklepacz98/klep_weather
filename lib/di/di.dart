@@ -4,6 +4,7 @@ import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_local.dart';
 import 'package:klep_weather/forecast/repository/forecast_remote.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
+import 'package:klep_weather/forecast_list/bloc/forecast_list_bloc.dart';
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
@@ -38,6 +39,11 @@ Future<void> init() async {
   getIt.registerFactoryParam<WeatherDetailsBloc, int, void>(
     (cityId, _) => WeatherDetailsBloc(
       weatherRepository: getIt(),
+      cityId: cityId,
+    ),
+  );
+  getIt.registerFactoryParam<ForecastListBloc, int, void>(
+    (cityId, _) => ForecastListBloc(
       forecastRepository: getIt(),
       cityId: cityId,
     ),
