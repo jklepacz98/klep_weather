@@ -36,7 +36,6 @@ class WeatherDetailsState extends Equatable {
     }
   }
 
-//todo
   static double absoluteZero = 273.15;
 
   @override

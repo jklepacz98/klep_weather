@@ -37,10 +37,29 @@ class WeatherDetailsPage extends StatelessWidget {
                   builder: (context, state) {
                     return Column(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl:
-                              //todo
-                              state.weather?.weatherInfoIcon.toIconUrl() ?? "",
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: SizedBox.square(
+                            dimension: 100,
+                            child: Card(
+                              shape: const CircleBorder(),
+                              clipBehavior: Clip.antiAlias,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(colors: [
+                                      Colors.blue[500]!,
+                                      Colors.deepPurple,
+                                    ]),
+                                  ),
+                                  child:
+                                      (state.weather?.weatherInfoIcon != null)
+                                          ? CachedNetworkImage(
+                                              imageUrl: state
+                                                  .weather?.weatherInfoIcon
+                                                  .toIconUrl())
+                                          : Container()),
+                            ),
+                          ),
                         ),
                         Center(
                           child: Text(
@@ -77,39 +96,46 @@ class WeatherDetailsPage extends StatelessWidget {
                               height: 160,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Colors.blue[500]!,
-                                    Colors.deepPurple,
-                                  ]),
+                                  color: Colors.blueGrey[800],
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Text(
                                         '${DateTime.fromMillisecondsSinceEpoch(
                                             //todo remove !
                                             forecast!.dt * 1000).hour.toString()}:00',
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 80,
-                                      height: 80,
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            //todo
-                                            forecast!.weatherInfoIcon
-                                                    .toIconUrl() ??
-                                                "",
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox.square(
+                                        dimension: 60,
+                                        child: Card(
+                                          shape: const CircleBorder(),
+                                          clipBehavior: Clip.antiAlias,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(colors: [
+                                                Colors.blue[500]!,
+                                                Colors.deepPurple,
+                                              ]),
+                                            ),
+                                            child: CachedNetworkImage(
+                                              imageUrl: forecast.weatherInfoIcon
+                                                  ?.toIconUrl(),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Center(
                                       child: Text(
-                                        //todo remove !
-                                        '${toCelsius(forecast!.mainInfoTemp)?.toStringAsFixed(0)}\u2103',
-                                        style: const TextStyle(fontSize: 30),
+                                        '${toCelsius(forecast.mainInfoTemp)?.toStringAsFixed(0)}\u2103',
+                                        style: const TextStyle(fontSize: 24),
                                       ),
                                     ),
                                   ],

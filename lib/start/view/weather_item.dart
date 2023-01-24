@@ -38,16 +38,16 @@ class WeatherItem extends StatelessWidget {
               shape: const CircleBorder(),
               clipBehavior: Clip.antiAlias,
               child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Colors.blue[500]!,
-                    Colors.deepPurple,
-                  ]),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: weather.weatherInfoIcon?.toIconUrl(),
-                ),
-              ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      Colors.blue[500]!,
+                      Colors.deepPurple,
+                    ]),
+                  ),
+                  child: (weather.weatherInfoIcon != null)
+                      ? CachedNetworkImage(
+                          imageUrl: weather.weatherInfoIcon.toIconUrl())
+                      : Container()),
             ),
           ),
         ),

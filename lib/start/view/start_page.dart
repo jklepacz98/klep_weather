@@ -14,6 +14,9 @@ class StartPage extends StatelessWidget {
         title: const Text('KlepWeather'),
         backgroundColor: Colors.blueGrey[800],
       ),
+      drawer: Drawer(
+        backgroundColor: Colors.blueGrey[800],
+      ),
       backgroundColor: Colors.blueGrey[900],
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
