@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'main_info.g.dart';
+part 'main_info_remote_model.g.dart';
 
 @JsonSerializable()
-class MainInfo {
-  MainInfo({
+class MainInfoRemoteModel {
+  MainInfoRemoteModel({
     required this.temp,
     required this.feelsLike,
     required this.tempMin,
@@ -23,8 +23,8 @@ class MainInfo {
   int pressure;
   int humidity;
 
-  factory MainInfo.fromJson(Map<String, dynamic> json) =>
-      _$MainInfoFromJson(json);
+  factory MainInfoRemoteModel.fromJson(Map<String, dynamic> json) =>
+      _$MainInfoRemoteModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MainInfoToJson(this);
+  Map<String, dynamic> toJson() => _$MainInfoRemoteModelToJson(this);
 }

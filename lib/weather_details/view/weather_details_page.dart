@@ -11,7 +11,7 @@ import '../../database/database.dart';
 import '../../di/di.dart';
 
 class WeatherDetailsPage extends StatelessWidget {
-  WeatherDetailsPage({super.key, required Weather weather})
+  WeatherDetailsPage({super.key, required WeatherEntity weather})
       : _cityName = weather.name,
         _cityId = weather.id;
 
@@ -52,10 +52,11 @@ class WeatherDetailsPage extends StatelessWidget {
                                     ]),
                                   ),
                                   child:
-                                      (state.weather?.weatherInfoIcon != null)
+                                      (state.weatherEntity?.weatherInfoIcon !=
+                                              null)
                                           ? CachedNetworkImage(
-                                              imageUrl: state
-                                                  .weather?.weatherInfoIcon
+                                              imageUrl: state.weatherEntity
+                                                  ?.weatherInfoIcon
                                                   .toIconUrl())
                                           : Container()),
                             ),
@@ -64,7 +65,7 @@ class WeatherDetailsPage extends StatelessWidget {
                         Center(
                           child: Text(
                             //todo remove !
-                            '${toCelsius(state.weather?.mainInfoTemp)?.toStringAsFixed(0)}\u2103',
+                            '${toCelsius(state.weatherEntity?.mainInfoTemp)?.toStringAsFixed(0)}\u2103',
                             style: const TextStyle(fontSize: 64),
                           ),
                         ),

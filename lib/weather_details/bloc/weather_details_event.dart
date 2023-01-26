@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../database/database.dart';
+import '../../weather/entity/weather_entity.dart';
 
 @immutable
 abstract class WeatherDetailsEvent extends Equatable {}
 
 class WeatherChangedEvent extends WeatherDetailsEvent {
-  final Weather weather;
+  final WeatherEntity weatherEntity;
 
-  WeatherChangedEvent({required this.weather});
+  WeatherChangedEvent({required this.weatherEntity});
 
   @override
-  List<Object> get props => [weather];
+  List<Object> get props => [weatherEntity];
 }
 
 class WeatherLoadEvent extends WeatherDetailsEvent {

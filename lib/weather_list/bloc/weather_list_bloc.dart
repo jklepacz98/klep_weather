@@ -30,7 +30,7 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
   }
 
   final WeatherRepository _weatherRepository;
-  StreamSubscription<List<Weather>>? _weathersSubscription;
+  StreamSubscription<List<WeatherEntity>>? _weathersSubscription;
 
   Future<void> _handleWeatherListChangedEvent(
     WeatherListChangedEvent event,
@@ -43,7 +43,7 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
     WeatherListSubscribeEvent event,
     Emitter emit,
   ) async {
-    _weathersSubscription = _weatherRepository.observeWeathers().listen(
+    _weathersSubscription = _weatherRepository.observeWeatherList().listen(
       (weathers) {
         weathers.sort((a, b) => a.name.compareTo(b.name));
         add(WeatherListChangedEvent(weatherList: weathers));
@@ -55,9 +55,9 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
     WeatherListLoadEvent event,
     Emitter emit,
   ) async {
-    final weathersFromLocal = await _weatherRepository.getWeathers();
+    final weathersFromLocal = await _weatherRepository.getWeatherList();
     final cityIds = weathersFromLocal.map((weather) => weather.id).toList();
-    final result = await _weatherRepository.loadWeathersByIds(cityIds);
+    final result = await _weatherRepository.loadWeatherListByIds(cityIds);
     if (result.isSuccess) {
       emit(state.copyWith(status: WeatherListStatus.success));
     } else {

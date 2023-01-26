@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 import 'package:klep_weather/weather_details/view/weather_details_page.dart';
 
-class WeatherItemWidget extends StatelessWidget {
-  const WeatherItemWidget({super.key, required this.weather});
+import '../../weather/entity/weather_entity.dart';
 
-  final Weather weather;
+class WeatherItemWidget extends StatelessWidget {
+  const WeatherItemWidget({super.key, required this.weatherEntity});
+
+  final WeatherEntity weatherEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +24,16 @@ class WeatherItemWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
-          title: Text(weather.name.toString()),
+          title: Text(weatherEntity.name.toString()),
           onTap: () {
             final route = MaterialPageRoute(
-                builder: (context) => WeatherDetailsPage(weather: weather));
+                builder: (context) =>
+                    WeatherDetailsPage(weather: weatherEntity));
             Navigator.push(context, route);
           },
           //todo to Celsius
           subtitle: Text(
-              "${toCelsius(weather.mainInfoTemp!).toStringAsFixed(0)}\u2103"),
+              "${toCelsius(weatherEntity.mainInfoTemp.kelvin).toStringAsFixed(0)}\u2103"),
           trailing: SizedBox.square(
             dimension: 50,
             child: Card(
@@ -44,9 +46,10 @@ class WeatherItemWidget extends StatelessWidget {
                       Colors.deepPurple,
                     ]),
                   ),
-                  child: (weather.weatherInfoIcon != null)
+                  //todo
+                  child: (weatherEntity.weatherInfoIcon != null)
                       ? CachedNetworkImage(
-                          imageUrl: weather.weatherInfoIcon.toIconUrl())
+                          imageUrl: weatherEntity.weatherInfoIcon.toIconUrl())
                       : Container()),
             ),
           ),

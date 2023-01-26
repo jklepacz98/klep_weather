@@ -8,12 +8,13 @@ class ForecastLocal {
   final AppDatabase _database;
 
   Future<void> saveForecast(
-          List<ForecastTableCompanion> forecastTableCompanionList) =>
-      _database.addForecasts(forecastTableCompanionList);
+          List<ForecastLocalModelsCompanion>
+              forecastLocalModelsCompanionList) =>
+      _database.addForecasts(forecastLocalModelsCompanionList);
 
   Future<void> removeForecastsByCityId(int cityId) =>
       _database.removeForecastsByCityId(cityId);
 
-  Stream<List<Forecast>> observerForecastsByCityId(int cityId) =>
+  Stream<List<ForecastLocalModel>> observerForecastsByCityId(int cityId) =>
       _database.observeForecastsByCityId(cityId);
 }

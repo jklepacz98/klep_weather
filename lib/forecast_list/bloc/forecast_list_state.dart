@@ -10,11 +10,11 @@ class ForecastListState extends Equatable {
   });
 
   final ForecastListStatus status;
-  final List<Forecast>? forecastList;
+  final List<ForecastEntity>? forecastList;
 
   ForecastListState copyWith({
     ForecastListStatus? status,
-    List<Forecast>? forecastList,
+    List<ForecastEntity>? forecastList,
   }) =>
       ForecastListState(
         status: status ?? this.status,

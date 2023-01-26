@@ -3,25 +3,26 @@ import 'dart:core';
 import 'package:equatable/equatable.dart';
 
 import '../../database/database.dart';
+import '../../weather/entity/weather_entity.dart';
 
 //todo remove duplication
 enum WeatherStatus { initial, loading, success, failure }
 
 class WeatherDetailsState extends Equatable {
   const WeatherDetailsState(
-      {this.status = WeatherStatus.initial, this.weather});
+      {this.status = WeatherStatus.initial, this.weatherEntity});
 
   final WeatherStatus status;
-  final Weather? weather;
+  final WeatherEntity? weatherEntity;
 
   WeatherDetailsState copyWith({
     WeatherStatus? status,
-    Weather? weather,
-    List<Forecast>? forecastList,
+    WeatherEntity? weather,
+    List<ForecastEntity>? forecastList,
   }) =>
       WeatherDetailsState(
         status: status ?? this.status,
-        weather: weather ?? this.weather,
+        weatherEntity: weather ?? this.weatherEntity,
       );
 
 //todo where should this method be
@@ -37,5 +38,5 @@ class WeatherDetailsState extends Equatable {
   static double absoluteZero = 273.15;
 
   @override
-  List<Object?> get props => [status, weather];
+  List<Object?> get props => [status, weatherEntity];
 }

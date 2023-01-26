@@ -6,9 +6,10 @@ import 'package:klep_weather/utils/weather_icon_utils.dart';
 import '../../database/database.dart';
 
 class ForecastItemWidget extends StatelessWidget {
-  const ForecastItemWidget({required Forecast forecast}) : _forecast = forecast;
+  const ForecastItemWidget({required ForecastEntity forecastEntity})
+      : _forecastEntity = forecastEntity;
 
-  final Forecast _forecast;
+  final ForecastEntity _forecastEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class ForecastItemWidget extends StatelessWidget {
                   child: Text(
                     '${DateTime.fromMillisecondsSinceEpoch(
                         //todo remove !
-                        _forecast!.dt * 1000).hour.toString()}:00',
+                        _forecastEntity!.dt * 1000).hour.toString()}:00',
                   ),
                 ),
                 Padding(
@@ -50,7 +51,7 @@ class ForecastItemWidget extends StatelessWidget {
                           ]),
                         ),
                         child: CachedNetworkImage(
-                          imageUrl: _forecast.weatherInfoIcon.toIconUrl(),
+                          imageUrl: _forecastEntity.weatherInfoIcon.toIconUrl(),
                         ),
                       ),
                     ),
@@ -58,7 +59,7 @@ class ForecastItemWidget extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    '${_forecast.mainInfoTemp.toStringAsFixed(0)}\u2103',
+                    '${_forecastEntity.mainInfoTemp.toStringAsFixed(0)}\u2103',
                     style: const TextStyle(fontSize: 24),
                   ),
                 ),

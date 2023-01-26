@@ -1,63 +1,86 @@
 import 'dart:async';
 
 import 'package:klep_weather/network/result.dart';
+import 'package:klep_weather/weather/entity/weather_entity.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
-
-import '../../database/database.dart';
-import '../model/weather_model.dart';
-import '../model/weather_models.dart';
 
 class WeatherRepository {
   WeatherRepository({
     required WeatherRemote weatherRemote,
     required WeatherLocal weatherLocal,
-  })
-      : _weatherRemote = weatherRemote,
+  })  : _weatherRemote = weatherRemote,
         _weatherLocal = weatherLocal;
 
   final WeatherRemote _weatherRemote;
   final WeatherLocal _weatherLocal;
 
-  Future<Result<WeatherModel>> loadWeatherByCity(String city) async {
-    final result = await _weatherRemote.loadWeatherByCity(city);
-    if (result.isSuccess) {
-      final weatherModel = result.value!;
-      _weatherLocal.saveWeather(weatherModel.toWeather());
+  Future<Result<WeatherEntity>> loadWeatherByCity(String city) async {
+    final remoteResult = await _weatherRemote.loadWeatherByCity(city);
+    if (remoteResult.isSuccess) {
+      final remoteModel = remoteResult.value!;
+      final entity = WeatherEntity.fromWeatherRemoteModel(remoteModel);
+      final localModel = entity.toWeatherLocalModel();
+      _weatherLocal.saveWeather(localModel);
+      return Result.success(entity);
+    } else {
+      return Result.failure(remoteResult.failure!.reason);
     }
-    return result;
   }
 
-  Future<Result<WeatherModel>> loadWeatherById(int id) async {
-    final result = await _weatherRemote.loadWeatherById(id);
-    if (result.isSuccess) {
-      final weatherModel = result.value!;
-      _weatherLocal.saveWeather(weatherModel.toWeather());
+  Future<Result<WeatherEntity>> loadWeatherById(int id) async {
+    final remoteResult = await _weatherRemote.loadWeatherById(id);
+    if (remoteResult.isSuccess) {
+      final remoteModel = remoteResult.value!;
+      final entity = WeatherEntity.fromWeatherRemoteModel(remoteModel);
+      final localModel = entity.toWeatherLocalModel();
+      _weatherLocal.saveWeather(localModel);
+      return Result.success(entity);
+    } else {
+      return Result.failure(remoteResult.failure!.reason);
     }
-    return result;
   }
 
-  Future<Result<WeatherModels>> loadWeathersByIds(List<int> ids) async {
-    final result = await _weatherRemote.loadWeathersByIds(ids);
-    if (result.isSuccess) {
-      final weatherModels = result.value!;
-      final weathers = weatherModels.weatherList
-          .map((weatherModel) => weatherModel.toWeather())
+  Future<Result<List<WeatherEntity>>> loadWeatherListByIds(
+      List<int> ids) async {
+    final remoteResult = await _weatherRemote.loadWeathersByIds(ids);
+    if (remoteResult.isSuccess) {
+      final remoteModelList = remoteResult.value!.weatherList;
+      final entityList = remoteModelList
+          .map((remoteModel) =>
+              WeatherEntity.fromWeatherRemoteModel(remoteModel))
           .toList();
-      _weatherLocal.saveWeathers(weathers);
+      final localModelList =
+          entityList.map((entity) => entity.toWeatherLocalModel()).toList();
+      _weatherLocal.saveWeatherList(localModelList);
+      return Result.success(entityList);
+    } else {
+      return Result.failure(remoteResult.failure!.reason);
     }
-    return result;
   }
 
-  Stream<Weather> observeWeather(int id) async* {
-    yield* _weatherLocal.observeWeather(id);
+  Stream<WeatherEntity> observeWeather(int id) => _weatherLocal
+      .observeWeather(id)
+      .map((localModel) => WeatherEntity.fromWeatherLocalModel(localModel));
+
+  Stream<List<WeatherEntity>> observeWeatherList() =>
+      //todo maybe move to function
+      _weatherLocal.observeWeatherList().map(
+            (localModelList) => localModelList
+                .map((localModel) =>
+                    WeatherEntity.fromWeatherLocalModel(localModel))
+                .toList(),
+          );
+
+  Future<WeatherEntity> getWeather(int id) async {
+    final localModel = await _weatherLocal.getWeather(id);
+    return WeatherEntity.fromWeatherLocalModel(localModel);
   }
 
-  Stream<List<Weather>> observeWeathers() async* {
-    yield* _weatherLocal.observeWeathers();
+  Future<List<WeatherEntity>> getWeatherList() async {
+    final localModelList = await _weatherLocal.getWeatherList();
+    return localModelList
+        .map((localModel) => WeatherEntity.fromWeatherLocalModel(localModel))
+        .toList();
   }
-
-  Future<Weather> getWeather(int id) => _weatherLocal.getWeather(id);
-
-  Future<List<Weather>> getWeathers() => _weatherLocal.getWeathers();
 }

@@ -1,9 +1,10 @@
 import 'package:klep_weather/database/database.dart';
+import 'package:klep_weather/forecast/entity/forecast_entity.dart';
 import 'package:klep_weather/forecast/repository/forecast_local.dart';
 import 'package:klep_weather/forecast/repository/forecast_remote.dart';
 import 'package:klep_weather/network/result.dart';
 
-import '../model/forecast_list_model.dart';
+import '../model/forecast_list_remote_model.dart';
 
 class ForecastRepository {
   ForecastRepository({
@@ -15,19 +16,19 @@ class ForecastRepository {
   final ForecastRemote _forecastRemote;
   final ForecastLocal _forecastLocal;
 
-  Future<Result<ForecastListModel>> loadForecastById(int id) async {
-    final result = await _forecastRemote.loadForecastById(id);
-    if (result.isSuccess) {
-      final forecastList = result.value!;
-      await _forecastLocal.removeForecastsByCityId(forecastList.city.id);
+  Future<Result<List<ForecastEntity>>> loadForecastById(int id) async {
+    final remoteResult = await _forecastRemote.loadForecastById(id);
+    if (remoteResult.isSuccess) {
+      final remoteModelList = remoteResult.value!;
+      await _forecastLocal.removeForecastsByCityId(remoteModel.city.id);
       final forecastTableCompanionList =
-          forecastList.toForecastTableCompanions();
+          remoteModelList.toForecastTableCompanions();
       await _forecastLocal.saveForecast(forecastTableCompanionList);
     }
-    return result;
+    return remoteResult;
   }
 
-  Stream<List<Forecast>> observeForecastsByCityId(int cityId) async* {
+  Stream<List<ForecastEntity>> observeForecastsByCityId(int cityId) async* {
     yield* _forecastLocal.observerForecastsByCityId(cityId);
   }
 }

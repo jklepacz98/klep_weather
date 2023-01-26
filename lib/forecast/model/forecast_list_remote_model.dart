@@ -1,32 +1,33 @@
 import 'package:drift/drift.dart';
 import 'package:json_annotation/json_annotation.dart' as JsonAnnotation;
-import 'package:klep_weather/forecast/model/city_model.dart';
-import 'package:klep_weather/forecast/model/forecast_model.dart';
+import 'package:klep_weather/forecast/model/city_remote_model.dart';
+import 'package:klep_weather/forecast/model/forecast_remote_model.dart';
 
 import '../../database/database.dart';
 
-part 'forecast_list_model.g.dart';
+part 'forecast_list_remote_model.g.dart';
 
 @JsonAnnotation.JsonSerializable()
-class ForecastListModel {
-  ForecastListModel({
+class ForecastListRemoteModel {
+  ForecastListRemoteModel({
     required this.forecastList,
     required this.city,
   });
 
   @JsonAnnotation.JsonKey(name: 'list')
-  final List<ForecastModel> forecastList;
+  final List<ForecastRemoteModel> forecastList;
   @JsonAnnotation.JsonKey(name: 'city')
-  final CityModel city;
+  final CityRemoteModel city;
 
-  factory ForecastListModel.fromJson(Map<String, dynamic> json) =>
-      _$ForecastListModelFromJson(json);
+  factory ForecastListRemoteModel.fromJson(Map<String, dynamic> json) =>
+      _$ForecastListRemoteModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ForecastListModelToJson(this);
+  Map<String, dynamic> toJson() => _$ForecastListRemoteModelToJson(this);
 
-  List<ForecastTableCompanion> toForecastTableCompanions() => forecastList
+  //todo remove
+  List<ForecastLocalModelsCompanion> toForecastTableCompanions() => forecastList
       .map(
-        (forecast) => ForecastTableCompanion(
+        (forecast) => ForecastLocalModelsCompanion(
           cityId: Value(city.id),
           mainInfoTemp: Value(forecast.mainInfo.temp),
           mainInfoFeelsLike: Value(forecast.mainInfo.feelsLike),

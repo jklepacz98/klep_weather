@@ -26,7 +26,7 @@ class WeatherListWidget extends StatelessWidget {
                   itemCount: state.weathers.length,
                   itemBuilder: (context, index) {
                     final weather = state.weathers[index];
-                    return WeatherItemWidget(weather: weather);
+                    return WeatherItemWidget(weatherEntity: weather);
                   },
                 ),
               ),

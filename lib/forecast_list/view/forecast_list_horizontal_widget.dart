@@ -22,7 +22,7 @@ class ForecastListHorizontalWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               //todo get rid of !
               final forecast = state.forecastList![index];
-              return ForecastItemWidget(forecast: forecast);
+              return ForecastItemWidget(forecastEntity: forecast);
             },
           );
         },

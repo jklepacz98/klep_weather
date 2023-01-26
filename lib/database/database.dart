@@ -7,8 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
-@DataClassName('Weather')
-class WeatherTable extends Table {
+class WeatherLocalModels extends Table {
   RealColumn get coordLon => real()();
 
   RealColumn get coordLat => real()();
@@ -51,8 +50,7 @@ class WeatherTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DataClassName('Forecast')
-class ForecastTable extends Table {
+class ForecastLocalModels extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   IntColumn get cityId => integer()();
@@ -88,9 +86,8 @@ class ForecastTable extends Table {
   IntColumn get dt => integer()();
 }
 
-//todo currently not using table
 @DataClassName('City')
-class CityTable extends Table {
+class CityLocalModels extends Table {
   IntColumn get id => integer()();
 
   TextColumn get name => text()();
@@ -107,51 +104,57 @@ LazyDatabase _openConnection() {
   });
 }
 
-@DriftDatabase(tables: [WeatherTable, ForecastTable, CityTable])
+@DriftDatabase(
+    tables: [WeatherLocalModels, ForecastLocalModels, CityLocalModels])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
 
-  Future<int> addWeather(Weather weather) =>
-      into(weatherTable).insertOnConflictUpdate(weather);
+  Future<int> addWeather(WeatherLocalModel weather) =>
+      into(weatherLocalModels).insertOnConflictUpdate(weather);
 
-  Future<void> addWeathers(List<Weather> weatherList) async {
+  Future<void> addWeathers(List<WeatherLocalModel> weatherList) async {
     await batch(
       (batch) {
-        batch.insertAllOnConflictUpdate(weatherTable, weatherList);
+        batch.insertAllOnConflictUpdate(weatherLocalModels, weatherList);
       },
     );
   }
 
-  Stream<Weather> observeWeather(int id) =>
-      (select(weatherTable)..where((tbl) => tbl.id.equals(id))).watchSingle();
+  Stream<WeatherLocalModel> observeWeather(int id) =>
+      (select(weatherLocalModels)..where((tbl) => tbl.id.equals(id)))
+          .watchSingle();
 
-  Stream<List<Weather>> observeWeathers() => select(weatherTable).watch();
-
-  //todo not used
-  Future<Weather> getWeather(int id) =>
-      (select(weatherTable)..where((tbl) => tbl.id.equals(id))).getSingle();
+  Stream<List<WeatherLocalModel>> observeWeathers() =>
+      select(weatherLocalModels).watch();
 
   //todo not used
-  Future<List<Weather>> getWeathers() => select(weatherTable).get();
+  Future<WeatherLocalModel> getWeather(int id) =>
+      (select(weatherLocalModels)..where((tbl) => tbl.id.equals(id)))
+          .getSingle();
+
+  //todo not used
+  Future<List<WeatherLocalModel>> getWeathers() =>
+      select(weatherLocalModels).get();
 
   Future<void> addForecasts(
-      List<ForecastTableCompanion> forecastTableCompanionList) async {
+      List<ForecastLocalModelsCompanion> forecastTableCompanionList) async {
     await batch(
       (batch) {
         batch.insertAllOnConflictUpdate(
-            forecastTable, forecastTableCompanionList);
+            forecastLocalModels, forecastTableCompanionList);
       },
     );
   }
 
   //todo by cityId???
-  Stream<List<Forecast>> observeForecastsByCityId(int cityId) =>
-      (select(forecastTable)..where((tbl) => tbl.cityId.equals(cityId)))
+  Stream<List<ForecastLocalModel>> observeForecastsByCityId(int cityId) =>
+      (select(forecastLocalModels)..where((tbl) => tbl.cityId.equals(cityId)))
           .watch();
 
   Future<void> removeForecastsByCityId(int cityId) =>
-      (delete(forecastTable)..where((tbl) => tbl.cityId.equals(cityId))).go();
+      (delete(forecastLocalModels)..where((tbl) => tbl.cityId.equals(cityId)))
+          .go();
 }

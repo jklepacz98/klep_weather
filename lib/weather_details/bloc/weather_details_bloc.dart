@@ -5,7 +5,7 @@ import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_event.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
 
-import '../../database/database.dart';
+import '../../weather/entity/weather_entity.dart';
 
 class WeatherDetailsBloc
     extends Bloc<WeatherDetailsEvent, WeatherDetailsState> {
@@ -32,7 +32,7 @@ class WeatherDetailsBloc
   }
 
   final WeatherRepository _weatherRepository;
-  StreamSubscription<Weather>? _weatherSubscription;
+  StreamSubscription<WeatherEntity>? _weatherSubscription;
 
   //todo should this variable be here
   final int _cityId;
@@ -41,7 +41,7 @@ class WeatherDetailsBloc
     WeatherChangedEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(weather: event.weather));
+    emit(state.copyWith(weather: event.weatherEntity));
   }
 
   _handleWeatherSubscribeEvent(
@@ -50,7 +50,7 @@ class WeatherDetailsBloc
   ) async {
     _weatherSubscription = _weatherRepository.observeWeather(_cityId).listen(
       (weather) {
-        add(WeatherChangedEvent(weather: weather));
+        add(WeatherChangedEvent(weatherEntity: weather));
       },
     );
   }

@@ -33,7 +33,7 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
   }
 
   final ForecastRepository _forecastRepository;
-  StreamSubscription<List<Forecast>>? _forecastListSubscription;
+  StreamSubscription<List<ForecastEntity>>? _forecastListSubscription;
 
   //todo should this variable be here
   final int _cityId;

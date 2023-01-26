@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'sys.g.dart';
+part 'sys_remote_model.g.dart';
 
 @JsonSerializable()
-class Sys {
-  Sys({
+class SysRemoteModel {
+  SysRemoteModel({
     required this.type,
     required this.id,
     required this.country,
@@ -18,7 +18,8 @@ class Sys {
   int sunrise;
   int sunset;
 
-  factory Sys.fromJson(Map<String, dynamic> json) => _$SysFromJson(json);
+  factory SysRemoteModel.fromJson(Map<String, dynamic> json) =>
+      _$SysRemoteModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SysToJson(this);
+  Map<String, dynamic> toJson() => _$SysRemoteModelToJson(this);
 }

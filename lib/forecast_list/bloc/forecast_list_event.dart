@@ -4,7 +4,7 @@ part of '../../forecast_list/bloc/forecast_list_bloc.dart';
 abstract class ForecastListEvent {}
 
 class ForecastListChangedEvent extends ForecastListEvent {
-  final List<Forecast> forecastList;
+  final List<ForecastEntity> forecastList;
 
   ForecastListChangedEvent({required this.forecastList});
 

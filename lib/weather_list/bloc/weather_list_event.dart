@@ -9,7 +9,7 @@ class WeatherListSubscribeEvent extends WeatherListEvent {
 }
 
 class WeatherListChangedEvent extends WeatherListEvent {
-  final List<Weather> weatherList;
+  final List<WeatherEntity> weatherList;
 
   WeatherListChangedEvent({required this.weatherList});
 

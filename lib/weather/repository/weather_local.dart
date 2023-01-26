@@ -7,20 +7,23 @@ class WeatherLocal {
 
   final AppDatabase _database;
 
-  Future<int> saveWeather(Weather weather) => _database.addWeather(weather);
+  Future<int> saveWeather(WeatherLocalModel weather) =>
+      _database.addWeather(weather);
 
-  Future<void> saveWeathers(List<Weather> weatherList) =>
+  Future<void> saveWeatherList(List<WeatherLocalModel> weatherList) =>
       _database.addWeathers(weatherList);
 
-  Stream<Weather> observeWeather(int id) async* {
+  Stream<WeatherLocalModel> observeWeather(int id) async* {
     yield* _database.observeWeather(id);
   }
 
-  Stream<List<Weather>> observeWeathers() async* {
+  Stream<List<WeatherLocalModel>> observeWeatherList() async* {
     yield* _database.observeWeathers();
   }
 
-  Future<Weather> getWeather(int id) async => _database.getWeather(id);
+  Future<WeatherLocalModel> getWeather(int id) async =>
+      _database.getWeather(id);
 
-  Future<List<Weather>> getWeathers() async => _database.getWeathers();
+  Future<List<WeatherLocalModel>> getWeatherList() async =>
+      _database.getWeathers();
 }
