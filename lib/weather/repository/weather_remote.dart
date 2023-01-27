@@ -1,6 +1,6 @@
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/network/result.dart';
-import 'package:klep_weather/weather/model/weather_list_remote_model.dart';
+import 'package:klep_weather/weather/model/weather_group_remote_model.dart';
 
 import '../model/weather_remote_model.dart';
 
@@ -29,7 +29,7 @@ class WeatherRemote {
     }
   }
 
-  Future<Result<WeatherListRemoteModel>> loadWeathersByIds(
+  Future<Result<WeatherGroupRemoteModel>> loadWeathersByIds(
       List<int> ids) async {
     try {
       final response = await _restClient.getWeathersByIds(ids: ids);

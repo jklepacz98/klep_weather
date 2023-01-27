@@ -21,7 +21,7 @@ class WeatherRepository {
       final remoteModel = remoteResult.value!;
       final entity = WeatherEntity.fromWeatherRemoteModel(remoteModel);
       final localModel = entity.toWeatherLocalModel();
-      _weatherLocal.saveWeather(localModel);
+      await _weatherLocal.saveWeather(localModel);
       return Result.success(entity);
     } else {
       return Result.failure(remoteResult.failure!.reason);
@@ -34,7 +34,7 @@ class WeatherRepository {
       final remoteModel = remoteResult.value!;
       final entity = WeatherEntity.fromWeatherRemoteModel(remoteModel);
       final localModel = entity.toWeatherLocalModel();
-      _weatherLocal.saveWeather(localModel);
+      await _weatherLocal.saveWeather(localModel);
       return Result.success(entity);
     } else {
       return Result.failure(remoteResult.failure!.reason);
@@ -52,7 +52,7 @@ class WeatherRepository {
           .toList();
       final localModelList =
           entityList.map((entity) => entity.toWeatherLocalModel()).toList();
-      _weatherLocal.saveWeatherList(localModelList);
+      await _weatherLocal.saveWeatherList(localModelList);
       return Result.success(entityList);
     } else {
       return Result.failure(remoteResult.failure!.reason);
@@ -64,11 +64,13 @@ class WeatherRepository {
       .map((localModel) => WeatherEntity.fromWeatherLocalModel(localModel));
 
   Stream<List<WeatherEntity>> observeWeatherList() =>
-      //todo maybe move to function
+      //todo maybe extract to another function
       _weatherLocal.observeWeatherList().map(
             (localModelList) => localModelList
-                .map((localModel) =>
-                    WeatherEntity.fromWeatherLocalModel(localModel))
+                .map(
+                  (localModel) =>
+                      WeatherEntity.fromWeatherLocalModel(localModel),
+                )
                 .toList(),
           );
 

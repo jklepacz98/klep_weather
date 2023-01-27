@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klep_weather/weather/entity/weather_entity.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_event.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
-
-import '../../weather/entity/weather_entity.dart';
 
 class WeatherDetailsBloc
     extends Bloc<WeatherDetailsEvent, WeatherDetailsState> {
@@ -14,7 +13,7 @@ class WeatherDetailsBloc
     required int cityId,
   })  : _weatherRepository = weatherRepository,
         _cityId = cityId,
-        super(const WeatherDetailsState(status: WeatherStatus.initial)) {
+        super(const WeatherDetailsState()) {
     _registerEventHandlers();
     _init();
   }
@@ -33,18 +32,16 @@ class WeatherDetailsBloc
 
   final WeatherRepository _weatherRepository;
   StreamSubscription<WeatherEntity>? _weatherSubscription;
-
-  //todo should this variable be here
   final int _cityId;
 
-  _handleWeatherChangedEvent(
+  Future<void> _handleWeatherChangedEvent(
     WeatherChangedEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(weather: event.weatherEntity));
+    emit(state.copyWith(weatherEntity: event.weatherEntity));
   }
 
-  _handleWeatherSubscribeEvent(
+  Future<void> _handleWeatherSubscribeEvent(
     WeatherSubscribeEvent event,
     Emitter emit,
   ) async {
@@ -69,7 +66,7 @@ class WeatherDetailsBloc
 
   @override
   Future<void> close() async {
-    _weatherSubscription?.cancel();
+    await _weatherSubscription?.cancel();
     return super.close();
   }
 }

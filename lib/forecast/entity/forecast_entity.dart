@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
+import 'package:klep_weather/city_forecast/repository/forecast_remote_model.dart';
 import 'package:klep_weather/database/database.dart';
-import 'package:klep_weather/utils/Temperature.dart';
+import 'package:klep_weather/utils/temperature.dart';
 
 class ForecastEntity {
   const ForecastEntity(
@@ -56,5 +57,56 @@ class ForecastEntity {
         windDeg: Value(windDeg),
         visibility: Value(visibility),
         dt: Value(dt),
+      );
+
+  factory ForecastEntity.fromForecastLocalModel(
+          ForecastLocalModel forecastLocalModel) =>
+      ForecastEntity(
+        cityId: forecastLocalModel.cityId,
+        mainInfoTemp: Temperature(kelvin: forecastLocalModel.mainInfoTemp),
+        mainInfoFeelsLike:
+            Temperature(kelvin: forecastLocalModel.mainInfoFeelsLike),
+        mainInfoTempMin:
+            Temperature(kelvin: forecastLocalModel.mainInfoTempMin),
+        mainInfoTempMax:
+            Temperature(kelvin: forecastLocalModel.mainInfoTempMax),
+        mainInfoPressure: forecastLocalModel.mainInfoPressure,
+        mainInfoHumidity: forecastLocalModel.mainInfoHumidity,
+        weatherInfoId: forecastLocalModel.weatherInfoId,
+        weatherInfoMain: forecastLocalModel.weatherInfoMain,
+        weatherInfoDescription: forecastLocalModel.weatherInfoDescription,
+        weatherInfoIcon: forecastLocalModel.weatherInfoIcon,
+        cloudsAll: forecastLocalModel.cloudsAll,
+        windSpeed: forecastLocalModel.windSpeed,
+        windDeg: forecastLocalModel.windDeg,
+        visibility: forecastLocalModel.visibility,
+        dt: forecastLocalModel.dt,
+      );
+
+  factory ForecastEntity.fromForecastRemoteModel(
+    int cityId,
+    ForecastRemoteModel forecastRemoteModel,
+  ) =>
+      ForecastEntity(
+        cityId: cityId,
+        mainInfoTemp: Temperature(kelvin: forecastRemoteModel.mainInfo.temp),
+        mainInfoFeelsLike:
+            Temperature(kelvin: forecastRemoteModel.mainInfo.feelsLike),
+        mainInfoTempMin:
+            Temperature(kelvin: forecastRemoteModel.mainInfo.tempMin),
+        mainInfoTempMax:
+            Temperature(kelvin: forecastRemoteModel.mainInfo.tempMax),
+        mainInfoPressure: forecastRemoteModel.mainInfo.pressure,
+        mainInfoHumidity: forecastRemoteModel.mainInfo.humidity,
+        weatherInfoId: forecastRemoteModel.weatherInfo.first.id,
+        weatherInfoMain: forecastRemoteModel.weatherInfo.first.main,
+        weatherInfoDescription:
+            forecastRemoteModel.weatherInfo.first.description,
+        weatherInfoIcon: forecastRemoteModel.weatherInfo.first.icon,
+        cloudsAll: forecastRemoteModel.clouds.all,
+        windSpeed: forecastRemoteModel.wind.speed,
+        windDeg: forecastRemoteModel.wind.deg,
+        visibility: forecastRemoteModel.visibility,
+        dt: forecastRemoteModel.dt,
       );
 }

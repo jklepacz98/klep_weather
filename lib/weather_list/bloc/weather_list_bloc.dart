@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:klep_weather/weather/entity/weather_entity.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:meta/meta.dart';
-
-import '../../database/database.dart';
 
 part 'weather_list_event.dart';
 part 'weather_list_state.dart';
@@ -67,7 +66,7 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
 
   @override
   Future<void> close() async {
-    _weathersSubscription?.cancel();
+    await _weathersSubscription?.cancel();
     return super.close();
   }
 }

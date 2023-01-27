@@ -28,7 +28,7 @@ class WeatherItemWidget extends StatelessWidget {
           onTap: () {
             final route = MaterialPageRoute(
                 builder: (context) =>
-                    WeatherDetailsPage(weather: weatherEntity));
+                    WeatherDetailsPage(weatherEntity: weatherEntity));
             Navigator.push(context, route);
           },
           //todo to Celsius

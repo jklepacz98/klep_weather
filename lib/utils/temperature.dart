@@ -1,5 +1,5 @@
 class Temperature {
-  Temperature({required kelvin}) : _kelvin = kelvin;
+  Temperature({required double kelvin}) : _kelvin = kelvin;
   final double _kelvin;
 
   double get kelvin => _kelvin;

@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:klep_weather/forecast/entity/forecast_entity.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 
-import '../../database/database.dart';
-
 class ForecastItemWidget extends StatelessWidget {
-  const ForecastItemWidget({required ForecastEntity forecastEntity})
-      : _forecastEntity = forecastEntity;
+  const ForecastItemWidget({
+    required ForecastEntity forecastEntity,
+    super.key,
+  }) : _forecastEntity = forecastEntity;
 
   final ForecastEntity _forecastEntity;
 
@@ -20,7 +20,7 @@ class ForecastItemWidget extends StatelessWidget {
         child: SizedBox(
           width: 120,
           height: 160,
-          child: Container(
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: Colors.blueGrey[800],
               shape: BoxShape.rectangle,
@@ -59,7 +59,7 @@ class ForecastItemWidget extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    '${_forecastEntity.mainInfoTemp.toStringAsFixed(0)}\u2103',
+                    '${_forecastEntity.mainInfoTemp.kelvin.toStringAsFixed(0)}\u2103',
                     style: const TextStyle(fontSize: 24),
                   ),
                 ),

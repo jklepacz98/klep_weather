@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_local.dart';
-import 'package:klep_weather/forecast/repository/forecast_remote.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/forecast_list/bloc/forecast_list_bloc.dart';
 import 'package:klep_weather/network/rest_client.dart';
@@ -26,7 +25,6 @@ Future<void> init() async {
   );
   getIt.registerLazySingleton(
     () => ForecastRepository(
-      forecastRemote: ForecastRemote(restClient: getIt()),
       forecastLocal: ForecastLocal(database: getIt()),
     ),
   );
@@ -49,8 +47,8 @@ Future<void> init() async {
     ),
   );
   getIt.registerLazySingleton(() => RestClient(getIt()));
-  //todo Do I need to set headers in baseOptions for Dio?
   getIt.registerLazySingleton(() => Dio());
+  //todo
   // getIt.registerLazySingleton(() => Dio()..interceptors.add(PrettyDioLogger()));
   getIt.registerLazySingleton(() => AppDatabase());
 }

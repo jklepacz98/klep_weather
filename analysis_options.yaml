@@ -85,8 +85,7 @@ linter:
     avoid_positional_boolean_parameters: true
     # todo
     avoid_private_typedef_functions: true
-    # todo not sure if it is needed
-    avoid_redundant_argument_values: true
+    avoid_redundant_argument_values: false
     avoid_renaming_method_parameters: true
     # todo
     avoid_return_types_on_setters: true
@@ -202,7 +201,7 @@ linter:
     sized_box_shrink_expand: true
     slash_for_doc_comments: true
     sort_child_properties_last: true
-    sort_constructors_first: true
+    sort_constructors_first: false
     sort_unnamed_constructors_first: true
     tighten_type_of_initializing_formals: true
     type_annotate_public_apis: true

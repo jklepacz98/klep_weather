@@ -1,15 +1,15 @@
 import 'package:drift/drift.dart';
 import 'package:json_annotation/json_annotation.dart' as JsonAnnotation;
-import 'package:klep_weather/forecast/model/city_remote_model.dart';
-import 'package:klep_weather/forecast/model/forecast_remote_model.dart';
+import 'package:klep_weather/city_forecast/repository/city_remote_model.dart';
+import 'package:klep_weather/city_forecast/repository/forecast_remote_model.dart';
 
 import '../../database/database.dart';
 
-part 'forecast_list_remote_model.g.dart';
+part 'city_forecast_remote_model.g.dart';
 
 @JsonAnnotation.JsonSerializable()
-class ForecastListRemoteModel {
-  ForecastListRemoteModel({
+class CityForecastRemoteModel {
+  CityForecastRemoteModel({
     required this.forecastList,
     required this.city,
   });
@@ -19,7 +19,7 @@ class ForecastListRemoteModel {
   @JsonAnnotation.JsonKey(name: 'city')
   final CityRemoteModel city;
 
-  factory ForecastListRemoteModel.fromJson(Map<String, dynamic> json) =>
+  factory CityForecastRemoteModel.fromJson(Map<String, dynamic> json) =>
       _$ForecastListRemoteModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ForecastListRemoteModelToJson(this);

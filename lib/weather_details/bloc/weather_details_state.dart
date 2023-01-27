@@ -2,7 +2,7 @@ import 'dart:core';
 
 import 'package:equatable/equatable.dart';
 
-import '../../database/database.dart';
+import '../../forecast/entity/forecast_entity.dart';
 import '../../weather/entity/weather_entity.dart';
 
 //todo remove duplication
@@ -17,12 +17,12 @@ class WeatherDetailsState extends Equatable {
 
   WeatherDetailsState copyWith({
     WeatherStatus? status,
-    WeatherEntity? weather,
+    WeatherEntity? weatherEntity,
     List<ForecastEntity>? forecastList,
   }) =>
       WeatherDetailsState(
         status: status ?? this.status,
-        weatherEntity: weather ?? this.weatherEntity,
+        weatherEntity: weatherEntity ?? this.weatherEntity,
       );
 
 //todo where should this method be

@@ -19,9 +19,9 @@ class ForecastRemoteModel {
   });
 
   int dt;
-  @JsonKey(name: "main")
+  @JsonKey(name: 'main')
   MainInfoRemoteModel mainInfo;
-  @JsonKey(name: "weather")
+  @JsonKey(name: 'weather')
   List<WeatherInfoRemoteModel> weatherInfo;
   CloudsRemoteModel clouds;
   WindRemoteModel wind;

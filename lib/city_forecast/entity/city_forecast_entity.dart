@@ -1,28 +1,27 @@
-import 'package:klep_weather/forecast/model/forecast_list_remote_model.dart';
+import 'package:klep_weather/city/entity/city_entity.dart';
+import 'package:klep_weather/city_forecast/model/city_forecast_list_remote_model.dart';
+import 'package:klep_weather/forecast/entity/forecast_entity.dart';
 
-import '../../utils/Temperature.dart';
-import 'city_entity.dart';
-import 'forecast_entity.dart';
+import '../../utils/temperature.dart';
 
-class ForecastListEntity {
-  const ForecastListEntity({
-    required this.forecastListEntity,
+class CityForecastEntity {
+  const CityForecastEntity({
+    required this.forecastEntityList,
     required this.cityEntity,
   });
 
-  final List<ForecastEntity> forecastListEntity;
+  final List<ForecastEntity> forecastEntityList;
   final CityEntity cityEntity;
 
-  factory ForecastListEntity.fromForecastListRemoteModel(
-      ForecastListRemoteModel forecastListRemoteModel) {
+  factory CityForecastEntity.fromCityForecastRemoteModel(
+      CityForecastRemoteModel forecastListRemoteModel) {
     final cityRemoteModel = forecastListRemoteModel.city;
-    return ForecastListEntity(
-      //todo
+    return CityForecastEntity(
       cityEntity: CityEntity(
         id: cityRemoteModel.id,
         name: cityRemoteModel.name,
       ),
-      forecastListEntity: forecastListRemoteModel.forecastList
+      forecastEntityList: forecastListRemoteModel.forecastList
           .map(
             (remoteModel) => ForecastEntity(
               cityId: forecastListRemoteModel.city.id,

@@ -1,5 +1,5 @@
 import 'package:klep_weather/database/database.dart';
-import 'package:klep_weather/utils/Temperature.dart';
+import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/model/weather_remote_model.dart';
 
 class WeatherEntity {

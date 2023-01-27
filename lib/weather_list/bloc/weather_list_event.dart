@@ -9,9 +9,9 @@ class WeatherListSubscribeEvent extends WeatherListEvent {
 }
 
 class WeatherListChangedEvent extends WeatherListEvent {
-  final List<WeatherEntity> weatherList;
-
   WeatherListChangedEvent({required this.weatherList});
+
+  final List<WeatherEntity> weatherList;
 
   @override
   List<Object> get props => [weatherList];

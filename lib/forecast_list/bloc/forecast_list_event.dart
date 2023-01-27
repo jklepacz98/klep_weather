@@ -4,18 +4,18 @@ part of '../../forecast_list/bloc/forecast_list_bloc.dart';
 abstract class ForecastListEvent {}
 
 class ForecastListChangedEvent extends ForecastListEvent {
-  final List<ForecastEntity> forecastList;
-
   ForecastListChangedEvent({required this.forecastList});
+
+  final List<ForecastEntity> forecastList;
 
   @override
   List<Object> get props => [forecastList];
 }
 
 class ForecastListLoadEvent extends ForecastListEvent {
-  final int cityId;
-
   ForecastListLoadEvent({required this.cityId});
+
+  final int cityId;
 
   @override
   List<Object> get props => [cityId];

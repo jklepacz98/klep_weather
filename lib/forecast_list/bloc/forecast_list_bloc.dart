@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../database/database.dart';
+import '../../forecast/entity/forecast_entity.dart';
 import '../../forecast/repository/forecast_repository.dart';
 
 part 'forecast_list_event.dart';
@@ -62,17 +62,18 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
     ForecastListLoadEvent event,
     Emitter emit,
   ) async {
-    final result = await _forecastRepository.loadForecastById(event.cityId);
-    if (result.isSuccess) {
-      emit(state.copyWith(status: ForecastListStatus.success));
-    } else {
-      emit(state.copyWith(status: ForecastListStatus.failure));
-    }
+    //todo
+    // final result = await _forecastRepository.loadCityForecastId(event.cityId);
+    // if (result.isSuccess) {
+    //   emit(state.copyWith(status: ForecastListStatus.success));
+    // } else {
+    //   emit(state.copyWith(status: ForecastListStatus.failure));
+    // }
   }
 
   @override
   Future<void> close() async {
-    _forecastListSubscription?.cancel();
+    await _forecastListSubscription?.cancel();
     return super.close();
   }
 }

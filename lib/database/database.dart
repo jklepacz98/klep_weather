@@ -86,7 +86,6 @@ class ForecastLocalModels extends Table {
   IntColumn get dt => integer()();
 }
 
-@DataClassName('City')
 class CityLocalModels extends Table {
   IntColumn get id => integer()();
 
@@ -157,4 +156,11 @@ class AppDatabase extends _$AppDatabase {
   Future<void> removeForecastsByCityId(int cityId) =>
       (delete(forecastLocalModels)..where((tbl) => tbl.cityId.equals(cityId)))
           .go();
+
+  Future<void> addCity(CityLocalModel cityLocalModel) =>
+      into(cityLocalModels).insertOnConflictUpdate(cityLocalModel);
+
+  Future<void> getCity(int cityId) =>
+      (select(cityLocalModels)..where((tbl) => tbl.id.equals(cityId)))
+          .getSingle();
 }

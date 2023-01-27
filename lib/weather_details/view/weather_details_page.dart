@@ -1,19 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klep_weather/di/di.dart';
 import 'package:klep_weather/forecast_list/view/forecast_list_horizontal_widget.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
+import 'package:klep_weather/weather/entity/weather_entity.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_bloc.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
 
-import '../../database/database.dart';
-import '../../di/di.dart';
-
 class WeatherDetailsPage extends StatelessWidget {
-  WeatherDetailsPage({super.key, required WeatherEntity weather})
-      : _cityName = weather.name,
-        _cityId = weather.id;
+  WeatherDetailsPage({required WeatherEntity weatherEntity, super.key})
+      : _cityName = weatherEntity.name,
+        _cityId = weatherEntity.id;
 
   final String _cityName;
   final int _cityId;
@@ -22,7 +20,7 @@ class WeatherDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_cityName.toString()),
+        title: Text(_cityName),
         backgroundColor: Colors.blueGrey[800],
       ),
       backgroundColor: Colors.blueGrey[900],
@@ -38,13 +36,13 @@ class WeatherDetailsPage extends StatelessWidget {
                     return Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16),
                           child: SizedBox.square(
                             dimension: 100,
                             child: Card(
                               shape: const CircleBorder(),
                               clipBehavior: Clip.antiAlias,
-                              child: Container(
+                              child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(colors: [
                                       Colors.blue[500]!,
@@ -57,7 +55,8 @@ class WeatherDetailsPage extends StatelessWidget {
                                           ? CachedNetworkImage(
                                               imageUrl: state.weatherEntity
                                                   ?.weatherInfoIcon
-                                                  .toIconUrl())
+                                                  .toIconUrl(),
+                                            )
                                           : Container()),
                             ),
                           ),
@@ -65,7 +64,7 @@ class WeatherDetailsPage extends StatelessWidget {
                         Center(
                           child: Text(
                             //todo remove !
-                            '${toCelsius(state.weatherEntity?.mainInfoTemp)?.toStringAsFixed(0)}\u2103',
+                            '${toCelsius(state.weatherEntity?.mainInfoTemp.celsius)?.toStringAsFixed(0)}\u2103',
                             style: const TextStyle(fontSize: 64),
                           ),
                         ),
