@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
+import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 import 'package:meta/meta.dart';
 
 import '../../database/database.dart';
@@ -36,7 +38,17 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
     WeatherListChangedEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(weathers: event.weatherList));
+    final weatherItemList = event.weatherList
+        .map(
+          (weather) => WeatherItem(
+            cityId: weather.id,
+            cityName: weather.name,
+            temperature: Temperature(kelvin: weather.mainInfoTemp),
+            icon: weather.weatherInfoIcon,
+          ),
+        )
+        .toList();
+    emit(state.copyWith(weathers: weatherItemList));
   }
 
   Future<void> _handleWeatherListSubscribeEvent(
@@ -67,7 +79,7 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
 
   @override
   Future<void> close() async {
-    _weathersSubscription?.cancel();
+    await _weathersSubscription?.cancel();
     return super.close();
   }
 }

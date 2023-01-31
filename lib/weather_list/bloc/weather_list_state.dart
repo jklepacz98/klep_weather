@@ -10,11 +10,11 @@ class WeatherListState extends Equatable {
   });
 
   final WeatherListStatus status;
-  final List<Weather> weathers;
+  final List<WeatherItem> weathers;
 
   WeatherListState copyWith({
     WeatherListStatus? status,
-    List<Weather>? weathers,
+    List<WeatherItem>? weathers,
   }) =>
       WeatherListState(
         status: status ?? this.status,

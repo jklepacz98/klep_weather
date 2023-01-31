@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:klep_weather/forecast_list/bloc/forecast_item.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 
-import '../../database/database.dart';
-
 class ForecastItemWidget extends StatelessWidget {
-  const ForecastItemWidget({required Forecast forecast}) : _forecast = forecast;
+  const ForecastItemWidget({
+    required ForecastItem forecastItem,
+    super.key,
+  }) : _forecastItem = forecastItem;
 
-  final Forecast _forecast;
+  final ForecastItem _forecastItem;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class ForecastItemWidget extends StatelessWidget {
                   child: Text(
                     '${DateTime.fromMillisecondsSinceEpoch(
                       //todo remove !
-                      _forecast!.dt * 1000,
+                      _forecastItem.dt * 1000,
                     ).hour.toString()}:00',
                   ),
                 ),
@@ -51,7 +52,9 @@ class ForecastItemWidget extends StatelessWidget {
                           ]),
                         ),
                         child: CachedNetworkImage(
-                          imageUrl: _forecast.weatherInfoIcon.toIconUrl(),
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          imageUrl: _forecastItem.icon.toIconUrl(),
                         ),
                       ),
                     ),
@@ -59,7 +62,7 @@ class ForecastItemWidget extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    '${_forecast.mainInfoTemp.toStringAsFixed(0)}\u2103',
+                    _forecastItem.temperature.toStringAsCelsius(),
                     style: const TextStyle(fontSize: 24),
                   ),
                 ),

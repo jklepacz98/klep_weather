@@ -25,8 +25,8 @@ class WeatherListWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   itemCount: state.weathers.length,
                   itemBuilder: (context, index) {
-                    final weather = state.weathers[index];
-                    return WeatherItemWidget(weather: weather);
+                    final weatherItem = state.weathers[index];
+                    return WeatherItemWidget(weatherItem: weatherItem);
                   },
                 ),
               ),

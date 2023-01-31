@@ -6,21 +6,21 @@ enum ForecastListStatus { initial, loading, success, failure }
 class ForecastListState extends Equatable {
   const ForecastListState({
     this.status = ForecastListStatus.initial,
-    this.forecastList,
+    this.forecastItemList,
   });
 
   final ForecastListStatus status;
-  final List<Forecast>? forecastList;
+  final List<ForecastItem>? forecastItemList;
 
   ForecastListState copyWith({
     ForecastListStatus? status,
-    List<Forecast>? forecastList,
+    List<ForecastItem>? forecastItemList,
   }) =>
       ForecastListState(
         status: status ?? this.status,
-        forecastList: forecastList ?? this.forecastList,
+        forecastItemList: forecastItemList ?? this.forecastItemList,
       );
 
   @override
-  List<Object?> get props => [status, forecastList];
+  List<Object?> get props => [status, forecastItemList];
 }

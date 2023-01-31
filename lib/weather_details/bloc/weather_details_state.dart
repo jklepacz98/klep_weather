@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:equatable/equatable.dart';
 import 'package:klep_weather/database/database.dart';
+import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 
 //todo remove duplication
 enum WeatherStatus { initial, loading, success, failure }
@@ -9,34 +10,22 @@ enum WeatherStatus { initial, loading, success, failure }
 class WeatherDetailsState extends Equatable {
   const WeatherDetailsState({
     this.status = WeatherStatus.initial,
-    this.weather,
+    this.weatherItem,
   });
 
   final WeatherStatus status;
-  final Weather? weather;
+  final WeatherItem? weatherItem;
 
   WeatherDetailsState copyWith({
     WeatherStatus? status,
-    Weather? weather,
+    WeatherItem? weatherItem,
     List<Forecast>? forecastList,
   }) =>
       WeatherDetailsState(
         status: status ?? this.status,
-        weather: weather ?? this.weather,
+        weatherItem: weatherItem ?? this.weatherItem,
       );
 
-//todo where should this method be
-  static double? toCelsius(double? kelwinTemperature) {
-    if (kelwinTemperature != null) {
-      return kelwinTemperature - absoluteZero;
-    } else {
-      return null;
-    }
-  }
-
-  //todo also move this with method
-  static double absoluteZero = 273.15;
-
   @override
-  List<Object?> get props => [status, weather];
+  List<Object?> get props => [status, weatherItem];
 }

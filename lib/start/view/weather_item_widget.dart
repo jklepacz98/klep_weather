@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 import 'package:klep_weather/weather_details/view/weather_details_page.dart';
+import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 
 class WeatherItemWidget extends StatelessWidget {
   const WeatherItemWidget({
-    required this.weather,
+    required this.weatherItem,
     super.key,
   });
 
-  final Weather weather;
+  final WeatherItem weatherItem;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +26,15 @@ class WeatherItemWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: Text(weather.name),
+          title: Text(weatherItem.cityName),
           onTap: () {
             final route = MaterialPageRoute(
-                builder: (context) => WeatherDetailsPage(weather: weather));
+              builder: (context) =>
+                  WeatherDetailsPage(weatherItem: weatherItem),
+            );
             Navigator.push(context, route);
           },
-          //todo to Celsius
-          subtitle: Text(
-              "${toCelsius(weather.mainInfoTemp).toStringAsFixed(0)}\u2103"),
+          subtitle: Text(weatherItem.temperature.toStringAsCelsius()),
           trailing: SizedBox.square(
             dimension: 50,
             child: Card(
@@ -50,7 +50,7 @@ class WeatherItemWidget extends StatelessWidget {
                   ),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: weather.weatherInfoIcon.toIconUrl(),
+                  imageUrl: weatherItem.icon.toIconUrl(),
                 ),
               ),
             ),
@@ -59,9 +59,4 @@ class WeatherItemWidget extends StatelessWidget {
       ),
     );
   }
-
-  //todo move to bloc?
-  static double toCelsius(double kelwinTemperature) =>
-      (kelwinTemperature - absoluteZero);
-  static double absoluteZero = 273.15;
 }

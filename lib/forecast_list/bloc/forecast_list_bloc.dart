@@ -4,7 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
+import 'package:klep_weather/utils/temperature.dart';
 import 'package:meta/meta.dart';
+
+import 'forecast_item.dart';
 
 part 'forecast_list_event.dart';
 part 'forecast_list_state.dart';
@@ -41,7 +44,16 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
     ForecastListChangedEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(forecastList: event.forecastList));
+    final forecastItemList = event.forecastList
+        .map(
+          (forecast) => ForecastItem(
+            dt: forecast.dt,
+            icon: forecast.weatherInfoIcon,
+            temperature: Temperature(kelvin: forecast.mainInfoTemp),
+          ),
+        )
+        .toList();
+    emit(state.copyWith(forecastItemList: forecastItemList));
   }
 
   Future<void> _handleForecastSubscribeEvent(
@@ -71,7 +83,7 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
 
   @override
   Future<void> close() async {
-    _forecastListSubscription?.cancel();
+    await _forecastListSubscription?.cancel();
     return super.close();
   }
 }

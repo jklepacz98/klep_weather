@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klep_weather/database/database.dart';
+import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_event.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
+import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 
 class WeatherDetailsBloc
     extends Bloc<WeatherDetailsEvent, WeatherDetailsState> {
@@ -40,7 +42,14 @@ class WeatherDetailsBloc
     WeatherChangedEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(weather: event.weather));
+    final weather = event.weather;
+    final weatherItem = WeatherItem(
+      cityId: weather.id,
+      cityName: weather.name,
+      temperature: Temperature(kelvin: weather.mainInfoTemp),
+      icon: weather.weatherInfoIcon,
+    );
+    emit(state.copyWith(weatherItem: weatherItem));
   }
 
   Future<void> _handleWeatherSubscribeEvent(

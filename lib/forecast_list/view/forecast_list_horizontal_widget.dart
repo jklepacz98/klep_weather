@@ -18,11 +18,11 @@ class ForecastListHorizontalWidget extends StatelessWidget {
         builder: (context, state) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: state.forecastList?.length ?? 0,
+            itemCount: state.forecastItemList?.length ?? 0,
             itemBuilder: (context, index) {
               //todo get rid of !
-              final forecast = state.forecastList![index];
-              return ForecastItemWidget(forecast: forecast);
+              final forecastItem = state.forecastItemList![index];
+              return ForecastItemWidget(forecastItem: forecastItem);
             },
           );
         },
