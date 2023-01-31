@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:klep_weather/database/database.dart';
+import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:meta/meta.dart';
-
-import '../../database/database.dart';
-import '../../forecast/repository/forecast_repository.dart';
 
 part 'forecast_list_event.dart';
 part 'forecast_list_state.dart';

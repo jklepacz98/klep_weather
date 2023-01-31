@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klep_weather/di/di.dart';
 import 'package:klep_weather/forecast_list/bloc/forecast_list_bloc.dart';
 import 'package:klep_weather/forecast_list/view/forecast_item_widget.dart';
 
-import '../../di/di.dart';
-
 class ForecastListHorizontalWidget extends StatelessWidget {
-  const ForecastListHorizontalWidget({required int cityId}) : _cityId = cityId;
+  const ForecastListHorizontalWidget({required int cityId, super.key})
+      : _cityId = cityId;
 
   final int _cityId;
 

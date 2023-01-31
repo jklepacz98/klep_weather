@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-
-import '../../database/database.dart';
+import 'package:klep_weather/database/database.dart';
 
 @immutable
 abstract class WeatherDetailsEvent extends Equatable {}

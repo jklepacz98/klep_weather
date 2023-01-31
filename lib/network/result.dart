@@ -40,7 +40,7 @@ class Result<T> {
     if (_isSuccess == true) {
       return Result<K>.success(mapper(_value));
     } else {
-      return Result<K>.failure(_failure?.reason ?? "");
+      return Result<K>.failure(_failure?.reason ?? '');
     }
   }
 }

@@ -22,7 +22,7 @@ class WeatherDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_cityName.toString()),
+        title: Text(_cityName),
         backgroundColor: Colors.blueGrey[800],
       ),
       backgroundColor: Colors.blueGrey[900],
@@ -38,26 +38,29 @@ class WeatherDetailsPage extends StatelessWidget {
                     return Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16),
                           child: SizedBox.square(
                             dimension: 100,
                             child: Card(
                               shape: const CircleBorder(),
                               clipBehavior: Clip.antiAlias,
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(colors: [
-                                      Colors.blue[500]!,
-                                      Colors.deepPurple,
-                                    ]),
-                                  ),
-                                  child:
-                                      (state.weather?.weatherInfoIcon != null)
-                                          ? CachedNetworkImage(
-                                              imageUrl: state
-                                                  .weather?.weatherInfoIcon
-                                                  .toIconUrl())
-                                          : Container()),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Colors.blue[500]!,
+                                    Colors.deepPurple,
+                                  ]),
+                                ),
+                                child: (state.weather?.weatherInfoIcon != null)
+                                    ? CachedNetworkImage(
+                                        placeholder: (context, url) =>
+                                            const CircularProgressIndicator(),
+                                        imageUrl: state.weather?.weatherInfoIcon
+                                                .toIconUrl() ??
+                                            '',
+                                      )
+                                    : Container(),
+                              ),
                             ),
                           ),
                         ),

@@ -1,7 +1,6 @@
 import 'package:klep_weather/forecast/model/forecast_list_model.dart';
 import 'package:klep_weather/network/rest_client.dart';
-
-import '../../network/result.dart';
+import 'package:klep_weather/network/result.dart';
 
 class ForecastRemote {
   ForecastRemote({
@@ -16,7 +15,7 @@ class ForecastRemote {
       final response = await _restClient.getForecastById(id: id);
       return Result.success(response);
     } on Exception catch (_) {
-      return Result.failure("GET forecast request failed");
+      return Result.failure('GET forecast request failed');
     }
   }
 }

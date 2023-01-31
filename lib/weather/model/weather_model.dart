@@ -24,12 +24,12 @@ class WeatherModel {
   });
 
   Coord coord;
-  @JsonKey(name: "weather")
+  @JsonKey(name: 'weather')
   List<WeatherInfo> weatherInfo;
 
   //todo
   // String base;
-  @JsonKey(name: "main")
+  @JsonKey(name: 'main')
   MainInfo mainInfo;
   int visibility;
   Wind wind;
@@ -46,7 +46,7 @@ class WeatherModel {
   Weather toWeather() => Weather(
         coordLon: coord.lon,
         coordLat: coord.lat,
-        //todo
+        //todo first
         weatherInfoId: weatherInfo.first.id,
         weatherInfoMain: weatherInfo.first.main,
         weatherInfoDescription: weatherInfo.first.description,

@@ -37,7 +37,7 @@ linter:
     cancel_subscriptions: true
     close_sinks: true
     control_flow_in_finally: true
-    diagnostic_describe_all_properties: true
+    diagnostic_describe_all_properties: false
     discarded_futures: true
     empty_statements: true
     hash_and_equals: true
@@ -232,7 +232,7 @@ linter:
     use_enums: true
     use_full_hex_values_for_flutter_colors: true
     use_function_type_syntax_for_parameters: true
-    use_if_null_to_convert_nulls_to_bools: true
+    use_if_null_to_convert_nulls_to_bools: false
     use_is_even_rather_than_modulo: true
     use_late_for_private_fields_and_variables: true
     use_named_constants: true
@@ -244,7 +244,7 @@ linter:
     use_to_and_as_if_applicable: true
     void_checks: true
     # Pub Rules
-    depend_on_referenced_packages: true
+    depend_on_referenced_packages: false
     package_names: true
     secure_pubspec_urls: true
     sort_pub_dependencies: true

@@ -1,9 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:klep_weather/weather/model/clouds.dart';
 import 'package:klep_weather/weather/model/main_info.dart';
-
-import '../../weather/model/weather_info.dart';
-import '../../weather/model/wind.dart';
+import 'package:klep_weather/weather/model/weather_info.dart';
+import 'package:klep_weather/weather/model/wind.dart';
 
 part 'forecast_model.g.dart';
 
@@ -19,9 +18,9 @@ class ForecastModel {
   });
 
   int dt;
-  @JsonKey(name: "main")
+  @JsonKey(name: 'main')
   MainInfo mainInfo;
-  @JsonKey(name: "weather")
+  @JsonKey(name: 'weather')
   List<WeatherInfo> weatherInfo;
   Clouds clouds;
   Wind wind;

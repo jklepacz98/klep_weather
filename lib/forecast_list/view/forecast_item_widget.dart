@@ -13,36 +13,37 @@ class ForecastItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Align(
         alignment: Alignment.center,
         child: SizedBox(
           width: 120,
           height: 160,
-          child: Container(
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: Colors.blueGrey[800],
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     '${DateTime.fromMillisecondsSinceEpoch(
-                        //todo remove !
-                        _forecast!.dt * 1000).hour.toString()}:00',
+                      //todo remove !
+                      _forecast!.dt * 1000,
+                    ).hour.toString()}:00',
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: SizedBox.square(
                     dimension: 60,
                     child: Card(
                       shape: const CircleBorder(),
                       clipBehavior: Clip.antiAlias,
-                      child: Container(
+                      child: DecoratedBox(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(colors: [
                             Colors.blue[500]!,

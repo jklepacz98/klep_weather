@@ -102,7 +102,7 @@ class CityTable extends Table {
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(join(dbFolder.path, "db.sqlite"));
+    final file = File(join(dbFolder.path, 'db.sqlite'));
     return NativeDatabase.createInBackground(file);
   });
 }

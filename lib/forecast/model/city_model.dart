@@ -16,10 +16,4 @@ class CityModel {
       _$CityModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CityModelToJson(this);
-
-//todo
-// CityModel toCity() => City(
-//       name: name,
-//       id: id,
-//     );
 }

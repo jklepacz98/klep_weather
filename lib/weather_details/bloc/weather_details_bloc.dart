@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_event.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
-
-import '../../database/database.dart';
 
 class WeatherDetailsBloc
     extends Bloc<WeatherDetailsEvent, WeatherDetailsState> {
@@ -37,14 +36,14 @@ class WeatherDetailsBloc
   //todo should this variable be here
   final int _cityId;
 
-  _handleWeatherChangedEvent(
+  Future<void> _handleWeatherChangedEvent(
     WeatherChangedEvent event,
     Emitter emit,
   ) async {
     emit(state.copyWith(weather: event.weather));
   }
 
-  _handleWeatherSubscribeEvent(
+  Future<void> _handleWeatherSubscribeEvent(
     WeatherSubscribeEvent event,
     Emitter emit,
   ) async {
@@ -69,7 +68,7 @@ class WeatherDetailsBloc
 
   @override
   Future<void> close() async {
-    _weatherSubscription?.cancel();
+    await _weatherSubscription?.cancel();
     return super.close();
   }
 }

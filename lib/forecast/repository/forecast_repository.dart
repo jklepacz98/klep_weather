@@ -1,9 +1,8 @@
 import 'package:klep_weather/database/database.dart';
+import 'package:klep_weather/forecast/model/forecast_list_model.dart';
 import 'package:klep_weather/forecast/repository/forecast_local.dart';
 import 'package:klep_weather/forecast/repository/forecast_remote.dart';
 import 'package:klep_weather/network/result.dart';
-
-import '../model/forecast_list_model.dart';
 
 class ForecastRepository {
   ForecastRepository({

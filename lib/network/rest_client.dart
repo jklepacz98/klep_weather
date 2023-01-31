@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:klep_weather/constants.dart';
 import 'package:klep_weather/forecast/model/forecast_list_model.dart';
+import 'package:klep_weather/weather/model/weather_model.dart';
+import 'package:klep_weather/weather/model/weather_models.dart';
 import 'package:retrofit/retrofit.dart';
-
-import '../weather/model/weather_model.dart';
-import '../weather/model/weather_models.dart';
 
 part 'rest_client.g.dart';
 

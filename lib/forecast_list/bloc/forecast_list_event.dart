@@ -1,7 +1,7 @@
 part of '../../forecast_list/bloc/forecast_list_bloc.dart';
 
 @immutable
-abstract class ForecastListEvent {}
+abstract class ForecastListEvent extends Equatable {}
 
 class ForecastListChangedEvent extends ForecastListEvent {
   final List<Forecast> forecastList;

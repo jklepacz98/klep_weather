@@ -5,25 +5,28 @@ import 'package:klep_weather/utils/weather_icon_utils.dart';
 import 'package:klep_weather/weather_details/view/weather_details_page.dart';
 
 class WeatherItemWidget extends StatelessWidget {
-  const WeatherItemWidget({super.key, required this.weather});
+  const WeatherItemWidget({
+    required this.weather,
+    super.key,
+  });
 
   final Weather weather;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: Card(
         color: Colors.blueGrey[800]!,
-        elevation: 4.0,
+        elevation: 4,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: ListTile(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(16),
           ),
-          title: Text(weather.name.toString()),
+          title: Text(weather.name),
           onTap: () {
             final route = MaterialPageRoute(
                 builder: (context) => WeatherDetailsPage(weather: weather));
@@ -31,23 +34,25 @@ class WeatherItemWidget extends StatelessWidget {
           },
           //todo to Celsius
           subtitle: Text(
-              "${toCelsius(weather.mainInfoTemp!).toStringAsFixed(0)}\u2103"),
+              "${toCelsius(weather.mainInfoTemp).toStringAsFixed(0)}\u2103"),
           trailing: SizedBox.square(
             dimension: 50,
             child: Card(
               shape: const CircleBorder(),
               clipBehavior: Clip.antiAlias,
-              child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
                       Colors.blue[500]!,
                       Colors.deepPurple,
-                    ]),
+                    ],
                   ),
-                  child: (weather.weatherInfoIcon != null)
-                      ? CachedNetworkImage(
-                          imageUrl: weather.weatherInfoIcon.toIconUrl())
-                      : Container()),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: weather.weatherInfoIcon.toIconUrl(),
+                ),
+              ),
             ),
           ),
         ),

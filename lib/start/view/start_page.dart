@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klep_weather/start/view/start_snackbar_widget.dart';
 import 'package:klep_weather/weather_list/view/weather_list_widget.dart';
