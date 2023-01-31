@@ -20,9 +20,8 @@ class ForecastRepository {
     if (result.isSuccess) {
       final forecastList = result.value!;
       await _forecastLocal.removeForecastsByCityId(forecastList.city.id);
-      final forecastTableCompanionList =
-          forecastList.toForecastTableCompanions();
-      await _forecastLocal.saveForecast(forecastTableCompanionList);
+      final forecastCompanionList = forecastList.toForecastCompanions();
+      await _forecastLocal.saveForecast(forecastCompanionList);
     }
     return result;
   }

@@ -24,9 +24,9 @@ class ForecastListModel {
 
   Map<String, dynamic> toJson() => _$ForecastListModelToJson(this);
 
-  List<ForecastTableCompanion> toForecastTableCompanions() => forecastList
+  List<ForecastCompanion> toForecastCompanions() => forecastList
       .map(
-        (forecast) => ForecastTableCompanion(
+        (forecast) => ForecastCompanion(
           cityId: Value(city.id),
           mainInfoTemp: Value(forecast.mainInfo.temp),
           mainInfoFeelsLike: Value(forecast.mainInfo.feelsLike),

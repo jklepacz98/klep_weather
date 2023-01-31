@@ -138,11 +138,10 @@ class AppDatabase extends _$AppDatabase {
   Future<List<Weather>> getWeathers() => select(weatherTable).get();
 
   Future<void> addForecasts(
-      List<ForecastTableCompanion> forecastTableCompanionList) async {
+      List<ForecastCompanion> forecastCompanionList) async {
     await batch(
       (batch) {
-        batch.insertAllOnConflictUpdate(
-            forecastTable, forecastTableCompanionList);
+        batch.insertAllOnConflictUpdate(forecastTable, forecastCompanionList);
       },
     );
   }
