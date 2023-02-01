@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:klep_weather/start/view/start_snackbar_widget.dart';
 import 'package:klep_weather/weather_list/view/weather_list_widget.dart';
 import 'package:klep_weather/weather_search/view/weather_search_widget.dart';
@@ -10,7 +11,8 @@ class StartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('KlepWeather'),
+        // title: const Text('KlepWeather'),
+        title: Text(AppLocalizations.of(context)!.klepWeather),
         backgroundColor: Colors.blueGrey[800],
       ),
       drawer: Drawer(
