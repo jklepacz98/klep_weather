@@ -23,11 +23,9 @@ class WeatherDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(_cityName),
-        backgroundColor: Colors.blueGrey[800],
       ),
-      backgroundColor: Colors.blueGrey[900],
       extendBodyBehindAppBar: true,
-      body: Column(
+      body: ListView(
         children: [
           SafeArea(
             child: BlocProvider(

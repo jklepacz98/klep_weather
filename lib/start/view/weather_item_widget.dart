@@ -17,7 +17,6 @@ class WeatherItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Card(
-        color: Colors.blueGrey[800]!,
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -27,12 +26,12 @@ class WeatherItemWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           title: Text(weatherItem.cityName),
-          onTap: () {
+          onTap: () async {
             final route = MaterialPageRoute(
               builder: (context) =>
                   WeatherDetailsPage(weatherItem: weatherItem),
             );
-            Navigator.push(context, route);
+            await Navigator.push(context, route);
           },
           subtitle: Text(weatherItem.temperature.toStringAsCelsius()),
           trailing: SizedBox.square(

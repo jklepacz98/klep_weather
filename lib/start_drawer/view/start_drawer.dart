@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:klep_weather/settings/view/settings_page.dart';
 
 class StartDrawer extends StatelessWidget {
+  const StartDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.blueGrey.shade800,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blueGrey.shade900),
-            child: const SizedBox(),
+          const DrawerHeader(
+            child: SizedBox(),
           ),
           ListTile(
             title: Text(AppLocalizations.of(context)!.settings),
+            onTap: () async {
+              final route = MaterialPageRoute(
+                builder: (context) => const SettingsPage(),
+              );
+              await Navigator.push(context, route);
+            },
           ),
         ],
       ),

@@ -14,10 +14,8 @@ class StartPage extends StatelessWidget {
       appBar: AppBar(
         // title: const Text('KlepWeather'),
         title: Text(AppLocalizations.of(context)!.klepWeather),
-        backgroundColor: Colors.blueGrey[800],
       ),
-      drawer: StartDrawer(),
-      backgroundColor: Colors.blueGrey[900],
+      drawer: const StartDrawer(),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
         child: Column(

@@ -23,11 +23,30 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<MainBloc, MainState>(builder: (context, mainState) {
         return MaterialApp(
           title: 'Flutter Demo',
-          themeMode: ThemeMode.dark,
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: Colors.blue,
-            backgroundColor: Colors.blue,
+          theme: ThemeData(
+            colorScheme: ColorScheme(
+              brightness: Brightness.dark,
+              primary: Colors.orange.shade500,
+              onPrimary: Colors.white,
+              secondary: Colors.blue,
+              onSecondary: Colors.white,
+              error: Colors.red,
+              onError: Colors.green,
+              background: Colors.deepPurple.shade800,
+              onBackground: Colors.pink,
+              surface: Colors.blueGrey.shade800,
+              onSurface: Colors.white,
+            ),
+            scaffoldBackgroundColor: Colors.blueGrey.shade900,
+            listTileTheme: ListTileThemeData(
+              tileColor: Colors.blueGrey.shade800,
+            ),
+            drawerTheme: DrawerThemeData(
+              backgroundColor: Colors.blueGrey.shade900,
+            ),
+            cardTheme: CardTheme(
+              color: Colors.blueGrey.shade800,
+            ),
           ),
           locale: mainState.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
