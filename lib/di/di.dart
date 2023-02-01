@@ -19,44 +19,38 @@ final getIt = GetIt.I;
 
 Future<void> init() async {
   getIt.registerLazySingleton(
-        () =>
-        WeatherRepository(
-          weatherRemote: WeatherRemote(restClient: getIt()),
-          weatherLocal: WeatherLocal(
-            database: getIt(),
-          ),
-        ),
+    () => WeatherRepository(
+      weatherRemote: WeatherRemote(restClient: getIt()),
+      weatherLocal: WeatherLocal(
+        database: getIt(),
+      ),
+    ),
   );
   getIt.registerLazySingleton(
-        () =>
-        ForecastRepository(
-          forecastRemote: ForecastRemote(restClient: getIt()),
-          forecastLocal: ForecastLocal(database: getIt()),
-        ),
+    () => ForecastRepository(
+      forecastRemote: ForecastRemote(restClient: getIt()),
+      forecastLocal: ForecastLocal(database: getIt()),
+    ),
   );
   getIt.registerLazySingleton(
-        () => WeatherListBloc(weatherRepository: getIt()),
+    () => WeatherListBloc(weatherRepository: getIt()),
   );
   getIt.registerLazySingleton(
-        () => WeatherSearchBloc(weatherRepository: getIt()),
+    () => WeatherSearchBloc(weatherRepository: getIt()),
   );
   getIt.registerFactoryParam<WeatherDetailsBloc, int, void>(
-        (cityId, _) =>
-        WeatherDetailsBloc(
-          weatherRepository: getIt(),
-          cityId: cityId,
-        ),
+    (cityId, _) => WeatherDetailsBloc(
+      weatherRepository: getIt(),
+      cityId: cityId,
+    ),
   );
   getIt.registerFactoryParam<ForecastListBloc, int, void>(
-        (cityId, _) =>
-        ForecastListBloc(
-          forecastRepository: getIt(),
-          cityId: cityId,
-        ),
+    (cityId, _) => ForecastListBloc(
+      forecastRepository: getIt(),
+      cityId: cityId,
+    ),
   );
-  getIT.registerLazySingleton(
-          () => MainBloc()
-  )
+  getIt.registerLazySingleton(() => MainBloc());
   getIt.registerLazySingleton(() => RestClient(getIt()));
   //todo Do I need to set headers in baseOptions for Dio?
   getIt.registerLazySingleton(() => Dio());

@@ -21,8 +21,6 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => MainBloc(),
       child: BlocBuilder<MainBloc, MainState>(builder: (context, mainState) {
-        //todo
-        print("cos1 ${mainState.locale}");
         return MaterialApp(
           title: 'Flutter Demo',
           themeMode: ThemeMode.dark,

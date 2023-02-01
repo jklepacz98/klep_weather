@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:klep_weather/start/view/start_snackbar_widget.dart';
+import 'package:klep_weather/start_drawer/view/start_drawer.dart';
 import 'package:klep_weather/weather_list/view/weather_list_widget.dart';
 import 'package:klep_weather/weather_search/view/weather_search_widget.dart';
 
@@ -15,9 +16,7 @@ class StartPage extends StatelessWidget {
         title: Text(AppLocalizations.of(context)!.klepWeather),
         backgroundColor: Colors.blueGrey[800],
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.blueGrey[800],
-      ),
+      drawer: StartDrawer(),
       backgroundColor: Colors.blueGrey[900],
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
