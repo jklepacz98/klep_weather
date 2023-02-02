@@ -20,40 +20,42 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MainBloc(),
-      child: BlocBuilder<MainBloc, MainState>(builder: (context, mainState) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme(
-              brightness: Brightness.dark,
-              primary: Colors.orange.shade500,
-              onPrimary: Colors.white,
-              secondary: Colors.blue,
-              onSecondary: Colors.white,
-              error: Colors.red,
-              onError: Colors.green,
-              background: Colors.deepPurple.shade800,
-              onBackground: Colors.pink,
-              surface: Colors.blueGrey.shade800,
-              onSurface: Colors.white,
+      child: BlocBuilder<MainBloc, MainState>(
+        builder: (context, mainState) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              colorScheme: ColorScheme(
+                brightness: Brightness.dark,
+                primary: Colors.orange.shade500,
+                onPrimary: Colors.white,
+                secondary: Colors.blue,
+                onSecondary: Colors.white,
+                error: Colors.red,
+                onError: Colors.green,
+                background: Colors.deepPurple.shade800,
+                onBackground: Colors.pink,
+                surface: Colors.blueGrey.shade800,
+                onSurface: Colors.white,
+              ),
+              scaffoldBackgroundColor: Colors.blueGrey.shade900,
+              listTileTheme: ListTileThemeData(
+                tileColor: Colors.blueGrey.shade800,
+              ),
+              drawerTheme: DrawerThemeData(
+                backgroundColor: Colors.blueGrey.shade900,
+              ),
+              cardTheme: CardTheme(
+                color: Colors.blueGrey.shade800,
+              ),
             ),
-            scaffoldBackgroundColor: Colors.blueGrey.shade900,
-            listTileTheme: ListTileThemeData(
-              tileColor: Colors.blueGrey.shade800,
-            ),
-            drawerTheme: DrawerThemeData(
-              backgroundColor: Colors.blueGrey.shade900,
-            ),
-            cardTheme: CardTheme(
-              color: Colors.blueGrey.shade800,
-            ),
-          ),
-          locale: mainState.locale,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: const StartPage(),
-        );
-      }),
+            locale: mainState.locale,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const StartPage(),
+          );
+        },
+      ),
     );
   }
 }

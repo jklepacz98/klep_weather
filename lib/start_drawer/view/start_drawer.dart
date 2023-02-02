@@ -18,7 +18,7 @@ class StartDrawer extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.settings),
             onTap: () async {
               final route = MaterialPageRoute(
-                builder: (context) => const SettingsPage(),
+                builder: (context) => SettingsPage(),
               );
               await Navigator.push(context, route);
             },

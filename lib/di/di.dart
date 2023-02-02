@@ -7,6 +7,8 @@ import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/forecast_list/bloc/forecast_list_bloc.dart';
 import 'package:klep_weather/main/bloc/main_bloc.dart';
 import 'package:klep_weather/network/rest_client.dart';
+import 'package:klep_weather/settings/bloc/settings_bloc.dart';
+import 'package:klep_weather/shared_preferences/language_preferences.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
@@ -50,11 +52,15 @@ Future<void> init() async {
       cityId: cityId,
     ),
   );
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton(() => sharedPreferences);
+  getIt.registerLazySingleton(
+      () => LanguagePreferences(sharedPreferences: getIt()));
+  getIt.registerLazySingleton(() => SettingsBloc(languagePreferences: getIt()));
   getIt.registerLazySingleton(() => MainBloc());
   getIt.registerLazySingleton(() => RestClient(getIt()));
   //todo Do I need to set headers in baseOptions for Dio?
   getIt.registerLazySingleton(() => Dio());
   // getIt.registerLazySingleton(() => Dio()..interceptors.add(PrettyDioLogger()));
   getIt.registerLazySingleton(() => AppDatabase());
-  getIt.registerLazySingletonAsync(() => SharedPreferences.getInstance());
 }
