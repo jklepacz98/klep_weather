@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/network/result.dart';
 import 'package:klep_weather/shared_preferences/language_preferences.dart';
+import 'package:klep_weather/utils/result_converter.dart';
 import 'package:klep_weather/weather/model/weather_model.dart';
-import 'package:klep_weather/weather/model/weather_models.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
 
@@ -41,17 +41,27 @@ class WeatherRepository {
     return result;
   }
 
-  Future<Result<WeatherModels>> loadWeathersByIds(List<int> ids) async {
+  Future<Result<List<WeatherModel>>> loadWeathersByIds(List<int> ids) async {
     final language = _languagePreferences.getLanguage();
-    final result = await _weatherRemote.loadWeathersByIds(ids, language);
+    final result = await _loadWeathersWithSingleCalls(ids, language);
     if (result.isSuccess) {
       final weatherModels = result.value!;
-      final weathers = weatherModels.weatherList
+      final weathers = weatherModels
           .map((weatherModel) => weatherModel.toWeather())
           .toList();
       await _weatherLocal.saveWeathers(weathers);
     }
     return result;
+  }
+
+  Future<Result<List<WeatherModel>>> _loadWeathersWithSingleCalls(
+    List<int> ids,
+    String language,
+  ) async {
+    final futures =
+        ids.map((id) => _weatherRemote.loadWeatherById(id, language));
+    final results = await Future.wait(futures);
+    return results.toSingleResult();
   }
 
   Stream<Weather> observeWeather(int id) async* {

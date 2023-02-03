@@ -5,9 +5,7 @@ import 'package:klep_weather/weather/model/weather_models.dart';
 import '../model/weather_model.dart';
 
 class WeatherRemote {
-  WeatherRemote({
-    required RestClient restClient,
-  }) : _restClient = restClient;
+  WeatherRemote({required RestClient restClient}) : _restClient = restClient;
 
   final RestClient _restClient;
 
@@ -41,6 +39,7 @@ class WeatherRemote {
     }
   }
 
+  //todo lang parameter doesn't affect city name, it works in other requests
   Future<Result<WeatherModels>> loadWeathersByIds(
     List<int> ids,
     String language,
