@@ -68,6 +68,17 @@ class WeatherDetailsPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 64),
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(state.weatherItem?.minTemperature
+                                  .toStringAsCelsius() ??
+                              ''),
+                          Text(state.weatherItem?.maxTemperature
+                                  .toStringAsCelsius() ??
+                              ''),
+                        ],
+                      ),
                       SizedBox(
                         width: double.infinity,
                         height: 400,

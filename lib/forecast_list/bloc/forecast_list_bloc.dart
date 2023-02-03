@@ -47,7 +47,7 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
     final forecastItemList = event.forecastList
         .map(
           (forecast) => ForecastItem(
-            dt: forecast.dt,
+            dateTime: DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000),
             icon: forecast.weatherInfoIcon,
             temperature: Temperature(kelvin: forecast.mainInfoTemp),
           ),

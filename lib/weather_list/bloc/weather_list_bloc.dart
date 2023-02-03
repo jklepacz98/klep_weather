@@ -44,6 +44,8 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
             cityId: weather.id,
             cityName: weather.name,
             temperature: Temperature(kelvin: weather.mainInfoTemp),
+            minTemperature: Temperature(kelvin: weather.mainInfoTempMin),
+            maxTemperature: Temperature(kelvin: weather.mainInfoTempMax),
             icon: weather.weatherInfoIcon,
           ),
         )

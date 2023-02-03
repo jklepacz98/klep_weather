@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:klep_weather/forecast_list/bloc/forecast_item.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 
@@ -30,12 +32,9 @@ class ForecastItemWidget extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Text(
-                    '${DateTime.fromMillisecondsSinceEpoch(
-                      //todo remove !
-                      _forecastItem.dt * 1000,
-                    ).hour.toString()}:00',
-                  ),
+                  child: Text(DateFormat(
+                          'EEE, H:mm', AppLocalizations.of(context)!.localeName)
+                      .format(_forecastItem.dateTime)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),

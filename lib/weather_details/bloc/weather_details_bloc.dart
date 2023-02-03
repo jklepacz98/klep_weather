@@ -47,6 +47,8 @@ class WeatherDetailsBloc
       cityId: weather.id,
       cityName: weather.name,
       temperature: Temperature(kelvin: weather.mainInfoTemp),
+      minTemperature: Temperature(kelvin: weather.mainInfoTempMin),
+      maxTemperature: Temperature(kelvin: weather.mainInfoTempMax),
       icon: weather.weatherInfoIcon,
     );
     emit(state.copyWith(weatherItem: weatherItem));

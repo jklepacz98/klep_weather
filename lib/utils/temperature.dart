@@ -8,9 +8,9 @@ class Temperature {
 
   double get fahrenheit => _kelvin * (9 / 5) - 459.67;
 
-  String toStringAsKelvin() => '${kelvin.toStringAsFixed(0)}\u2103';
+  String toStringAsKelvin() => '${kelvin.toStringAsFixed(0)}\u004B';
 
   String toStringAsCelsius() => '${celsius.toStringAsFixed(0)}\u2103';
 
-  String toStringAsFahrenheit() => '${fahrenheit.toStringAsFixed(0)}\u2103';
+  String toStringAsFahrenheit() => '${fahrenheit.toStringAsFixed(0)}\u2109';
 }
