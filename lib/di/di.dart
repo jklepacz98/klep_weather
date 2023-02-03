@@ -17,8 +17,6 @@ import 'package:klep_weather/weather_list/bloc/weather_list_bloc.dart';
 import 'package:klep_weather/weather_search/bloc/weather_search_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/pretty_dio_logger.dart';
-
 final getIt = GetIt.I;
 
 Future<void> init() async {
@@ -62,7 +60,7 @@ Future<void> init() async {
   getIt.registerFactory(() => MainBloc(languagePreferences: getIt()));
   getIt.registerLazySingleton(() => RestClient(getIt()));
   //todo Do I need to set headers in baseOptions for Dio?
-  // getIt.registerLazySingleton(() => Dio());
-  getIt.registerLazySingleton(() => Dio()..interceptors.add(PrettyDioLogger()));
+  getIt.registerLazySingleton(() => Dio());
+  // getIt.registerLazySingleton(() => Dio()..interceptors.add(PrettyDioLogger()));
   getIt.registerLazySingleton(() => AppDatabase());
 }

@@ -9,7 +9,6 @@ class ForecastRemote {
 
   final RestClient _restClient;
 
-  //todo create model for forecast, even though it has the same fields?
   Future<Result<ForecastListModel>> loadForecastById(
     int id,
     String language,
