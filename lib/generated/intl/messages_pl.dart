@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "klepWeather": MessageLookupByLibrary.simpleMessage("KlepPogoda"),
+        "language": MessageLookupByLibrary.simpleMessage("Język"),
         "settings": MessageLookupByLibrary.simpleMessage("Ustawienia")
       };
 }
