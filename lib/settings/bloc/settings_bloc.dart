@@ -8,14 +8,14 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({required LanguagePreferences languagePreferences})
       : _languagePreferences = languagePreferences,
-        super(SettingsState(countryCode: languagePreferences.getLanguage())) {
+        super(SettingsState(languageCode: languagePreferences.getLanguage())) {
     _registerEventHandlers();
   }
 
   void _registerEventHandlers() {
     on<LanguageChangedEvent>((event, emit) async {
       await _languagePreferences.setLanguage(event.countryCode);
-      emit(state.copyWith(countryCode: event.countryCode));
+      emit(state.copyWith(languageCode: event.countryCode));
     });
   }
 

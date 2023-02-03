@@ -4,8 +4,8 @@ abstract class MainEvent extends Equatable {
   const MainEvent();
 }
 
-class LocaleChanged extends MainEvent {
-  const LocaleChanged({this.locale});
+class LocaleChangedEvent extends MainEvent {
+  const LocaleChangedEvent({this.locale});
 
   final Locale? locale;
 

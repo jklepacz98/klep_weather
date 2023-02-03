@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//todo
 import 'package:klep_weather/di/di.dart' as di;
+import 'package:klep_weather/di/di.dart';
 import 'package:klep_weather/main/bloc/main_bloc.dart';
 import 'package:klep_weather/start/view/start_page.dart';
 
@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainBloc(),
+      create: (context) => getIt<MainBloc>(),
       child: BlocBuilder<MainBloc, MainState>(
-        builder: (context, mainState) {
+        builder: (context, state) {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.blueGrey.shade800,
               ),
             ),
-            locale: mainState.locale,
+            locale: state.locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             home: const StartPage(),

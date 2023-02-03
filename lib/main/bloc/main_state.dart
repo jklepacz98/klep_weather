@@ -1,9 +1,7 @@
 part of 'main_bloc.dart';
 
 class MainState extends Equatable {
-  const MainState({
-    this.locale = const Locale(languageCode),
-  });
+  const MainState({required this.locale});
 
   final Locale locale;
 
@@ -12,6 +10,4 @@ class MainState extends Equatable {
 
   @override
   List<Object?> get props => [locale];
-
-  static const String languageCode = Constants.defaultLanguage;
 }

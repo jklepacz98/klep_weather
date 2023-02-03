@@ -56,8 +56,8 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => sharedPreferences);
   getIt.registerLazySingleton(
       () => LanguagePreferences(sharedPreferences: getIt()));
-  getIt.registerLazySingleton(() => SettingsBloc(languagePreferences: getIt()));
-  getIt.registerLazySingleton(() => MainBloc());
+  getIt.registerFactory(() => SettingsBloc(languagePreferences: getIt()));
+  getIt.registerFactory(() => MainBloc(languagePreferences: getIt()));
   getIt.registerLazySingleton(() => RestClient(getIt()));
   //todo Do I need to set headers in baseOptions for Dio?
   getIt.registerLazySingleton(() => Dio());

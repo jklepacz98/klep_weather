@@ -1,15 +1,15 @@
 part of 'settings_bloc.dart';
 
 class SettingsState extends Equatable {
-  const SettingsState({required this.countryCode});
+  const SettingsState({required this.languageCode});
 
-  final String countryCode;
+  final String languageCode;
 
   SettingsState copyWith({
-    String? countryCode,
+    String? languageCode,
   }) =>
-      SettingsState(countryCode: countryCode ?? this.countryCode);
+      SettingsState(languageCode: languageCode ?? this.languageCode);
 
   @override
-  List<Object> get props => [countryCode];
+  List<Object> get props => [languageCode];
 }
