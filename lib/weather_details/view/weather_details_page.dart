@@ -12,27 +12,25 @@ class WeatherDetailsPage extends StatelessWidget {
   WeatherDetailsPage({
     required WeatherItem weatherItem,
     super.key,
-  })  : _cityName = weatherItem.cityName,
-        _cityId = weatherItem.cityId;
+  }) : _cityId = weatherItem.cityId;
 
-  final String _cityName;
   final int _cityId;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_cityName),
-      ),
-      extendBodyBehindAppBar: true,
-      body: ListView(
-        children: [
-          SafeArea(
-            child: BlocProvider(
-              create: (context) => getIt<WeatherDetailsBloc>(param1: _cityId),
-              child: BlocBuilder<WeatherDetailsBloc, WeatherDetailsState>(
-                builder: (context, state) {
-                  return Column(
+    return BlocProvider(
+      create: (context) => getIt<WeatherDetailsBloc>(param1: _cityId),
+      child: BlocBuilder<WeatherDetailsBloc, WeatherDetailsState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(state.weatherItem?.cityName ?? ''),
+            ),
+            extendBodyBehindAppBar: true,
+            body: ListView(
+              children: [
+                SafeArea(
+                  child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(16),
@@ -76,12 +74,12 @@ class WeatherDetailsPage extends StatelessWidget {
                         child: ForecastListHorizontalWidget(cityId: _cityId),
                       ),
                     ],
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

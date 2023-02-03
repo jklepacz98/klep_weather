@@ -1,50 +1,55 @@
 import 'dart:async';
 
+import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/network/result.dart';
+import 'package:klep_weather/shared_preferences/language_preferences.dart';
+import 'package:klep_weather/weather/model/weather_model.dart';
+import 'package:klep_weather/weather/model/weather_models.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
-
-import '../../database/database.dart';
-import '../model/weather_model.dart';
-import '../model/weather_models.dart';
 
 class WeatherRepository {
   WeatherRepository({
     required WeatherRemote weatherRemote,
     required WeatherLocal weatherLocal,
-  })
-      : _weatherRemote = weatherRemote,
-        _weatherLocal = weatherLocal;
+    required LanguagePreferences languagePreferences,
+  })  : _weatherRemote = weatherRemote,
+        _weatherLocal = weatherLocal,
+        _languagePreferences = languagePreferences;
 
   final WeatherRemote _weatherRemote;
   final WeatherLocal _weatherLocal;
+  final LanguagePreferences _languagePreferences;
 
   Future<Result<WeatherModel>> loadWeatherByCity(String city) async {
-    final result = await _weatherRemote.loadWeatherByCity(city);
+    final language = _languagePreferences.getLanguage();
+    final result = await _weatherRemote.loadWeatherByCity(city, language);
     if (result.isSuccess) {
       final weatherModel = result.value!;
-      _weatherLocal.saveWeather(weatherModel.toWeather());
+      await _weatherLocal.saveWeather(weatherModel.toWeather());
     }
     return result;
   }
 
   Future<Result<WeatherModel>> loadWeatherById(int id) async {
-    final result = await _weatherRemote.loadWeatherById(id);
+    final language = _languagePreferences.getLanguage();
+    final result = await _weatherRemote.loadWeatherById(id, language);
     if (result.isSuccess) {
       final weatherModel = result.value!;
-      _weatherLocal.saveWeather(weatherModel.toWeather());
+      await _weatherLocal.saveWeather(weatherModel.toWeather());
     }
     return result;
   }
 
   Future<Result<WeatherModels>> loadWeathersByIds(List<int> ids) async {
-    final result = await _weatherRemote.loadWeathersByIds(ids);
+    final language = _languagePreferences.getLanguage();
+    final result = await _weatherRemote.loadWeathersByIds(ids, language);
     if (result.isSuccess) {
       final weatherModels = result.value!;
       final weathers = weatherModels.weatherList
           .map((weatherModel) => weatherModel.toWeather())
           .toList();
-      _weatherLocal.saveWeathers(weathers);
+      await _weatherLocal.saveWeathers(weathers);
     }
     return result;
   }

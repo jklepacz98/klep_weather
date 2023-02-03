@@ -23,8 +23,8 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   Future<void> _handleLocaleChangedEvent(
       LocaleChangedEvent event, Emitter emit) async {
-    //todo remove ''
-    await _languagePreferences.setLanguage(event.locale?.languageCode ?? '');
+    //todo !
+    await _languagePreferences.setLanguage(event.locale!.languageCode);
     emit(state.copyWith(locale: event.locale));
   }
 }
