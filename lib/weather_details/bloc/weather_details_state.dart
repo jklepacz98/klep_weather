@@ -1,7 +1,6 @@
 import 'dart:core';
 
 import 'package:equatable/equatable.dart';
-import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 
 //todo remove duplication
@@ -19,7 +18,6 @@ class WeatherDetailsState extends Equatable {
   WeatherDetailsState copyWith({
     WeatherStatus? status,
     WeatherItem? weatherItem,
-    List<Forecast>? forecastList,
   }) =>
       WeatherDetailsState(
         status: status ?? this.status,

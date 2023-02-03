@@ -1,5 +1,7 @@
 {
   "klepWeather": "KlepPogoda",
   "settings": "Ustawienia",
-  "language": "Język"
+  "language": "Język",
+  "success": "Sukces",
+  "failure": "Niepowodzenie"
 }
