@@ -23,4 +23,7 @@ class WeatherLocal {
   Future<Weather> getWeather(int id) async => _database.getWeather(id);
 
   Future<List<Weather>> getWeathers() async => _database.getWeathers();
+
+  Future<void> removeWeather(int cityId) async =>
+      _database.removeWeatherByCityId(cityId);
 }

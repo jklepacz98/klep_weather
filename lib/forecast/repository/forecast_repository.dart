@@ -30,7 +30,9 @@ class ForecastRepository {
     return result;
   }
 
-  Stream<List<Forecast>> observeForecastsByCityId(int cityId) async* {
-    yield* _forecastLocal.observerForecastsByCityId(cityId);
-  }
+  Stream<List<Forecast>> observeForecastsByCityId(int cityId) =>
+      _forecastLocal.observerForecastsByCityId(cityId);
+
+  Future<void> removeForecastsByCityId(int cityId) async =>
+      _forecastLocal.removeForecastsByCityId(cityId);
 }

@@ -7,7 +7,6 @@ import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/forecast_list/bloc/forecast_list_bloc.dart';
 import 'package:klep_weather/main/bloc/main_bloc.dart';
 import 'package:klep_weather/network/rest_client.dart';
-import 'package:klep_weather/settings/bloc/settings_bloc.dart';
 import 'package:klep_weather/shared_preferences/language_preferences.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
@@ -35,7 +34,10 @@ Future<void> init() async {
     ),
   );
   getIt.registerLazySingleton(
-    () => WeatherListBloc(weatherRepository: getIt()),
+    () => WeatherListBloc(
+      weatherRepository: getIt(),
+      forecastRepository: getIt(),
+    ),
   );
   getIt.registerLazySingleton(
     () => WeatherSearchBloc(weatherRepository: getIt()),
@@ -56,7 +58,6 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => sharedPreferences);
   getIt.registerLazySingleton(
       () => LanguagePreferences(sharedPreferences: getIt()));
-  getIt.registerFactory(() => SettingsBloc(languagePreferences: getIt()));
   getIt.registerFactory(() => MainBloc(languagePreferences: getIt()));
   getIt.registerLazySingleton(() => RestClient(getIt()));
   //todo Do I need to set headers in baseOptions for Dio?
