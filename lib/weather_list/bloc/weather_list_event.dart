@@ -21,3 +21,12 @@ class WeatherListLoadEvent extends WeatherListEvent {
   @override
   List<Object> get props => [];
 }
+
+class WeatherItemDeleteEvent extends WeatherListEvent {
+  final int cityId;
+
+  WeatherItemDeleteEvent({required this.cityId});
+
+  @override
+  List<Object> get props => [cityId];
+}

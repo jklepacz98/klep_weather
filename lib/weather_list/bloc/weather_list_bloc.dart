@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_list/bloc/weather_item.dart';
@@ -13,8 +14,11 @@ part 'weather_list_event.dart';
 part 'weather_list_state.dart';
 
 class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
-  WeatherListBloc({required WeatherRepository weatherRepository})
+  WeatherListBloc(
+      {required WeatherRepository weatherRepository,
+      required ForecastRepository forecastRepository})
       : _weatherRepository = weatherRepository,
+        _forecastRepository = forecastRepository,
         super(const WeatherListState()) {
     _registerEventHandlers();
     _init();
@@ -24,6 +28,7 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
     on<WeatherListSubscribeEvent>(_handleWeatherListSubscribeEvent);
     on<WeatherListChangedEvent>(_handleWeatherListChangedEvent);
     on<WeatherListLoadEvent>(_handleWeatherListLoadEvent);
+    on<WeatherItemDeleteEvent>(_handleWeatherItemDeleteEvent);
   }
 
   void _init() {
@@ -33,6 +38,7 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
 
   final WeatherRepository _weatherRepository;
   StreamSubscription<List<Weather>>? _weathersSubscription;
+  final ForecastRepository _forecastRepository;
 
   Future<void> _handleWeatherListChangedEvent(
     WeatherListChangedEvent event,
@@ -75,6 +81,15 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
     } else {
       emit(state.copyWith(status: WeatherListStatus.failure));
     }
+  }
+
+  Future<void> _handleWeatherItemDeleteEvent(
+    WeatherItemDeleteEvent event,
+    Emitter emit,
+  ) async {
+    //todo
+    unawaited(_weatherRepository.removeWeather(event.cityId));
+    unawaited(_forecastRepository.removeForecastsByCityId(event.cityId));
   }
 
   @override

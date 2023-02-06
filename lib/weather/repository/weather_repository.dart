@@ -75,4 +75,6 @@ class WeatherRepository {
   Future<Weather> getWeather(int id) => _weatherLocal.getWeather(id);
 
   Future<List<Weather>> getWeathers() => _weatherLocal.getWeathers();
+
+  Future<void> removeWeather(int cityId) => _weatherLocal.removeWeather(cityId);
 }

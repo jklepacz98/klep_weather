@@ -26,7 +26,18 @@ class WeatherListWidget extends StatelessWidget {
                   itemCount: state.weathers.length,
                   itemBuilder: (context, index) {
                     final weatherItem = state.weathers[index];
-                    return WeatherItemWidget(weatherItem: weatherItem);
+                    //todo change key index after remove
+                    return Dismissible(
+                      key: UniqueKey(),
+                      background: const ColoredBox(color: Colors.red),
+                      onDismissed: (_) {
+                        final cityId = state.weathers[index].cityId;
+                        context
+                            .read<WeatherListBloc>()
+                            .add(WeatherItemDeleteEvent(cityId: cityId));
+                      },
+                      child: WeatherItemWidget(weatherItem: weatherItem),
+                    );
                   },
                 ),
               ),

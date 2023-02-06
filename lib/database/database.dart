@@ -137,6 +137,9 @@ class AppDatabase extends _$AppDatabase {
   //todo not used
   Future<List<Weather>> getWeathers() => select(weatherTable).get();
 
+  Future<void> removeWeatherByCityId(int cityId) async =>
+      (delete(weatherTable)..where((tbl) => tbl.id.equals(cityId))).go();
+
   Future<void> addForecasts(
       List<ForecastCompanion> forecastCompanionList) async {
     await batch(
@@ -151,6 +154,6 @@ class AppDatabase extends _$AppDatabase {
       (select(forecastTable)..where((tbl) => tbl.cityId.equals(cityId)))
           .watch();
 
-  Future<void> removeForecastsByCityId(int cityId) =>
+  Future<void> removeForecastsByCityId(int cityId) async =>
       (delete(forecastTable)..where((tbl) => tbl.cityId.equals(cityId))).go();
 }
