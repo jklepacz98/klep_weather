@@ -1,5 +1,12 @@
 {
   "klepWeather": "KlepPogoda",
+
   "settings": "Ustawienia",
-  "language": "Język"
+
+  "language": "Język",
+
+  "theme": "Motyw",
+  "light": "Jasny",
+  "dark": "Ciemny",
+  "system": "Systemowy"
 }

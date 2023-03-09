@@ -12,39 +12,76 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.settings),
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: ListTile(
-          leading: Text(AppLocalizations.of(context)!.language),
-          trailing: DropdownButton(
-            hint: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                BlocProvider.of<MainBloc>(context).state.locale.languageCode,
+      body: Column(
+        children: [
+          ListTile(
+            leading: Text(AppLocalizations.of(context)!.language),
+            trailing: DropdownButton(
+              hint: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  BlocProvider.of<MainBloc>(context).state.locale.languageCode,
+                ),
               ),
+              items: AppLocalizations.supportedLocales
+                  .map((locale) => DropdownMenuItem<String>(
+                        value: locale.languageCode,
+                        child: Text(locale.languageCode),
+                      ))
+                  .toList(),
+              //todo
+              onChanged: (value) {
+                final languageCodeList = AppLocalizations.supportedLocales
+                    .map((locale) => locale.languageCode)
+                    .toList();
+                if (languageCodeList.contains(value)) {
+                  BlocProvider.of<MainBloc>(context)
+                      .add(LocaleChangedEvent(locale: Locale(value!)));
+                }
+              },
             ),
-            items: AppLocalizations.supportedLocales
-                .map(
-                  (locale) => DropdownMenuItem<String>(
-                    //todo
-                    value: locale.languageCode ?? 'error',
-                    child: Text(locale.languageCode ?? 'error'),
-                  ),
-                )
-                .toList(),
-            //todo
-            onChanged: (value) {
-              final languageCodeList = AppLocalizations.supportedLocales
-                  .map((locale) => locale.languageCode)
-                  .toList();
-              if (languageCodeList.contains(value)) {
-                BlocProvider.of<MainBloc>(context)
-                    .add(LocaleChangedEvent(locale: Locale(value!)));
-              }
-            },
           ),
-        ),
+          ListTile(
+            leading: Text(AppLocalizations.of(context)!.theme),
+            trailing: DropdownButton(
+              hint: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  BlocProvider.of<MainBloc>(context)
+                      .state
+                      .themeMode
+                      .translateName(context),
+                ),
+              ),
+              items: ThemeMode.values
+                  .map(
+                    (themeMode) => DropdownMenuItem<ThemeMode>(
+                      value: themeMode,
+                      child: Text(themeMode.translateName(context)),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                BlocProvider.of<MainBloc>(context)
+                    .add(ThemeModeChangedEvent(themeMode: value!));
+              },
+            ),
+          ),
+        ],
       ),
     );
+  }
+}
+
+extension ThemeModeExtension on ThemeMode {
+  String translateName(BuildContext context) {
+    switch (this) {
+      case ThemeMode.light:
+        return AppLocalizations.of(context)!.light;
+      case ThemeMode.dark:
+        return AppLocalizations.of(context)!.dark;
+      case ThemeMode.system:
+        return AppLocalizations.of(context)!.system;
+    }
   }
 }

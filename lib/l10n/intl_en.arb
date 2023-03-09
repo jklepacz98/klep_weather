@@ -1,5 +1,12 @@
 {
   "klepWeather": "KlepWeather",
+
   "settings": "Settings",
-  "language": "Language"
+
+  "language": "Language",
+
+  "theme": "Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System"
 }

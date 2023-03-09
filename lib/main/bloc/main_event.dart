@@ -5,10 +5,19 @@ abstract class MainEvent extends Equatable {
 }
 
 class LocaleChangedEvent extends MainEvent {
-  const LocaleChangedEvent({this.locale});
+  const LocaleChangedEvent({required this.locale});
 
-  final Locale? locale;
+  final Locale locale;
 
   @override
-  List<Object?> get props => [locale];
+  List<Object> get props => [locale];
+}
+
+class ThemeModeChangedEvent extends MainEvent {
+  const ThemeModeChangedEvent({required this.themeMode});
+
+  final ThemeMode themeMode;
+
+  @override
+  List<Object> get props => [themeMode];
 }

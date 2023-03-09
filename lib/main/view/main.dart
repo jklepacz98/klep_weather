@@ -26,10 +26,35 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             theme: ThemeData(
               colorScheme: ColorScheme(
+                brightness: Brightness.light,
+                primary: Colors.white,
+                onPrimary: Colors.black,
+                secondary: Colors.orange.shade800,
+                onSecondary: Colors.black,
+                error: Colors.red,
+                onError: Colors.white,
+                surface: Colors.grey.shade200,
+                background: Colors.green,
+                onBackground: Colors.white,
+                onSurface: Colors.white,
+              ),
+              scaffoldBackgroundColor: Colors.grey.shade100,
+              listTileTheme: ListTileThemeData(
+                tileColor: Colors.grey.shade50,
+              ),
+              drawerTheme: DrawerThemeData(
+                backgroundColor: Colors.grey.shade100,
+              ),
+              cardTheme: CardTheme(
+                color: Colors.grey.shade200,
+              ),
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme(
                 brightness: Brightness.dark,
                 primary: Colors.orange.shade500,
                 onPrimary: Colors.white,
-                secondary: Colors.blue,
+                secondary: Colors.orange.shade800,
                 onSecondary: Colors.white,
                 error: Colors.red,
                 onError: Colors.green,
@@ -49,6 +74,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.blueGrey.shade800,
               ),
             ),
+            themeMode: state.themeMode,
             locale: state.locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
