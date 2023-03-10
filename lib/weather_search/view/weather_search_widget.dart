@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klep_weather/di/di.dart';
 import 'package:klep_weather/weather_search/bloc/weather_search_bloc.dart';
-
-import '../../di/di.dart';
 
 class WeatherSearchField extends StatelessWidget {
   const WeatherSearchField({super.key});

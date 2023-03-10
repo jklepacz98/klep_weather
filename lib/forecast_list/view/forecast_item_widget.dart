@@ -22,7 +22,9 @@ class ForecastItemWidget extends StatelessWidget {
           height: 160,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: Colors.blueGrey[800],
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.blue.shade200
+                  : Colors.blueGrey[800],
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(8),
             ),

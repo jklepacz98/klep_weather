@@ -5,18 +5,25 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klep_weather/shared_preferences/language_preferences.dart';
+import 'package:klep_weather/shared_preferences/theme_mode_preferences.dart';
 
 part 'main_event.dart';
 
 part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
-  MainBloc({required LanguagePreferences languagePreferences})
-      : _languagePreferences = languagePreferences,
+  MainBloc({
+    required LanguagePreferences languagePreferences,
+    required ThemeModePreferences themeModePreferences,
+  })  : _languagePreferences = languagePreferences,
+        _themeModePreferences = themeModePreferences,
         super(
           MainState(
             locale: Locale(languagePreferences.getLanguage()),
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.values.firstWhere(
+              (themeMode) =>
+                  themeMode.name == themeModePreferences.getThemeMode(),
+            ),
           ),
         ) {
     _registerEventHandlers();
@@ -28,6 +35,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   }
 
   final LanguagePreferences _languagePreferences;
+  final ThemeModePreferences _themeModePreferences;
 
   Future<void> _handleLocaleChangedEvent(
     LocaleChangedEvent event,
@@ -41,7 +49,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     ThemeModeChangedEvent event,
     Emitter emit,
   ) async {
-    print("cos1 ${event.themeMode}");
+    await _themeModePreferences.setThemeMode(event.themeMode.name);
     emit(state.copyWith(themeMode: event.themeMode));
   }
 }
