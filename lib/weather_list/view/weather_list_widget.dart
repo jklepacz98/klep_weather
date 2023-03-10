@@ -29,8 +29,6 @@ class WeatherListWidget extends StatelessWidget {
                     //todo change key index after remove
                     return Dismissible(
                       key: UniqueKey(),
-                      //todo
-                      // background: const ColoredBox(color: Colors.red),
                       onDismissed: (_) {
                         final cityId = state.weathers[index].cityId;
                         context
