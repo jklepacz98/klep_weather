@@ -47,10 +47,12 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
     Emitter emit,
   ) async {
     final result = await _geocodingRepository.loadGeocoding(event.cityName);
+    print("cos2 $result");
     if (result.isSuccess) {
+      print("cos3 $result");
       emit(
         state.copyWith(
-          autoCompleteSuggestions: result.value!.locationModelList,
+          autoCompleteSuggestions: result.value,
         ),
       );
     }
