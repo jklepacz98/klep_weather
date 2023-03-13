@@ -1,13 +1,22 @@
 part of 'weather_search_bloc.dart';
 
 @immutable
-abstract class WeatherSearchEvent {}
+abstract class WeatherSearchEvent extends Equatable {}
 
 class WeatherLoadEvent extends WeatherSearchEvent {
-  final String city;
+  final String cityName;
 
-  WeatherLoadEvent({required this.city});
+  WeatherLoadEvent({required this.cityName});
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [cityName];
+}
+
+class AutoCompleteSuggestionsEvent extends WeatherSearchEvent {
+  final String cityName;
+
+  AutoCompleteSuggestionsEvent({required this.cityName});
+
+  @override
+  List<Object> get props => [cityName];
 }

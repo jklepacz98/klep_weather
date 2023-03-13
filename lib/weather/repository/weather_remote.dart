@@ -15,7 +15,7 @@ class WeatherRemote {
   ) async {
     try {
       final response = await _restClient.getWeatherByCity(
-        city: city,
+        cityName: city,
         language: language,
       );
       return Result.success(response);

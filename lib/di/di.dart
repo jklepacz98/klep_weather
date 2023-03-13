@@ -5,6 +5,8 @@ import 'package:klep_weather/forecast/repository/forecast_local.dart';
 import 'package:klep_weather/forecast/repository/forecast_remote.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/forecast_list/bloc/forecast_list_bloc.dart';
+import 'package:klep_weather/geocoding/repository/geocoding_remote.dart';
+import 'package:klep_weather/geocoding/repository/geocoding_repository.dart';
 import 'package:klep_weather/main/bloc/main_bloc.dart';
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/shared_preferences/language_preferences.dart';
@@ -34,13 +36,22 @@ Future<void> init() async {
     ),
   );
   getIt.registerLazySingleton(
+    () => GeocodingRepository(
+      geocodingRemote: GeocodingRemote(restClient: getIt()),
+      languagePreferences: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton(
     () => WeatherListBloc(
       weatherRepository: getIt(),
       forecastRepository: getIt(),
     ),
   );
   getIt.registerLazySingleton(
-    () => WeatherSearchBloc(weatherRepository: getIt()),
+    () => WeatherSearchBloc(
+      weatherRepository: getIt(),
+      geocodingRepository: getIt(),
+    ),
   );
   getIt.registerFactoryParam<WeatherDetailsBloc, int, void>(
     (cityId, _) => WeatherDetailsBloc(

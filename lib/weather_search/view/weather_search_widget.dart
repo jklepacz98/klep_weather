@@ -16,9 +16,9 @@ class WeatherSearchField extends StatelessWidget {
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           return TextField(
-            onSubmitted: (city) => context
+            onSubmitted: (cityName) => context
                 .read<WeatherSearchBloc>()
-                .add(WeatherLoadEvent(city: city)),
+                .add(WeatherLoadEvent(cityName: cityName)),
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'City',

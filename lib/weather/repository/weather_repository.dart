@@ -21,9 +21,9 @@ class WeatherRepository {
   final WeatherLocal _weatherLocal;
   final LanguagePreferences _languagePreferences;
 
-  Future<Result<WeatherModel>> loadWeatherByCity(String city) async {
+  Future<Result<WeatherModel>> loadWeatherByCity(String cityName) async {
     final language = _languagePreferences.getLanguage();
-    final result = await _weatherRemote.loadWeatherByCity(city, language);
+    final result = await _weatherRemote.loadWeatherByCity(cityName, language);
     if (result.isSuccess) {
       final weatherModel = result.value!;
       await _weatherLocal.saveWeather(weatherModel.toWeather());
