@@ -17,13 +17,13 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
     required GeocodingRepository geocodingRepository,
   })  : _weatherRepository = weatherRepository,
         _geocodingRepository = geocodingRepository,
-        super(const WeatherSearchState()) {
+        super(const WeatherSearchState(suggestions: [])) {
     _registerEventHandlers();
   }
 
   void _registerEventHandlers() {
     on<WeatherLoadEvent>(_handleWeatherLoadEvent);
-    on<AutoCompleteSuggestionsEvent>(_handleAutoCompleteSuggestionsChange);
+    on<SuggestionsEvent>(_handleSuggestionsChange);
   }
 
   final WeatherRepository _weatherRepository;
@@ -42,15 +42,15 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
     }
   }
 
-  Future<void> _handleAutoCompleteSuggestionsChange(
-    AutoCompleteSuggestionsEvent event,
+  Future<void> _handleSuggestionsChange(
+    SuggestionsEvent event,
     Emitter emit,
   ) async {
     final result = await _geocodingRepository.loadGeocoding(event.cityName);
     if (result.isSuccess) {
       emit(
         state.copyWith(
-          autoCompleteSuggestions: result.value!.locationModelList,
+          suggestions: result.value,
         ),
       );
     }

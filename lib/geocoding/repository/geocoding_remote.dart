@@ -1,4 +1,4 @@
-import 'package:klep_weather/geocoding/model/geocoding_model.dart';
+import 'package:klep_weather/geocoding/model/location_model.dart';
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/network/result.dart';
 
@@ -9,7 +9,7 @@ class GeocodingRemote {
 
   final RestClient _restClient;
 
-  Future<Result<GeocodingModel>> loadGeocoding(
+  Future<Result<List<LocationModel>>> loadGeocoding(
     String cityName,
     String language,
   ) async {

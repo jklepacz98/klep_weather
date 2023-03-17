@@ -6,6 +6,8 @@ import 'package:klep_weather/weather/model/weather_model.dart';
 import 'package:klep_weather/weather/model/weather_models.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../geocoding/model/location_model.dart';
+
 part 'rest_client.g.dart';
 
 @RestApi(baseUrl: Constants.openWeatherApiBaseUrl)
@@ -41,9 +43,10 @@ abstract class RestClient {
   });
 
   @GET('/geo/1.0/direct')
-  Future<GeocodingModel> getGeocoding({
+  Future<List<LocationModel>> getGeocoding({
     @Query('appid') String appid = Constants.openWeatherApiKey,
     @Query('lang') required String language,
     @Query('q') required String cityName,
+    @Query('limit') int limit = 10,
   });
 }

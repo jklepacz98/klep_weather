@@ -15,7 +15,7 @@ class LocationModel {
 
   String name;
   @JsonKey(name: 'local_names')
-  List<Map> localNames;
+  Map<String, String> localNames;
   double lat;
   double lon;
   String country;

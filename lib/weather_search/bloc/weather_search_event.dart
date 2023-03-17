@@ -12,10 +12,10 @@ class WeatherLoadEvent extends WeatherSearchEvent {
   List<Object> get props => [cityName];
 }
 
-class AutoCompleteSuggestionsEvent extends WeatherSearchEvent {
+class SuggestionsEvent extends WeatherSearchEvent {
   final String cityName;
 
-  AutoCompleteSuggestionsEvent({required this.cityName});
+  SuggestionsEvent({required this.cityName});
 
   @override
   List<Object> get props => [cityName];
