@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@lazySingleton
 class LanguagePreferences {
   LanguagePreferences({required SharedPreferences sharedPreferences})
       : _sharedPreferences = sharedPreferences;

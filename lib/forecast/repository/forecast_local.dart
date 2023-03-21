@@ -1,5 +1,7 @@
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/database/database.dart';
 
+@lazySingleton
 class ForecastLocal {
   ForecastLocal({
     required AppDatabase database,

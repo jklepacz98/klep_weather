@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/constants.dart';
 import 'package:klep_weather/forecast/model/forecast_list_model.dart';
 import 'package:klep_weather/weather/model/weather_model.dart';

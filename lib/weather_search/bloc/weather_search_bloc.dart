@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'weather_search_event.dart';
+
 part 'weather_search_state.dart';
 
+@lazySingleton
 class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
   WeatherSearchBloc({required WeatherRepository weatherRepository})
       : _weatherRepository = weatherRepository,
