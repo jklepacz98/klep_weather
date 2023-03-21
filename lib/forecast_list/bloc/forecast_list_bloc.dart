@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/utils/temperature.dart';
@@ -12,10 +13,11 @@ import 'forecast_item.dart';
 part 'forecast_list_event.dart';
 part 'forecast_list_state.dart';
 
+@injectable
 class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
   ForecastListBloc({
     required ForecastRepository forecastRepository,
-    required int cityId,
+    @factoryParam required int cityId,
   })  : _forecastRepository = forecastRepository,
         _cityId = cityId,
         super(const ForecastListState()) {

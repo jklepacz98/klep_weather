@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/forecast/model/forecast_list_model.dart';
 import 'package:klep_weather/network/rest_client.dart';
 import 'package:klep_weather/network/result.dart';
 
+@lazySingleton
 class ForecastRemote {
   ForecastRemote({
     required RestClient restClient,

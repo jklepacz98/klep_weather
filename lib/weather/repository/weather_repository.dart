@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/network/result.dart';
 import 'package:klep_weather/shared_preferences/language_preferences.dart';
@@ -8,6 +9,7 @@ import 'package:klep_weather/weather/model/weather_model.dart';
 import 'package:klep_weather/weather/repository/weather_local.dart';
 import 'package:klep_weather/weather/repository/weather_remote.dart';
 
+@lazySingleton
 class WeatherRepository {
   WeatherRepository({
     required WeatherRemote weatherRemote,

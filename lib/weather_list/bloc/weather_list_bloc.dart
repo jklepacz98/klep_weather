@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
@@ -13,6 +14,7 @@ import '../../database/database.dart';
 part 'weather_list_event.dart';
 part 'weather_list_state.dart';
 
+@lazySingleton
 class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
   WeatherListBloc(
       {required WeatherRepository weatherRepository,

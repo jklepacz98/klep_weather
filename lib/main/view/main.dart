@@ -9,7 +9,7 @@ import 'package:klep_weather/start/view/start_page.dart';
 void main() async {
   //todo
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
+  await configureDependencies();
   runApp(const MyApp());
 }
 

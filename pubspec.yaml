@@ -28,6 +28,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   get_it: ^7.2.0
+  injectable: ^2.1.0
   intl: 0.17.0
   json_annotation: ^4.7.0
   path: ^1.8.2
@@ -43,6 +44,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  injectable_generator: ^2.1.4
   json_serializable: ^6.5.4
   retrofit_generator: ^4.2.0
 
