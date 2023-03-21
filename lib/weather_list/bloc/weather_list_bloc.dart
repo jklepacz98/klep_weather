@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 import 'package:meta/meta.dart';
 
-import '../../database/database.dart';
-
+part 'weather_list_bloc.freezed.dart';
 part 'weather_list_event.dart';
 part 'weather_list_state.dart';
 

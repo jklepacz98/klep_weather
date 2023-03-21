@@ -1,15 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:klep_weather/weather/repository/weather_repository.dart';
-import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'weather_search_event.dart';
-
-part 'weather_search_state.dart';
+import 'package:klep_weather/weather/repository/weather_repository.dart';
 
 part 'weather_search_bloc.freezed.dart';
+part 'weather_search_event.dart';
+part 'weather_search_state.dart';
 
 class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
   WeatherSearchBloc({required WeatherRepository weatherRepository})
