@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:core';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
-import 'package:klep_weather/weather_details/bloc/weather_details_event.dart';
-import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
 import 'package:klep_weather/weather_list/bloc/weather_item.dart';
+
+part 'weather_details_bloc.freezed.dart';
+part 'weather_details_event.dart';
+part 'weather_details_state.dart';
 
 class WeatherDetailsBloc
     extends Bloc<WeatherDetailsEvent, WeatherDetailsState> {
@@ -15,7 +20,7 @@ class WeatherDetailsBloc
     required int cityId,
   })  : _weatherRepository = weatherRepository,
         _cityId = cityId,
-        super(const WeatherDetailsState(status: WeatherStatus.initial)) {
+        super(WeatherDetailsState(weatherItem: null)) {
     _registerEventHandlers();
     _init();
   }

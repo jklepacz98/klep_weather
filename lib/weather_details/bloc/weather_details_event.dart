@@ -1,29 +1,12 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
-import 'package:klep_weather/database/database.dart';
+part of 'weather_details_bloc.dart';
 
-@immutable
-abstract class WeatherDetailsEvent extends Equatable {}
+@freezed
+class WeatherDetailsEvent with _$WeatherDetailsEvent {
+  factory WeatherDetailsEvent.weatherChanged({required Weather weather}) =
+      WeatherChangedEvent;
 
-class WeatherChangedEvent extends WeatherDetailsEvent {
-  final Weather weather;
+  factory WeatherDetailsEvent.weatherLoad({required int cityId}) =
+      WeatherLoadEvent;
 
-  WeatherChangedEvent({required this.weather});
-
-  @override
-  List<Object> get props => [weather];
-}
-
-class WeatherLoadEvent extends WeatherDetailsEvent {
-  final int cityId;
-
-  WeatherLoadEvent({required this.cityId});
-
-  @override
-  List<Object> get props => [cityId];
-}
-
-class WeatherSubscribeEvent extends WeatherDetailsEvent {
-  @override
-  List<Object> get props => [];
+  factory WeatherDetailsEvent.weatherSubscribe() = WeatherSubscribeEvent;
 }
