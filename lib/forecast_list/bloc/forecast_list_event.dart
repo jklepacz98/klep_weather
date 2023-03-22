@@ -1,4 +1,4 @@
-part of '../../forecast_list/bloc/forecast_list_bloc.dart';
+part of 'forecast_list_bloc.dart';
 
 @freezed
 class ForecastListEvent with _$ForecastListEvent {
