@@ -8,7 +8,7 @@ part 'main_bloc.freezed.dart';
 part 'main_event.dart';
 part 'main_state.dart';
 
-@injectable
+@lazySingleton
 class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc({required LanguagePreferences languagePreferences})
       : _languagePreferences = languagePreferences,
