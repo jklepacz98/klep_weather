@@ -5,7 +5,6 @@ import 'package:klep_weather/di/di.dart';
 import 'package:klep_weather/forecast_list/view/forecast_list_horizontal_widget.dart';
 import 'package:klep_weather/utils/weather_icon_utils.dart';
 import 'package:klep_weather/weather_details/bloc/weather_details_bloc.dart';
-import 'package:klep_weather/weather_details/bloc/weather_details_state.dart';
 import 'package:klep_weather/weather_list/bloc/weather_item.dart';
 
 class WeatherDetailsPage extends StatelessWidget {

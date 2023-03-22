@@ -1,32 +1,15 @@
 part of 'weather_list_bloc.dart';
 
-@immutable
-abstract class WeatherListEvent extends Equatable {}
+@freezed
+class WeatherListEvent with _$WeatherListEvent {
+  const factory WeatherListEvent.weatherListSubscribe() =
+      WeatherListSubscribeEvent;
 
-class WeatherListSubscribeEvent extends WeatherListEvent {
-  @override
-  List<Object> get props => [];
-}
+  const factory WeatherListEvent.weatherListChanged(
+      {required List<Weather> weatherList}) = WeatherListChangedEvent;
 
-class WeatherListChangedEvent extends WeatherListEvent {
-  final List<Weather> weatherList;
+  const factory WeatherListEvent.weatherListLoad() = WeatherListLoadEvent;
 
-  WeatherListChangedEvent({required this.weatherList});
-
-  @override
-  List<Object> get props => [weatherList];
-}
-
-class WeatherListLoadEvent extends WeatherListEvent {
-  @override
-  List<Object> get props => [];
-}
-
-class WeatherItemDeleteEvent extends WeatherListEvent {
-  final int cityId;
-
-  WeatherItemDeleteEvent({required this.cityId});
-
-  @override
-  List<Object> get props => [cityId];
+  const factory WeatherListEvent.weatherItemDelete({required int cityId}) =
+      WeatherItemDeleteEvent;
 }

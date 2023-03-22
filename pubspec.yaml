@@ -27,10 +27,12 @@ dependencies:
   flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
+  freezed: ^2.3.2
+  freezed_annotation: ^2.2.0
   get_it: ^7.2.0
   injectable: ^2.1.0
   intl: 0.17.0
-  json_annotation: ^4.7.0
+  json_annotation: ^4.8.0
   path: ^1.8.2
   path_provider: ^2.0.0
   retrofit: ^3.3.1
@@ -45,7 +47,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable_generator: ^2.1.4
-  json_serializable: ^6.5.4
+  json_serializable: ^6.6.1
   retrofit_generator: ^4.2.0
 
 # For information on the generic Dart part of this file, see the

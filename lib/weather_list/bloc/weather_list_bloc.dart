@@ -1,16 +1,15 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
 import 'package:klep_weather/utils/temperature.dart';
 import 'package:klep_weather/weather/repository/weather_repository.dart';
 import 'package:klep_weather/weather_list/bloc/weather_item.dart';
-import 'package:meta/meta.dart';
 
-import '../../database/database.dart';
-
+part 'weather_list_bloc.freezed.dart';
 part 'weather_list_event.dart';
 part 'weather_list_state.dart';
 
@@ -34,8 +33,8 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
   }
 
   void _init() {
-    add(WeatherListSubscribeEvent());
-    add(WeatherListLoadEvent());
+    add(const WeatherListSubscribeEvent());
+    add(const WeatherListLoadEvent());
   }
 
   final WeatherRepository _weatherRepository;
@@ -89,7 +88,6 @@ class WeatherListBloc extends Bloc<WeatherListEvent, WeatherListState> {
     WeatherItemDeleteEvent event,
     Emitter emit,
   ) async {
-    //todo
     unawaited(_weatherRepository.removeWeather(event.cityId));
     unawaited(_forecastRepository.removeForecastsByCityId(event.cityId));
   }

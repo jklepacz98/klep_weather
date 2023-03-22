@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:klep_weather/database/database.dart';
 import 'package:klep_weather/forecast/repository/forecast_repository.dart';
+import 'package:klep_weather/forecast_list/bloc/forecast_item.dart';
 import 'package:klep_weather/utils/temperature.dart';
-import 'package:meta/meta.dart';
 
-import 'forecast_item.dart';
-
+part 'forecast_list_bloc.freezed.dart';
 part 'forecast_list_event.dart';
 part 'forecast_list_state.dart';
 
@@ -20,7 +19,7 @@ class ForecastListBloc extends Bloc<ForecastListEvent, ForecastListState> {
     @factoryParam required int cityId,
   })  : _forecastRepository = forecastRepository,
         _cityId = cityId,
-        super(const ForecastListState()) {
+        super(ForecastListState()) {
     _registerEventHandlers();
     _init();
   }
